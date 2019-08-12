@@ -59,18 +59,12 @@ namespace BaseFramework
         #region UnityMessages
         protected virtual void OnEnable()
         {
-            
+
         }
 
         protected virtual void Start()
         {
             
-        }
-
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-
         }
 
         protected virtual void OnDisable()

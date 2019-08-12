@@ -82,5 +82,57 @@ namespace BaseFramework
             return source;
         }
         #endregion
+
+        #region GetAllTransforms
+        public static List<Transform> GetAllTransforms(Transform parent)
+        {
+            var transformList = new List<Transform>();
+            BuildTransformList(transformList, parent);
+            return transformList;
+        }
+
+        private static void BuildTransformList(ICollection<Transform> transforms, Transform parent)
+        {
+            if (parent == null) { return; }
+            foreach (Transform t in parent)
+            {
+                transforms.Add(t);
+                BuildTransformList(transforms, t);
+            }
+        }
+
+        #endregion
+
+        #region TextAssetToStringList
+        public static List<string> TextAssetToList(TextAsset ta)
+        {
+            var listToReturn = new List<string>();
+            var arrayString = ta.text.Split('\n');
+            foreach (var line in arrayString)
+            {
+                listToReturn.Add(line);
+            }
+            return listToReturn;
+        }
+
+        public static string[] TextAssetToArray(TextAsset ta)
+        {
+            return TextAssetToList(ta).ToArray();
+        }
+        #endregion
+
+        #region SaveSerializedObject
+#if UNITY_EDITOR
+        /// <summary>
+        /// Only Useful If Saving Inside the Editor
+        /// </summary>
+        /// <param name="_object"></param>
+        public static void SaveSerializedObject(UnityEngine.Object _object)
+        {
+            UnityEditor.EditorUtility.SetDirty(_object);
+            UnityEditor.AssetDatabase.SaveAssets();
+        }
+#endif
+        #endregion
     }
 }

@@ -64,11 +64,15 @@ namespace RTSCoreFramework
             base.OnDisable();
             
         }
-        // Update is called once per frame
-        protected override void Update()
+        #endregion
+
+        #region Handlers
+
+        protected override void OnUpdateHandler()
         {
-            base.Update();
+            base.OnUpdateHandler();
         }
+
         #endregion
 
         #region InputSetup
@@ -79,6 +83,9 @@ namespace RTSCoreFramework
             //    CallInventoryToggle();
             if (Input.GetKeyDown(KeyCode.B))
                 CallIGBPIToggle();
+            if (Input.GetKeyDown(KeyCode.L))
+                CallLuaEditorToggle();
+
             if (UiIsEnabled) return;
             //All Input That Shouldn't Happen When 
             //Ui is Enabled
@@ -164,11 +171,12 @@ namespace RTSCoreFramework
         //void CallInventoryToggle() { uiMaster.CallEventInventoryUIToggle(); }
         void CallToggleIsInPauseControl() { gamemaster.CallOnTogglebIsInPauseControlMode(); }
         void CallIGBPIToggle() { uiMaster.CallEventIGBPIToggle(); }
+        void CallLuaEditorToggle() { uiMaster.CallEventLuaEditorToggle(); }
         void CallPossessAllyAdd() { gamemode.GeneralInCommand.PossessAllyAdd(); }
         void CallPossessAllySubtract() { gamemode.GeneralInCommand.PossessAllySubtract(); }
         //void CallSelectPrevWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToPrevItem(); }
         //void CallSelectNextWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToNextItem(); }
-        void CallTryFire() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryFire(); }
+        void CallTryFire() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryUseWeapon(); }
         void CallTryReload() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryReload(); }
         void CallCoverToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryCrouch(); }
         void CallSprintToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallEventToggleIsSprinting(); }

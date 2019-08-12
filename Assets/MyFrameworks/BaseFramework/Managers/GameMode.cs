@@ -7,6 +7,18 @@ namespace BaseFramework
     public class GameMode : MonoBehaviour
     {
         #region Properties
+        protected virtual int RefreshRate
+        {
+            get
+            {
+                if (_refreshRate == -1)
+                    _refreshRate = Screen.currentResolution.refreshRate;
+
+                return _refreshRate;
+            }
+        }
+        private int _refreshRate = -1;
+
         protected UiMaster uiMaster
         {
             get { return UiMaster.thisInstance; }
@@ -21,25 +33,16 @@ namespace BaseFramework
         {
             get { return GameInstance.thisInstance; }
         }
-        //GameMode must access GameMaster sooner than On Start
-        //To Subscribe Events and Prevent Errors
+
         public GameMaster gamemaster
         {
-            get
-            {
-                if (_gameMaster == null)
-                {
-                    if (GameMaster.thisInstance != null)
-                        _gameMaster = GameMaster.thisInstance;
-                    else if (GetComponent<GameMaster>() != null)
-                        _gameMaster = GetComponent<GameMaster>();
-                    else
-                        _gameMaster = GameObject.FindObjectOfType<GameMaster>();
-                }
-                return _gameMaster;
-            }
+            get { return GameMaster.thisInstance; }
         }
-        private GameMaster _gameMaster = null;
+
+        protected UnityMsgManager myUnityMsgManager
+        {
+            get { return UnityMsgManager.thisInstance;}
+        }
 
         public static GameMode thisInstance
         {
@@ -58,6 +61,7 @@ namespace BaseFramework
             ResetGameModeStats();
             InitializeGameModeValues();
             SubscribeToEvents();
+            UpdateFrameRateLimit();
         }
 
         protected virtual void Start()
@@ -68,19 +72,33 @@ namespace BaseFramework
             //    Debug.LogWarning("There is no uimanager in the scene!");
         }
 
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-
-        }
-
         protected virtual void OnDisable()
         {
             UnsubscribeFromEvents();
         }
         #endregion
 
+        #region Handlers
+        protected virtual void OnUpdateHandler()
+        {
+            UpdateFrameRateLimit();
+        }
+        #endregion
+
         #region Updaters and Resetters
+        protected virtual void UpdateFrameRateLimit()
+        {
+            if (QualitySettings.vSyncCount != 0)
+            {
+                //Frame Limit Doesn't Work If VSync Is Set Above 0
+                QualitySettings.vSyncCount = 0;
+            }
+            if (Application.targetFrameRate != RefreshRate)
+            {
+                Application.targetFrameRate = RefreshRate;
+            }
+        }
+
         protected virtual void UpdateGameModeStats()
         {
 
@@ -100,12 +118,12 @@ namespace BaseFramework
 
         protected virtual void SubscribeToEvents()
         {
-
+            myUnityMsgManager.RegisterOnUpdate(OnUpdateHandler);
         }
 
         protected virtual void UnsubscribeFromEvents()
         {
-
+            myUnityMsgManager.DeregisterOnUpdate(OnUpdateHandler);
         }
 
         protected virtual void StartServices()

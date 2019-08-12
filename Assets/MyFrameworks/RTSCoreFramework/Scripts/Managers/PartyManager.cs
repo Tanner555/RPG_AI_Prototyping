@@ -62,11 +62,17 @@ namespace RTSCoreFramework
         {
             //isInOverview = false;
             PartyMembers = new List<AllyMember>();
+
+            EventNoPartyManagers += HandleNoPartyMembers;
+            gamemaster.OnLeftClickAlly += HandleLeftClickPartyMember;
+            gamemaster.OnRightClickSendHit += HandleRightClick;
         }
 
         protected virtual void OnDisable()
         {
             EventNoPartyManagers -= HandleNoPartyMembers;
+            gamemaster.OnLeftClickAlly -= HandleLeftClickPartyMember;
+            gamemaster.OnRightClickSendHit -= HandleRightClick;
         }
 
         // Use this for initialization
@@ -76,20 +82,10 @@ namespace RTSCoreFramework
             if (gamemode == null)
                 Debug.LogWarning("RTS GameMode does not exist!");
 
-            EventNoPartyManagers += HandleNoPartyMembers;
-            gamemaster.OnLeftClickAlly += HandleLeftClickPartyMember;
-            gamemaster.OnRightClickSendHit += HandleRightClick;
-
             Invoke("OnDelayStart", 0.5f);
         }
 
         protected virtual void OnDelayStart()
-        {
-
-        }
-
-        // Update is called once per frame
-        protected virtual void Update()
         {
 
         }
@@ -184,12 +180,12 @@ namespace RTSCoreFramework
 
             if (_validSet)
             {
-                gamemaster.CallOnAllySwitch((PartyManager)this, _setToCommand, AllyInCommand);
+                gamemaster.CallOnAllySwitch(this, _setToCommand, AllyInCommand);
                 if (AllyInCommand != null)
-                    AllyInCommand.GetComponent<AllyEventHandler>().CallEventSwitchingFromCom();
+                    AllyInCommand.allyEventHandler.CallEventSwitchingFromCom();
 
                 AllyInCommand = _setToCommand;
-                AllyInCommand.GetComponent<AllyEventHandler>().CallEventSetAsCommander();
+                AllyInCommand.allyEventHandler.CallEventSetAsCommander();
                 //Set PartySwitching Event Afterwards for more accurate party data retreival
                 foreach (var _ally in PartyMembers)
                 {
@@ -288,14 +284,28 @@ namespace RTSCoreFramework
                 case rtsHitType.Enemy:
                     GameObject _root = hit.collider.gameObject.transform.root.gameObject;
                     AllyMember _enemy = _root.GetComponent<AllyMember>();
-                    AllyInCommand.allyEventHandler.CallEventPlayerCommandAttackEnemy(_enemy);
+                    //Adding Command Attack Event Call To ActionItem Queue
+                    AllyInCommand.allyEventHandler.CallOnAddActionItemToQueue(new RTSActionItem(
+                        _ally => _ally.allyEventHandler.CallEventPlayerCommandAttackEnemy(_enemy),
+                        _ally => true, ActionFilters.AI, true, false, true, false, _ally => true,
+                        _ally => _ally.bIsAttacking == false, (_ally) =>
+                        {
+                            _ally.allyEventHandler.CallEventStopTargettingEnemy();
+                            _ally.allyEventHandler.CallEventFinishedMoving();
+                        }));
                     break;
                 case rtsHitType.Cover:
                     break;
                 case rtsHitType.Walkable:
                     if (AllyInCommand.allyEventHandler.bIsFreeMoving == false)
                     {
-                        AllyInCommand.allyEventHandler.CallEventCommandMove(hitType, hit);
+                        //Adding Command Move Event Call To ActionItem Queue
+                        AllyInCommand.allyEventHandler.CallOnAddActionItemToQueue(new RTSActionItem(
+                            _ally => _ally.allyEventHandler.CallEventCommandMove(hitType, hit),
+                            _ally => true, ActionFilters.Movement, true, false, false, false,
+                            _ally => true, _ally => _ally.bIsFreeMoving || _ally.bIsNavMoving == false,
+                            _ally => _ally.allyEventHandler.CallEventFinishedMoving()
+                            ));
                     }
                     break;
                 case rtsHitType.Unwalkable:

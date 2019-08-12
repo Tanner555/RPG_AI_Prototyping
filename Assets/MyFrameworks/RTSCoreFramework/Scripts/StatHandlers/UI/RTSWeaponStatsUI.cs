@@ -7,7 +7,7 @@ using TMPro;
 
 namespace RTSCoreFramework
 {
-    public class RTSWeaponStatsUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class RTSWeaponStatsUI : RTSUITargetRegister, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         #region UIGameObjects
         [Header("Primary Weapon UI")]
@@ -39,47 +39,12 @@ namespace RTSCoreFramework
         [Header("Equipped/UnEquipped Colors")]
         [SerializeField] Color EquippedColor;
         [SerializeField] Color UnequippedColor;
-        //UiTargetInfo
-        AllyMember currentUiTarget = null;
-        bool bHasRegisteredTarget = false;
         //Equip Change Info
         Vector3 EquippedScale = new Vector3(2, 2, 1);
         Vector3 UnequippedScale = new Vector3(1, 1, 1);
         #endregion
 
         #region Properties
-        RTSUiMaster uiMaster
-        {
-            get
-            {
-                if (_uiMaster == null)
-                {
-                    if ((_uiMaster = RTSUiMaster.thisInstance) == null)
-                    {
-                        _uiMaster = GetComponentInParent<RTSUiMaster>();
-                    }
-                }
-                return _uiMaster;
-            }
-        }
-        RTSUiMaster _uiMaster = null;
-
-        RTSGameMaster gameMaster
-        {
-            get
-            {
-                if (_gameMaster == null)
-                {
-                    if ((_gameMaster = RTSGameMaster.thisInstance) == null)
-                    {
-                        _gameMaster = GameObject.FindObjectOfType<RTSGameMaster>();
-                    }
-                }
-                return _gameMaster;
-            }
-        }
-        RTSGameMaster _gameMaster = null;
-
         Image WeaponStatsUiImage
         {
             get
@@ -91,11 +56,7 @@ namespace RTSCoreFramework
             }
         }
         Image _weaponStatsUiImage = null;
-        //UiTarget Props
-        AllyEventHandler uiTargetHandler
-        {
-            get { return currentUiTarget.allyEventHandler; }
-        }
+
         bool bIsUiTargetHoldingPrimary
         {
             get { return uiTargetHandler.MyEquippedType == 
@@ -104,16 +65,11 @@ namespace RTSCoreFramework
         #endregion
 
         #region UnityMessages
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            SubToEvents();
+            base.OnEnable();
             if (WeaponStatsUiImage != null)
                 currentColor = WeaponStatsUiImage.color;
-        }
-
-        private void OnDisable()
-        {
-            UnsubFromEvents();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -142,23 +98,19 @@ namespace RTSCoreFramework
         #endregion
 
         #region GameMasterHandlers/RegisterUiTarget
-        void OnRegisterUiTarget(AllyMember _target, AllyEventHandler _handler, PartyManager _party)
+        protected override void OnRegisterUiTarget(AllyMember _target, AllyEventHandler _handler, PartyManager _party)
         {
-            currentUiTarget = _target;
+            base.OnRegisterUiTarget(_target, _handler, _party);
             _handler.OnAmmoChanged += OnAmmoChanged;
             _handler.OnWeaponChanged += OnWeaponChanged;
-            bHasRegisteredTarget = true;
             UpdateWeaponUiGameObjects(uiTargetHandler.MyEquippedType);
         }
 
-        void OnDeregisterUiTarget(AllyMember _target, AllyEventHandler _handler, PartyManager _party)
+        protected override void OnDeregisterUiTarget(AllyMember _target, AllyEventHandler _handler)
         {
-            if(_target == currentUiTarget && bHasRegisteredTarget)
-            {
-                _handler.OnAmmoChanged -= OnAmmoChanged;
-                _handler.OnWeaponChanged -= OnWeaponChanged;
-                bHasRegisteredTarget = false;
-            }
+            base.OnDeregisterUiTarget(_target, _handler);
+            _handler.OnAmmoChanged -= OnAmmoChanged;
+            _handler.OnWeaponChanged -= OnWeaponChanged;
         }
 
         #endregion
@@ -176,7 +128,7 @@ namespace RTSCoreFramework
             SecondaryUnloadedText.text = uiTargetHandler.SecondaryUnloadedAmmoAmount.ToString();
         }
 
-        void OnWeaponChanged(EEquipType _eType, EWeaponType _weaponType, bool _equipped)
+        void OnWeaponChanged(EEquipType _eType, EWeaponType _weaponType, EWeaponUsage _wUsage, bool _equipped)
         {
             if (_equipped)
             {
@@ -220,22 +172,6 @@ namespace RTSCoreFramework
                 }
             }
             
-        }
-        #endregion
-
-        #region Initialization
-        void SubToEvents()
-        {
-            gameMaster.OnRegisterUiTarget += OnRegisterUiTarget;
-            gameMaster.OnDeregisterUiTarget += OnDeregisterUiTarget;
-        }
-
-        void UnsubFromEvents()
-        {
-            ///Temporary Hides Error When Exiting Playmode
-            if (gameMaster == null) return;
-            gameMaster.OnRegisterUiTarget -= OnRegisterUiTarget;
-            gameMaster.OnDeregisterUiTarget -= OnDeregisterUiTarget;
         }
         #endregion
 

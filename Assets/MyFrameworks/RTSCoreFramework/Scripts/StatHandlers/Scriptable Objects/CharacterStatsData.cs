@@ -43,11 +43,51 @@ namespace RTSCoreFramework
         public EWeaponType SecondaryWeapon;
     }
 
+    /// <summary>
+    /// Used For Parsing Into XML Data
+    /// </summary>
+    [System.Serializable]
+    public struct CharacterStatsSimple
+    {
+        public string name;
+        [Tooltip("Used to Identify a Character")]
+        public ECharacterType CharacterType;
+
+        [Header("Health Stats")]
+        public int MaxHealth;
+        public int Health;
+
+        [Header("Stamina Stats")]
+        public int MaxStamina;
+        public int Stamina;
+
+        [Header("Weapon Equipped")]
+        public EEquipType EquippedWeapon;
+
+        [Header("Weapon Stats")]
+        public EWeaponType PrimaryWeapon;
+        public EWeaponType SecondaryWeapon;
+    }
+
+    /// <summary>
+    /// Used For Important Editor Related Data - Prefab, Sprite, Etc..
+    /// </summary>
+    [System.Serializable]
+    public struct CharacterStatsNonPersistent
+    {
+        public string name;
+        [Tooltip("Used to Identify a Character")]
+        public ECharacterType CharacterType;
+        [Tooltip("Used to Spawn a Character")]
+        public GameObject CharacterPrefab;
+        public Sprite CharacterPortrait;
+    }
+
     [CreateAssetMenu(menuName = "RTSPrototype/CharacterStatsData")]
     public class CharacterStatsData : ScriptableObject
     {
         [Header("Character Stats")]
         [SerializeField]
-        public List<CharacterStats> CharacterStatList;
+        public List<CharacterStatsNonPersistent> CharacterStatList;
     }
 }

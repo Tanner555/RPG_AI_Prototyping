@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 namespace RTSCoreFramework
 {
@@ -11,7 +12,18 @@ namespace RTSCoreFramework
         [Header("Ally Highlighting")]
         public Color selAllyColor;
         public Color selEnemyColor;
-        public Light SelectionLight;
+        protected GameObject AllyIndicatorSpotlightInstance = null;
+        public Light SelectionLight
+        {
+            get
+            {
+                if (_SelectionLight == null)
+                    _SelectionLight = AllyIndicatorSpotlightInstance.GetComponent<Light>();
+
+                return _SelectionLight;
+            }
+        }
+        private Light _SelectionLight = null;
         [Header("Ally Waypoint Navigation")]
         public Material waypointRendererMaterial;
         protected float waypointStartWidth = 0.05f;
@@ -21,6 +33,10 @@ namespace RTSCoreFramework
         protected LineRenderer waypointRenderer;
         [Header("Ally Damage Effects")]
         public GameObject BloodParticles;
+        [SerializeField]
+        Image myHealthBar;
+        [SerializeField]
+        Image myActiveTimeBar;
 
         protected RTSGameMaster gamemaster
         {
@@ -29,13 +45,27 @@ namespace RTSCoreFramework
 
         protected AllyMember thisAlly
         {
-            get { return GetComponent<AllyMember>(); }
+            get
+            {
+                if (_thisAlly == null)
+                    _thisAlly = GetComponent<AllyMember>();
+
+                return _thisAlly;
+            }
         }
+        private AllyMember _thisAlly = null;
 
         protected AllyEventHandler myEventHandler
         {
-            get { return GetComponent<AllyEventHandler>(); }
+            get
+            {
+                if(_myEventHandler == null)
+                    _myEventHandler = GetComponent<AllyEventHandler>();
+
+                return _myEventHandler;
+            }
         }
+        private AllyEventHandler _myEventHandler = null;
 
         protected RTSUiMaster uiMaster { get { return RTSUiMaster.thisInstance; } }
 
@@ -67,7 +97,22 @@ namespace RTSCoreFramework
         #region UnityMessages
         protected virtual void OnEnable()
         {
-
+            myEventHandler.OnHoverOver += OnCursEnter;
+            myEventHandler.OnHoverLeave += OnCursExit;
+            myEventHandler.EventAllyDied += HandleDeath;
+            myEventHandler.EventCommandMove += SetupWaypointRenderer;
+            myEventHandler.EventTogglebIsFreeMoving += CheckToDisableWaypointRenderer;
+            myEventHandler.EventFinishedMoving += DisableWaypointRenderer;
+            myEventHandler.EventPartySwitching += OnPartySwitch;
+            myEventHandler.EventCommandAttackEnemy += OnCmdAttackEnemy;
+            myEventHandler.EventCommandAttackEnemy += DisableWaypointRenderer;
+            myEventHandler.OnAllyTakeDamage += SpawnBloodParticles;
+            myEventHandler.OnHealthChanged += OnHealthUpdate;
+            myEventHandler.OnActiveTimeChanged += OnActiveTimeBarUpdate;
+            myEventHandler.InitializeAllyComponents += OnAllyInitComponents;
+            gamemaster.GameOverEvent += HandleGameOver;
+            gamemaster.EventHoldingRightMouseDown += HandleCameraMovement;
+            uiMaster.EventAnyUIToggle += HandleUIEnable;
         }
 
         protected virtual void OnDisable()
@@ -82,6 +127,9 @@ namespace RTSCoreFramework
             myEventHandler.EventCommandAttackEnemy -= OnCmdAttackEnemy;
             myEventHandler.EventCommandAttackEnemy -= DisableWaypointRenderer;
             myEventHandler.OnAllyTakeDamage -= SpawnBloodParticles;
+            myEventHandler.OnHealthChanged -= OnHealthUpdate;
+            myEventHandler.OnActiveTimeChanged -= OnActiveTimeBarUpdate;
+            myEventHandler.InitializeAllyComponents -= OnAllyInitComponents;
             gamemaster.GameOverEvent -= HandleGameOver;
             gamemaster.EventHoldingRightMouseDown -= HandleCameraMovement;
             uiMaster.EventAnyUIToggle -= HandleUIEnable;
@@ -90,19 +138,6 @@ namespace RTSCoreFramework
         protected virtual void Start()
         {
             SelectionLight.enabled = false;
-            myEventHandler.OnHoverOver += OnCursEnter;
-            myEventHandler.OnHoverLeave += OnCursExit;
-            myEventHandler.EventAllyDied += HandleDeath;
-            myEventHandler.EventCommandMove += SetupWaypointRenderer;
-            myEventHandler.EventTogglebIsFreeMoving += CheckToDisableWaypointRenderer;
-            myEventHandler.EventFinishedMoving += DisableWaypointRenderer;
-            myEventHandler.EventPartySwitching += OnPartySwitch;
-            myEventHandler.EventCommandAttackEnemy += OnCmdAttackEnemy;
-            myEventHandler.EventCommandAttackEnemy += DisableWaypointRenderer;
-            myEventHandler.OnAllyTakeDamage += SpawnBloodParticles;
-            gamemaster.GameOverEvent += HandleGameOver;
-            gamemaster.EventHoldingRightMouseDown += HandleCameraMovement;
-            uiMaster.EventAnyUIToggle += HandleUIEnable;
         }
         #endregion
 
@@ -132,7 +167,36 @@ namespace RTSCoreFramework
         #endregion
 
         #region Handlers
-        protected virtual void SpawnBloodParticles(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject)
+        protected virtual void OnAllyInitComponents(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {    
+            selAllyColor = _allFields.AllyHighlightColor;
+            selEnemyColor = _allFields.EnemyHighlightColor;
+            AllyIndicatorSpotlightInstance = _specific.AllyIndicatorSpotlightInstance;
+            waypointRendererMaterial = _allFields.WaypointRendererMaterial;
+            BloodParticles = _allFields.BloodParticles;
+            myHealthBar = _specific.EnemyHealthBarImage;
+            myActiveTimeBar = _specific.EnemyActiveBarImage;
+        }
+
+        protected virtual void OnHealthUpdate(int _current, int _max)
+        {
+            if (myHealthBar != null && myHealthBar.enabled)
+            {
+                float _healthAsPercentage = ((float)_current / (float)_max);
+                myHealthBar.fillAmount = _healthAsPercentage;
+            }
+        }
+
+        protected virtual void OnActiveTimeBarUpdate(int _current, int _max)
+        {
+            if(myActiveTimeBar != null && myActiveTimeBar.enabled)
+            {
+                float _activeTimeAsPercentage = ((float)_current / (float)_max);
+                myActiveTimeBar.fillAmount = _activeTimeAsPercentage;
+            }
+        }
+
+        protected virtual void SpawnBloodParticles(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider)
         {
             if (BloodParticles == null) return;
             GameObject.Instantiate(BloodParticles, position, Quaternion.identity);
@@ -152,7 +216,7 @@ namespace RTSCoreFramework
             if (IsInvoking("UpdateWaypointRenderer"))
                 CancelInvoke("UpdateWaypointRenderer");
 
-            if(waypointRenderer != null)
+            if (waypointRenderer != null)
             {
                 waypointRenderer.enabled = false;
             }
@@ -194,7 +258,7 @@ namespace RTSCoreFramework
             bHasSwitched = false;
         }
 
-        protected virtual void HandleDeath()
+        protected virtual void HandleDeath(Vector3 position, Vector3 force, GameObject attacker)
         {
             DestroyOnDeath();
         }
@@ -216,11 +280,22 @@ namespace RTSCoreFramework
                 waypointRenderer.enabled = true;
                 Destroy(waypointRenderer);
             }
+            if(myHealthBar != null)
+            {
+                myHealthBar.enabled = true;
+                Destroy(myHealthBar);
+            }
+            if(myActiveTimeBar != null)
+            {
+                myActiveTimeBar.enabled = true;
+                Destroy(myActiveTimeBar);
+            }
             Destroy(this);
         }
 
         protected virtual void HandleCameraMovement(bool _isMoving)
         {
+            if (SelectionLight == null) return;
             cameraIsMoving = _isMoving;
             SelectionLight.enabled = false;
         }

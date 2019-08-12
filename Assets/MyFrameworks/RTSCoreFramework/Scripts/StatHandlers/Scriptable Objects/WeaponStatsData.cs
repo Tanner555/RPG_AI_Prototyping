@@ -8,6 +8,7 @@ namespace RTSCoreFramework
     {
         Fist = 0, Knife = 1, Pistol = 2,
         AssaultRifle = 3, Shotgun = 4, SniperRifle = 5,
+        Axe = 6, Crossbow = 7, Katana = 8,
         //Used For Null Error Checking
         NoWeaponType = -1
     }
@@ -36,10 +37,11 @@ namespace RTSCoreFramework
         [Header("Weapon Stats")]
         public int DamageRate;
         public int Accuracy;
-        public int AttackRate;
+        [Tooltip("Example: 0.1 = 10 times a second, 2 = Once every 2 seconds")]
+        public float AttackRate;
         [Header("Melee Weapon Stats")]
         //Used For Determine Distance Required to use Melee Weapon
-        public int MeleeAttackDistance;
+        public float MeleeAttackDistance;
     }
 
     [CreateAssetMenu(menuName = "RTSPrototype/WeaponStatsData")]

@@ -12,7 +12,8 @@ namespace RTSCoreFramework
         #region Properties
         bool AllCompsAreValid
         {
-            get {
+            get
+            {
                 return UiCharacterPortrait && UiHealthSlider && UiAbilitySlider
                   && CurrentHealthText && MaxHealthText && CurrentAbilityText
                   && MaxAbilityText && CharacterNameText && UiCharacterPortraitPanel;
@@ -51,6 +52,42 @@ namespace RTSCoreFramework
             }
         }
         Image _PortraitPanelImage = null;
+
+        Slider UiHealthSliderComponent
+        {
+            get
+            {
+                if (_UiHealthSliderComponent == null)
+                    _UiHealthSliderComponent = UiHealthSlider.GetComponent<Slider>();
+
+                return _UiHealthSliderComponent;
+            }
+        }
+        private Slider _UiHealthSliderComponent = null;
+
+        Slider UiAbilitySliderComponent
+        {
+            get
+            {
+                if (_UiAbilitySliderComponent == null)
+                    _UiAbilitySliderComponent = UiAbilitySlider.GetComponent<Slider>();
+
+                return _UiAbilitySliderComponent;
+            }
+        }
+        private Slider _UiAbilitySliderComponent = null;
+
+        Slider UiActiveTimeSliderComponent
+        {
+            get
+            {
+                if (_UiActiveTimeSliderComponent == null)
+                    _UiActiveTimeSliderComponent = UiActiveTimeSlider.GetComponent<Slider>();
+
+                return _UiActiveTimeSliderComponent;
+            }
+        }
+        private Slider _UiActiveTimeSliderComponent = null;
         #endregion
 
         #region Fields
@@ -64,6 +101,8 @@ namespace RTSCoreFramework
         GameObject UiHealthSlider;
         [SerializeField]
         GameObject UiAbilitySlider;
+        [SerializeField]
+        GameObject UiActiveTimeSlider;
         [SerializeField]
         TextMeshProUGUI CurrentHealthText;
         [SerializeField]
@@ -85,6 +124,7 @@ namespace RTSCoreFramework
         Color NormalPortraitPanelColor;
         //hover info fields
         bool bIsHighlighted = false;
+        float updateActiveTimeSliderRate = 0.2f;
         #endregion
 
         #region UnityMessages
@@ -108,7 +148,7 @@ namespace RTSCoreFramework
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (uiTarget != null && uiTargetHandler && 
+            if (uiTarget != null && uiTargetHandler &&
                 !uiTarget.bIsCurrentPlayer)
             {
                 uiTargetHandler.CallEventOnHoverLeave();
@@ -117,9 +157,9 @@ namespace RTSCoreFramework
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            bool _leftClick = eventData.button == 
+            bool _leftClick = eventData.button ==
                 PointerEventData.InputButton.Left;
-            if (_leftClick && uiTarget != null && uiTargetHandler && 
+            if (_leftClick && uiTarget != null && uiTargetHandler &&
                 !uiTarget.bIsCurrentPlayer &&
                 uiTarget.partyManager != null)
             {
@@ -132,7 +172,7 @@ namespace RTSCoreFramework
         #region HookingUiTarget-Initialization
         public void HookAllyCharacter(AllyMember _targetToSet)
         {
-            if(AllCompsAreValid == false)
+            if (AllCompsAreValid == false)
             {
                 Debug.LogError(@"Cannot Hook Character Because
                 Not All Components Are Set In The Inspector");
@@ -143,7 +183,7 @@ namespace RTSCoreFramework
                 SetupUITargetHandlers(uiTarget, _targetToSet);
                 uiTarget = _targetToSet;
                 //Set Character Portrait
-                if(uiTarget.CharacterPortrait != null)
+                if (uiTarget.CharacterPortrait != null)
                 {
                     UiCharacterPortrait.sprite = uiTarget.CharacterPortrait;
                 }
@@ -164,6 +204,7 @@ namespace RTSCoreFramework
             {
                 SubscribeToUiTargetHandlers(_currentTarget);
                 TransferCharacterStatsToText(_currentTarget);
+                StartServices();
             }
         }
 
@@ -182,6 +223,7 @@ namespace RTSCoreFramework
             //Sub to Current UiTarget Handlers
             _handler.OnHealthChanged += UiTargetHandle_OnHealthChanged;
             _handler.OnStaminaChanged += UiTargetHandle_OnStaminaChanged;
+            _handler.OnActiveTimeChanged += UiTargetHandle_OnActiveTimeChanged;
             _handler.EventAllyDied += UiTargetHandle_OnAllyDeath;
             _handler.EventSetAsCommander += UiTargetHandle_SetAsCommander;
             _handler.EventSwitchingFromCom += UiTargetHandle_SwitchFromCommander;
@@ -189,7 +231,7 @@ namespace RTSCoreFramework
             _handler.OnHoverLeave += UiTargetHandle_OnHoverLeave;
             //Notify Character Actions
             _handler.EventCommandAttackEnemy += UiTargetHandle_Attacking;
-            _handler.OnTryFire += UiTargetHandle_Attacking;
+            _handler.OnTryUseWeapon += UiTargetHandle_Attacking;
             _handler.EventStopTargettingEnemy += UiTargetHandle_Nothing;
             _handler.EventCommandMove += UiTargetHandle_CommandMove;
             _handler.EventFinishedMoving += UiTargetHandle_Nothing;
@@ -203,6 +245,7 @@ namespace RTSCoreFramework
             //Unsub From Previous UiTarget Handlers
             _handler.OnHealthChanged -= UiTargetHandle_OnHealthChanged;
             _handler.OnStaminaChanged -= UiTargetHandle_OnStaminaChanged;
+            _handler.OnActiveTimeChanged -= UiTargetHandle_OnActiveTimeChanged;
             _handler.EventAllyDied -= UiTargetHandle_OnAllyDeath;
             _handler.EventSetAsCommander -= UiTargetHandle_SetAsCommander;
             _handler.EventSwitchingFromCom -= UiTargetHandle_SwitchFromCommander;
@@ -210,7 +253,7 @@ namespace RTSCoreFramework
             _handler.OnHoverLeave -= UiTargetHandle_OnHoverLeave;
             //Notify Character Actions
             _handler.EventCommandAttackEnemy -= UiTargetHandle_Attacking;
-            _handler.OnTryFire -= UiTargetHandle_Attacking;
+            _handler.OnTryUseWeapon -= UiTargetHandle_Attacking;
             _handler.EventStopTargettingEnemy -= UiTargetHandle_Nothing;
             _handler.EventCommandMove -= UiTargetHandle_CommandMove;
             _handler.EventFinishedMoving -= UiTargetHandle_Nothing;
@@ -231,7 +274,7 @@ namespace RTSCoreFramework
             if (AllCompsAreValid == false) return;
             CurrentHealthText.text = _current.ToString();
             MaxHealthText.text = _max.ToString();
-            Slider _slider = UiHealthSlider.GetComponent<Slider>();
+            Slider _slider = UiHealthSliderComponent;
             if (_slider != null)
             {
                 _slider.maxValue = _max;
@@ -244,7 +287,7 @@ namespace RTSCoreFramework
             if (AllCompsAreValid == false) return;
             CurrentAbilityText.text = _current.ToString();
             MaxAbilityText.text = _max.ToString();
-            Slider _slider = UiAbilitySlider.GetComponent<Slider>();
+            Slider _slider = UiAbilitySliderComponent;
             if (_slider != null)
             {
                 _slider.maxValue = _max;
@@ -252,11 +295,23 @@ namespace RTSCoreFramework
             }
         }
 
-        protected virtual void UiTargetHandle_OnAllyDeath()
+        protected virtual void UiTargetHandle_OnActiveTimeChanged(int _current, int _max)
         {
-            if(uiTarget != null && uiTarget.bAllyIsUiTarget)
+            if (AllCompsAreValid == false) return;
+            Slider _slider = UiActiveTimeSliderComponent;
+            if (_slider != null)
+            {
+                _slider.maxValue = _max;
+                _slider.value = _current;
+            }
+        }
+
+        protected virtual void UiTargetHandle_OnAllyDeath(Vector3 position, Vector3 force, GameObject attacker)
+        {
+            if (uiTarget != null && uiTarget.bAllyIsUiTarget)
             {
                 UnsubscribeFromUiTargetHandlers(uiTarget);
+                StopServices();
             }
         }
 
@@ -272,7 +327,7 @@ namespace RTSCoreFramework
 
         protected virtual void UiTargetHandle_OnHoverOver()
         {
-            if(bIsHighlighted == false && uiTarget != null &&
+            if (bIsHighlighted == false && uiTarget != null &&
                 !uiTarget.bIsCurrentPlayer)
             {
                 SetToHighlightColor();
@@ -313,17 +368,29 @@ namespace RTSCoreFramework
         }
         #endregion
 
-        #region Helpers
-        void SetToHighlightColor()
+        #region Services
+        protected virtual void StartServices()
         {
-            if(AllCompsAreValid && PortraitPanelImage != null)
+
+        }
+
+        protected virtual void StopServices()
+        {
+            
+        }
+        #endregion
+
+        #region Helpers
+        protected virtual void SetToHighlightColor()
+        {
+            if (AllCompsAreValid && PortraitPanelImage != null)
             {
                 bIsHighlighted = true;
                 PortraitPanelImage.color = HighlightColor;
             }
         }
 
-        void SetToSelectedColor()
+        protected virtual void SetToSelectedColor()
         {
             if (AllCompsAreValid && PortraitPanelImage != null)
             {
@@ -332,7 +399,7 @@ namespace RTSCoreFramework
             }
         }
 
-        void SetToNormalColor()
+        protected virtual void SetToNormalColor()
         {
             if (AllCompsAreValid && PortraitPanelImage != null)
             {

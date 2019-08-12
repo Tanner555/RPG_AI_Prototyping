@@ -96,21 +96,9 @@ namespace RTSCoreFramework
         //To Subscribe Events and Prevent Errors when AllySwitching
         new public RTSGameMaster gamemaster
         {
-            get
-            {
-                if (_gameMaster == null)
-                {
-                    if (RTSGameMaster.thisInstance != null)
-                        _gameMaster = RTSGameMaster.thisInstance;
-                    else if (GetComponent<RTSGameMaster>() != null)
-                        _gameMaster = GetComponent<RTSGameMaster>();
-                    else
-                        _gameMaster = RTSGameMaster.FindObjectOfType<RTSGameMaster>();
-                }
-                return _gameMaster;
-            }
+            get { return RTSGameMaster.thisInstance; }
         }
-        private RTSGameMaster _gameMaster = null;
+
         new public RTSUiManager uiManager { get { return RTSUiManager.thisInstance; } }
         new public RTSUiMaster uiMaster { get { return RTSUiMaster.thisInstance; } }
         new protected RTSGameInstance gameInstance
@@ -157,6 +145,8 @@ namespace RTSCoreFramework
         [SerializeField]
         private LayerMask allyLayers;
         [SerializeField]
+        private LayerMask allyAndCharacterLayers;
+        [SerializeField]
         private LayerMask sightLayers;
         [SerializeField]
         private LayerMask sightNoCurrentPlayerLayers;
@@ -171,6 +161,7 @@ namespace RTSCoreFramework
 
         //Layer Getters
         public LayerMask AllyLayers { get { return allyLayers; } }
+        public LayerMask AllyAndCharacterLayers { get { return allyAndCharacterLayers; } }
         public LayerMask SightLayers { get { return sightLayers; } }
         public LayerMask SightNoCurrentPlayerLayers { get { return sightNoCurrentPlayerLayers; } }
         public LayerMask IgnoreInvisibleLayersAndAllies { get { return ignoreInvisibleLayersAndAllies; } }
@@ -226,20 +217,6 @@ namespace RTSCoreFramework
         {
             base.Start();
 
-        }
-
-        //// Update is called once per frame
-        protected override void Update()
-        {
-            base.Update();
-            if (MatchState == ERTSGameState.EWaitingToStart)
-            {
-                waitingTillBeginMatch();
-            }
-            else if (MatchState == ERTSGameState.EPlaying)
-            {
-                playTheMatch();
-            }
         }
         #endregion
 
@@ -510,6 +487,20 @@ namespace RTSCoreFramework
         #endregion
 
         #region Handlers
+        protected override void OnUpdateHandler()
+        {
+            base.OnUpdateHandler();
+
+            if (MatchState == ERTSGameState.EWaitingToStart)
+            {
+                waitingTillBeginMatch();
+            }
+            else if (MatchState == ERTSGameState.EPlaying)
+            {
+                playTheMatch();
+            }
+        }
+
         public virtual void ProcessAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
         {
             if (_toSet != null && _party.bIsCurrentPlayerCommander)

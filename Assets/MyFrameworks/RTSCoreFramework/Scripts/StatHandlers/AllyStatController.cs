@@ -15,7 +15,7 @@ namespace RTSCoreFramework
         #endregion
 
         #region SetupProperties
-        AllyMember allyMember
+        protected AllyMember allyMember
         {
             get
             {
@@ -27,7 +27,7 @@ namespace RTSCoreFramework
         }
         AllyMember __allyMember = null;
 
-        AllyEventHandler eventHandler
+        protected AllyEventHandler eventHandler
         {
             get
             {
@@ -39,16 +39,17 @@ namespace RTSCoreFramework
         }
         AllyEventHandler __eventHandler = null;
 
-        RTSStatHandler statHandler
+        protected RTSStatHandler statHandler
         {
             get
             {
-                //For Faster Access when using OnEnable method
-                if (RTSStatHandler.thisInstance != null)
-                    return RTSStatHandler.thisInstance;
-
-                return GameObject.FindObjectOfType<RTSStatHandler>();
+                return RTSStatHandler.thisInstance;
             }
+        }
+
+        protected RTSGameMaster gamemaster
+        {
+            get { return RTSGameMaster.thisInstance; }
         }
         #endregion
 
@@ -113,15 +114,12 @@ namespace RTSCoreFramework
         // Use this for initialization
         protected virtual void OnEnable()
         {
-            InitializeCharacterStats();
             SubToEvents();
         }
 
         protected virtual void Start()
         {
             Invoke("OnDelayStart", 0.5f);
-            RetrieveAllWeaponStats();
-            UpdateUnequippedWeaponType();
         }
 
         protected virtual void OnDelayStart()
@@ -150,6 +148,16 @@ namespace RTSCoreFramework
             return GetWeaponStats().WeaponUsage;
         }
 
+        public virtual float GetWeaponAttackRate()
+        {
+            return GetWeaponStats().AttackRate;
+        }
+
+        public virtual float GetMeleeMaxAttackDistance()
+        {
+            return GetWeaponStats().MeleeAttackDistance;
+        }
+
         protected virtual WeaponStats GetWeaponStats()
         {
             switch (myCharacterStats.EquippedWeapon)
@@ -170,6 +178,14 @@ namespace RTSCoreFramework
         #endregion
 
         #region Handlers
+        protected virtual void InitializeAllyStatController(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {
+            characterType = _specific.CharacterType;
+            InitializeCharacterStats();
+            RetrieveAllWeaponStats();
+            UpdateUnequippedWeaponType();
+        }
+
         /// <summary>
         /// It's not really a Handler right now. When the game starts,
         /// this method is called to update the unequipped weapon type
@@ -191,10 +207,11 @@ namespace RTSCoreFramework
             myCharacterStats.EquippedWeapon = _eType;
             var _weapon = myCharacterStats.EquippedWeapon == EEquipType.Primary ?
                 myCharacterStats.PrimaryWeapon : myCharacterStats.SecondaryWeapon;
-            eventHandler.CallOnWeaponChanged(myCharacterStats.EquippedWeapon, _weapon, true);
+            var _wUsage = GetWeaponStatsFromWeaponType(_weapon).WeaponUsage;
+            eventHandler.CallOnWeaponChanged(myCharacterStats.EquippedWeapon, _weapon, _wUsage, true);
 
         }
-        void HandleWeaponChanged(EEquipType _eType, EWeaponType _weaponType, bool _equipped)
+        void HandleWeaponChanged(EEquipType _eType, EWeaponType _weaponType, EWeaponUsage _wUsage, bool _equipped)
         {
             switch (_eType)
             {
@@ -229,11 +246,16 @@ namespace RTSCoreFramework
         {
             eventHandler.OnEquipTypeChanged += HandleEquipTypeChanged;
             eventHandler.OnWeaponChanged += HandleWeaponChanged;
+            eventHandler.InitializeAllyComponents += InitializeAllyStatController;
+            gamemaster.EventUpdateCharacterStats += InitializeCharacterStats;
+            
         }
         protected virtual void UnsubFromEvents()
         {
             eventHandler.OnEquipTypeChanged -= HandleEquipTypeChanged;
             eventHandler.OnWeaponChanged -= HandleWeaponChanged;
+            eventHandler.InitializeAllyComponents -= InitializeAllyStatController;
+            gamemaster.EventUpdateCharacterStats -= InitializeCharacterStats;
         }
         protected virtual void InitializeCharacterStats()
         {

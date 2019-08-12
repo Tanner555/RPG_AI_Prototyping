@@ -36,6 +36,11 @@ namespace BaseFramework
             get { return GameMaster.thisInstance; }
         }
 
+        protected UnityMsgManager myUnityMsgManager
+        {
+            get { return UnityMsgManager.thisInstance; }
+        }
+
         public static InputManager thisInstance
         {
             get; protected set;
@@ -72,6 +77,15 @@ namespace BaseFramework
         protected float noScrollCurrentTimer = 5f;
         //UI is enabled
         protected bool UiIsEnabled = false;
+        //Number Key Input
+        protected List<int> NumberKeys = new List<int>
+        {
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        };
+        protected List<string> NumberKeyNames = new List<string>
+        {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+        };
         #endregion
 
         #region UnityMessages
@@ -88,15 +102,6 @@ namespace BaseFramework
             SubToEvents();
         }
 
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-            InputSetup();
-            LeftMouseDownSetup();
-            RightMouseDownSetup();
-            StopMouseScrollWheelSetup();
-        }
-
         protected virtual void OnDisable()
         {
             UnsubFromEvents();
@@ -107,7 +112,16 @@ namespace BaseFramework
         protected virtual void InputSetup()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
                 CallMenuToggle();
+            }
+            foreach (int _key in NumberKeys)
+            {
+                if (Input.GetKeyDown(_key.ToString()))
+                {
+                    CallOnNumberKeyPress(_key);
+                }
+            }
         }
 
         #endregion
@@ -264,6 +278,14 @@ namespace BaseFramework
         #endregion
 
         #region Handlers
+        protected virtual void OnUpdateHandler()
+        {
+            InputSetup();
+            LeftMouseDownSetup();
+            RightMouseDownSetup();
+            StopMouseScrollWheelSetup();
+        }
+
         protected virtual void HandleGamePaused(bool _isPaused)
         {
             if (_isPaused)
@@ -294,6 +316,7 @@ namespace BaseFramework
         #region InputCalls
         protected void CallMenuToggle() { uiMaster.CallEventMenuToggle(); }
         protected void CallToggleIsGamePaused() { gamemaster.CallOnToggleIsGamePaused(); }
+        protected void CallOnNumberKeyPress(int _index) { gamemaster.CallOnNumberKeyPress(_index); }
         #endregion
 
         #region Initialization
@@ -301,12 +324,14 @@ namespace BaseFramework
         {
             gamemaster.OnToggleIsGamePaused += HandleGamePaused;
             uiMaster.EventAnyUIToggle += HandleUiActiveSelf;
+            myUnityMsgManager.RegisterOnUpdate(OnUpdateHandler);
         }
 
         void UnsubFromEvents()
         {
             gamemaster.OnToggleIsGamePaused -= HandleGamePaused;
             uiMaster.EventAnyUIToggle -= HandleUiActiveSelf;
+            myUnityMsgManager.DeregisterOnUpdate(OnUpdateHandler);
         }
         #endregion
 

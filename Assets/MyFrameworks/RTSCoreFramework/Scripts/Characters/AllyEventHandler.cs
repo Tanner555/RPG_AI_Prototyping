@@ -5,6 +5,84 @@ using UnityEngine.UI;
 
 namespace RTSCoreFramework
 {
+    #region RTSAllyComponentSpecificFields
+    [System.Serializable]
+    public class RTSAllyComponentSpecificFields
+    {
+        [Header("Base Ally Fields")]
+        public ECharacterType CharacterType;
+        public RTSGameMode.EFactions AllyFaction;
+        public RTSGameMode.ECommanders GeneralCommander;
+
+        [Header("Character Builder")]
+        [Tooltip("Should The Character Be Spawned As A GameObject, Or Built Using The CharacterBuilder?")]
+        public bool bBuildCharacterCompletely = false;
+        
+        [Header("Child Prefab Info")]
+        //HealthBar
+        public bool bBuildEnemyHealthBar = false;
+
+        [HideInInspector]
+        public Transform LOSChildObjectTransform = null;
+        //I'll Try Setting These Images When I instantiate the prefab
+        [HideInInspector]
+        public Image EnemyHealthBarImage = null;
+        [HideInInspector]
+        public Image EnemyActiveBarImage = null;
+
+        /// <summary>
+        /// Use For Instance Functionality - Turning Light on and off.
+        /// </summary>
+        [HideInInspector]
+        public GameObject AllyIndicatorSpotlightInstance = null;
+    }
+    #endregion
+
+    #region RTSAllyComponentsAllCharacterFields
+    [System.Serializable]
+    public class RTSAllyComponentsAllCharacterFields
+    {
+        [Header("AI Fields")]
+        public float sightRange = 0f;
+        public float followDistance = 0f;
+
+        [Header("Special Abilities")]
+        public AbilityConfig[] specialAbilitiesArray;
+        public AudioClip outOfEnergySoundClip;
+
+        [Header("Tactics")]
+        public int tacticsExecutionsPerSecond = 5;
+
+        [Header("Child Prefab Info")]
+        //LOSObject
+        public bool bBuildLOSChildObject = true;
+        public Vector3 LOSChildObjectPosition = Vector3.zero;
+        public Vector3 LOSChildObjectRotation = Vector3.zero;
+        //HealthBar
+        public GameObject EnemyHealthBarPrefab = null;
+        public Vector3 EnemyHealthBarPosition = Vector3.zero;
+        public Vector3 EnemyHealthBarRotation = Vector3.zero;
+        public Vector2 EnemyHealthSizeDelta = new Vector2(100, 100);
+        public Vector3 EnemyHealthLocalScale = new Vector3(0.07f, 0.07f, 0.07f);
+        //Spotlight
+        public bool bBuildAllyIndicatorSpotlight = true;
+        /// <summary>
+        /// Use For Instantiating
+        /// </summary>
+        public GameObject AllyIndicatorSpotlightPrefab = null;
+
+        public Vector3 AllyIndicatorSpotlightPosition = Vector3.zero;
+        public Vector3 AllyIndicatorSpotlightRotation = Vector3.zero;
+        public Color AllyHighlightColor = Color.green;
+        public Color EnemyHighlightColor = Color.red;
+        //Waypoint Renderer
+        public Material WaypointRendererMaterial = null;
+        //Blood
+        public GameObject BloodParticles = null;
+
+    }
+    #endregion
+
     public class AllyEventHandler : MonoBehaviour
     {
         #region InstanceProperties
@@ -23,6 +101,7 @@ namespace RTSCoreFramework
 
         #region FieldsAndProps
         public bool bIsSprinting { get; protected set; }
+        public bool bActiveTimeBarIsRegenerating { get; protected set; }
         public bool bIsTacticsEnabled { get; protected set; }
         //Is moving through nav mesh agent, regardless of
         //whether it's ai or a command
@@ -37,6 +116,8 @@ namespace RTSCoreFramework
         public bool bIsCommandAttacking { get; protected set; }
         public bool bIsAiAttacking { get; protected set; }
         public bool bIsAimingToShoot { get; protected set; }
+        public bool bIsMeleeingEnemy { get; protected set; }
+        public bool bIsUsingAbility { get; protected set; }
         public bool bCanEnableAITactics
         {
             get
@@ -91,9 +172,16 @@ namespace RTSCoreFramework
         #region DelegatesAndEvents
         public delegate void GeneralEventHandler();
         public delegate void GeneralOneBoolHandler(bool _enable);
-        public event GeneralEventHandler EventAllyDied;
+        public delegate void GeneralTwoVectorOneGObjectHandler(Vector3 position, Vector3 force, GameObject attacker);
+        public event GeneralTwoVectorOneGObjectHandler EventAllyDied;
+        /// <summary>
+        /// Currently Called Before Ally Is Set
+        /// </summary>
         public event GeneralEventHandler EventSwitchingFromCom;
         public event GeneralEventHandler EventPartySwitching;
+        /// <summary>
+        /// Currently Called After Ally Is Set
+        /// </summary>
         public event GeneralEventHandler EventSetAsCommander;
         public event GeneralEventHandler EventKilledEnemy;
         public event GeneralEventHandler EventStopTargettingEnemy;
@@ -102,6 +190,8 @@ namespace RTSCoreFramework
         public event GeneralOneBoolHandler EventToggleAllyTactics;
         public event GeneralOneBoolHandler EventTogglebIsFreeMoving;
         public event GeneralOneBoolHandler EventToggleIsShooting;
+        public event GeneralOneBoolHandler EventToggleIsMeleeing;
+        public event GeneralOneBoolHandler EventToggleIsUsingAbility;
         //Opsive TPC Events
         public event GeneralEventHandler OnSwitchToPrevItem;
         public event GeneralEventHandler OnSwitchToNextItem;
@@ -112,10 +202,23 @@ namespace RTSCoreFramework
         //handles the attacking.
         public event GeneralEventHandler OnTryMeleeAttack;
         //Tries Using Primary Item, Used By RTSItemHandler
-        public event GeneralEventHandler OnTryFire;
+        public event GeneralEventHandler OnTryUseWeapon;
         public event GeneralEventHandler OnTryReload;
         public event GeneralEventHandler OnTryCrouch;
         public event GeneralOneBoolHandler OnTryAim;
+
+        //For Special Abilities
+        public delegate void OneSystemTypeArgHandler(System.Type _type);
+        public event OneSystemTypeArgHandler OnTrySpecialAbility;
+
+        //For Active Time Bar Functionality
+        public delegate void OneRTSActionItemArgHandler(RTSActionItem _actionItem);
+        public event GeneralEventHandler OnActiveTimeBarIsFull;
+        public event GeneralEventHandler OnActiveTimeBarDepletion;
+        public event GeneralEventHandler OnRemoveCommandActionFromQueue;
+        public event GeneralEventHandler OnRemoveAIActionFromQueue;
+        public event OneRTSActionItemArgHandler OnAddActionItemToQueue;
+        public event GeneralOneBoolHandler OnToggleActiveTimeRegeneration;
 
         //May use delegate in the future
         //public delegate void RtsHitTypeAndRayCastHitHandler(rtsHitType hitType, RaycastHit hit);
@@ -127,9 +230,10 @@ namespace RTSCoreFramework
 
         public delegate void AllyHandler(AllyMember ally);
         public event AllyHandler EventCommandAttackEnemy;
+        public event AllyHandler OnUpdateTargettedEnemy;
 
         public delegate void EEquipTypeHandler(EEquipType _eType);
-        public delegate void EWeaponTypeHandler(EEquipType _eType, EWeaponType _weaponType, bool _equipped);
+        public delegate void EWeaponTypeHandler(EEquipType _eType, EWeaponType _weaponType, EWeaponUsage _wUsage, bool _equipped);
         public event EEquipTypeHandler OnEquipTypeChanged;
         public event EWeaponTypeHandler OnWeaponChanged;
 
@@ -137,9 +241,13 @@ namespace RTSCoreFramework
         public event TwoIntArgsHandler OnAmmoChanged;
         public event TwoIntArgsHandler OnHealthChanged;
         public event TwoIntArgsHandler OnStaminaChanged;
+        public event TwoIntArgsHandler OnActiveTimeChanged;
 
-        public delegate void RTSTakeDamageHandler(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject);
+        public delegate void RTSTakeDamageHandler(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider);
         public event RTSTakeDamageHandler OnAllyTakeDamage;
+
+        public delegate void RTSAllyComponentInitializationHandler(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps);
+        public event RTSAllyComponentInitializationHandler InitializeAllyComponents;
         #endregion
 
         #region UnityMessages
@@ -151,6 +259,9 @@ namespace RTSCoreFramework
             bIsFreeMoving = false;
             bIsCommandAttacking = false;
             bIsAiAttacking = false;
+            bIsMeleeingEnemy = false;
+            bIsUsingAbility = false;
+            bActiveTimeBarIsRegenerating = false;
         }
 
         protected virtual void Start()
@@ -189,11 +300,11 @@ namespace RTSCoreFramework
         #endregion
 
         #region EventCalls
-        public virtual void CallEventAllyDied()
+        public virtual void CallEventAllyDied(Vector3 position, Vector3 force, GameObject attacker)
         {
             if (EventAllyDied != null)
             {
-                EventAllyDied();
+                EventAllyDied(position, force, attacker);
                 this.enabled = false;
             }
         }
@@ -205,6 +316,29 @@ namespace RTSCoreFramework
             {
                 EventToggleIsShooting(_enable);
             }
+            if (bIsMeleeingEnemy)
+            {
+                CallEventToggleIsMeleeing(false);
+            }
+        }
+
+        public virtual void CallEventToggleIsMeleeing(bool _enable)
+        {
+            bIsMeleeingEnemy = _enable;
+            if(EventToggleIsMeleeing != null)
+            {
+                EventToggleIsMeleeing(_enable);
+            }
+            if (bIsAimingToShoot)
+            {
+                CallEventToggleIsShooting(false);
+            }
+        }
+
+        public virtual void CallEventToggleIsUsingAbility(bool _enable)
+        {
+            bIsUsingAbility = _enable;
+            if (EventToggleIsUsingAbility != null) EventToggleIsUsingAbility(_enable);
         }
 
         public virtual void CallEventToggleIsSprinting()
@@ -217,10 +351,6 @@ namespace RTSCoreFramework
         {
             bIsCommandMoving = false;
             bIsAIMoving = false;
-            if (bCanEnableAITactics)
-            {
-                CallEventToggleAllyTactics(true);
-            }
             if (EventFinishedMoving != null) EventFinishedMoving();
         }
 
@@ -239,6 +369,7 @@ namespace RTSCoreFramework
         /// </summary>
         public virtual void CallOnTryHitscanFire(Vector3 _force)
         {
+            CallOnActiveTimeBarDepletion();
             if (OnTryHitscanFire != null) OnTryHitscanFire(_force);
         }
         /// <summary>
@@ -247,12 +378,16 @@ namespace RTSCoreFramework
         /// </summary>
         public virtual void CallOnTryMeleeAttack()
         {
+            CallOnActiveTimeBarDepletion();
             if (OnTryMeleeAttack != null) OnTryMeleeAttack();
         }
 
-        public virtual void CallOnTryFire()
+        /// <summary>
+        /// Called To Fire The TPC Weapon, Doesn't Do Damage Automatically
+        /// </summary>
+        public virtual void CallOnTryUseWeapon()
         {
-            if (OnTryFire != null) OnTryFire();
+            if (OnTryUseWeapon != null) OnTryUseWeapon();
         }
 
         public virtual void CallOnTryReload()
@@ -270,12 +405,54 @@ namespace RTSCoreFramework
             if (OnTryAim != null) OnTryAim(_enable);
         }
 
+        public virtual void CallOnTrySpecialAbility(System.Type _type)
+        {
+            if (OnTrySpecialAbility != null) OnTrySpecialAbility(_type);
+        }
+
+        public virtual void CallOnActiveTimeBarIsFull()
+        {
+            if (OnActiveTimeBarIsFull != null) OnActiveTimeBarIsFull();
+        }
+
+        public virtual void CallOnActiveTimeBarDepletion()
+        {
+            if (OnActiveTimeBarDepletion != null) OnActiveTimeBarDepletion();
+        }
+
+        public virtual void CallOnRemoveCommandActionFromQueue()
+        {
+            if (OnRemoveCommandActionFromQueue != null) OnRemoveCommandActionFromQueue();
+        }
+
+        public virtual void CallOnRemoveAIActionFromQueue()
+        {
+            if (OnRemoveAIActionFromQueue != null) OnRemoveAIActionFromQueue();
+        }
+
+        public virtual void CallOnAddActionItemToQueue(RTSActionItem _actionItem)
+        {
+            if (OnAddActionItemToQueue != null) OnAddActionItemToQueue(_actionItem);
+        }
+
+        public virtual void CallOnToggleActiveTimeRegeneration(bool _enable)
+        {
+            if(_enable != bActiveTimeBarIsRegenerating)
+            {
+                bActiveTimeBarIsRegenerating = _enable;
+                if (OnToggleActiveTimeRegeneration != null) OnToggleActiveTimeRegeneration(_enable);
+            }
+        }
+
         public virtual void CallEventSwitchingFromCom()
         {
             if (bIsFreeMoving) CallEventTogglebIsFreeMoving(false);
             if (EventSwitchingFromCom != null) EventSwitchingFromCom();
         }
 
+        /// <summary>
+        /// Called After AllyInCommand Has Been Set By the PartyManager
+        /// </summary>
         public virtual void CallEventPartySwitching()
         {
             if (EventPartySwitching != null) EventPartySwitching();
@@ -329,7 +506,6 @@ namespace RTSCoreFramework
         public virtual void CallEventAIMove(Vector3 _point)
         {
             bIsAimingToShoot = false;
-            bIsCommandAttacking = false;
             bIsAIMoving = true;
             bIsCommandMoving = false;
             CallEventCommandMove(_point);
@@ -364,23 +540,32 @@ namespace RTSCoreFramework
             }
         }
 
+        public virtual void CallOnUpdateTargettedEnemy(AllyMember _ally)
+        {
+            if (OnUpdateTargettedEnemy != null) OnUpdateTargettedEnemy(_ally);
+        }
+
         public virtual void CallEventStopTargettingEnemy()
         {
             bIsCommandAttacking = bIsAiAttacking = bIsAimingToShoot = false;
             if (EventStopTargettingEnemy != null) EventStopTargettingEnemy();
+            CallEventToggleIsShooting(false);
+            CallEventToggleIsMeleeing(false);
+            CallOnTryAim(false);
         }
 
         public virtual void CallEventTogglebIsFreeMoving(bool _enable)
         {
             bIsFreeMoving = _enable;
-            //If Free Moving Is Enabled, Diable Tactics
-            bool _enableTactics = !_enable && bCanEnableAITactics;
-            CallEventToggleAllyTactics(_enableTactics);
             if (EventTogglebIsFreeMoving != null) EventTogglebIsFreeMoving(_enable);
         }
 
-        //Event handler controls bIsTacticsEnabled, makes code more centralized
-        protected virtual void CallEventToggleAllyTactics(bool _enable)
+        /// <summary>
+        /// Event handler controls bIsTacticsEnabled, makes code more centralized.
+        /// Now is called inside TacticsController, Rather than being Handled by Controller
+        /// </summary>
+        /// <param name="_enable"></param>
+        public virtual void CallEventToggleAllyTactics(bool _enable)
         {
             bIsTacticsEnabled = _enable;
             if (EventToggleAllyTactics != null) EventToggleAllyTactics(_enable);
@@ -399,7 +584,7 @@ namespace RTSCoreFramework
             CallOnEquipTypeChanged(_toggleType);
         }
 
-        public virtual void CallOnWeaponChanged(EEquipType _eType, EWeaponType _weaponType, bool _equipped)
+        public virtual void CallOnWeaponChanged(EEquipType _eType, EWeaponType _weaponType, EWeaponUsage _wUsage, bool _equipped)
         {
             //If MyEquippedWeaponType Hasn't Been Set, Do Not Update MyUnequippedWeaponType
             if (MyEquippedWeaponType != EWeaponType.NoWeaponType)
@@ -424,7 +609,7 @@ namespace RTSCoreFramework
 
             if (OnWeaponChanged != null)
             {
-                OnWeaponChanged(_eType, _weaponType, _equipped);
+                OnWeaponChanged(_eType, _weaponType, _wUsage, _equipped);
             }
         }
 
@@ -453,10 +638,20 @@ namespace RTSCoreFramework
             if (OnStaminaChanged != null) OnStaminaChanged(_current, _max);
         }
 
-        public virtual void CallOnAllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject)
+        public virtual void CallOnActiveTimeChanged(int _current, int _max)
+        {
+            if (OnActiveTimeChanged != null) OnActiveTimeChanged(_current, _max);
+        }
+
+        public virtual void CallOnAllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider)
         {
             if (OnAllyTakeDamage != null)
-                OnAllyTakeDamage(amount, position, force, _instigator, hitGameObject);
+                OnAllyTakeDamage(amount, position, force, _instigator, hitGameObject, hitCollider);
+        }
+
+        public virtual void CallInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
+        {
+            if (InitializeAllyComponents != null) InitializeAllyComponents(_specificComps, _allAllyComps);
         }
         #endregion
 

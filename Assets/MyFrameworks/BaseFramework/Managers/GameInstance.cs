@@ -51,18 +51,6 @@ namespace BaseFramework
                 return new ScenarioSettings();
             }
         }
-
-        protected virtual int RefreshRate
-        {
-            get
-            {
-                if (_refreshRate == -1)
-                    _refreshRate = Screen.currentResolution.refreshRate;
-
-                return _refreshRate;
-            }
-        }
-        private int _refreshRate = -1;
         #endregion
 
         #region Fields
@@ -87,12 +75,6 @@ namespace BaseFramework
             }
 
             InitializeDictionaryValues();
-            UpdateFrameRateLimit();
-        }
-
-        protected virtual void Update()
-        {
-            UpdateFrameRateLimit();
         }
         #endregion
 
@@ -259,19 +241,6 @@ namespace BaseFramework
             foreach (var _scenarioSettings in _currentLevelSettings.ScenarioSettingsList)
             {
                 currentScenarioSettingsDictionary.Add(_scenarioSettings.Scenario, _scenarioSettings);
-            }
-        }
-
-        protected virtual void UpdateFrameRateLimit()
-        {
-            if (QualitySettings.vSyncCount != 0)
-            {
-                //Frame Limit Doesn't Work If VSync Is Set Above 0
-                QualitySettings.vSyncCount = 0;
-            }
-            if (Application.targetFrameRate != RefreshRate)
-            {
-                Application.targetFrameRate = RefreshRate;
             }
         }
         #endregion

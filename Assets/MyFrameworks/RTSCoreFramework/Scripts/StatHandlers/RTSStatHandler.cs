@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BaseFramework;
+using System.Linq;
 
 namespace RTSCoreFramework
 {
@@ -19,9 +20,6 @@ namespace RTSCoreFramework
         [Header("Data Containing Character Stats")]
         [SerializeField]
         protected CharacterStatsData characterStatsData;
-        [Header("Data Containing Character Tactics")]
-        [SerializeField]
-        protected CharacterTacticsData characterTacticsData;
         [Header("Data Containing Party Stats")]
         [SerializeField]
         protected PartyStatsData partyStatsData;
@@ -39,6 +37,11 @@ namespace RTSCoreFramework
             get { return RTSGameMode.thisInstance; }
         }
 
+        protected RTSGameMaster gamemaster
+        {
+            get { return RTSGameMaster.thisInstance; }
+        }
+
         public virtual Dictionary<EWeaponType, WeaponStats> WeaponStatDictionary
         {
             get
@@ -48,16 +51,9 @@ namespace RTSCoreFramework
             }
         }
 
-        /// <summary>
-        /// Used Only For Debugging, Need to implement actual saving in the future
-        /// </summary>
-        public virtual CharacterTacticsData DebugGET_CharacterTacticsData
+        protected RTSSaveManager saveManager
         {
-            get
-            {
-                CheckForDictionaryInit();
-                return characterTacticsData;
-            }
+            get { return RTSSaveManager.thisInstance; }
         }
         // I'll probably use public methods to access and update stats
         //public Dictionary<RTSCharacterType, CharacterStats> GetCharacterStats
@@ -84,7 +80,7 @@ namespace RTSCoreFramework
             var _cPlayer = gamemode.CurrentPlayer;
             return RetrieveCharacterTactics(_cPlayer, _cPlayer.CharacterType);
         }
-        
+
         /// <summary>
         ///  Used to retrieve an Anonymous Character's Stats, that may update
         ///  from a specific character instance if the instance is the player's
@@ -117,6 +113,12 @@ namespace RTSCoreFramework
                 CharacterType = ECharacterType.NoCharacterType,
                 Health = 0
             };
+        }
+
+        public virtual List<CharacterStats> GetAllCharacterStats()
+        {
+            CheckForDictionaryInit();
+            return CharacterStatDictionary.Values.ToList();
         }
 
         public virtual CharacterTactics RetrieveCharacterTactics(AllyMember _ally, ECharacterType _cType)
@@ -161,6 +163,74 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region Setters
+        public void UpdateTacticsDictionary(List<CharacterTactics> _cTacticsList)
+        {
+            CharacterTacticsDictionary.Clear();
+            foreach (var _stat in _cTacticsList)
+            {
+                CharacterTacticsDictionary.Add(_stat.CharacterType, _stat);
+            }
+        }
+
+        public void UpdateCharacterStatsDictionary(List<CharacterStatsSimple> _cStatList)
+        {
+            foreach (var _stats in _cStatList)
+            {
+                if (CharacterStatDictionary.ContainsKey(_stats.CharacterType))
+                {
+                    var _c = CharacterStatDictionary[_stats.CharacterType];
+                    _c.name = _stats.name;
+                    _c.CharacterType = _stats.CharacterType;
+                    _c.MaxHealth = _stats.MaxHealth;
+                    _c.Health = _stats.Health;
+                    _c.MaxStamina = _stats.MaxStamina;
+                    _c.Stamina = _stats.Stamina;
+                    _c.EquippedWeapon = _stats.EquippedWeapon;
+                    _c.PrimaryWeapon = _stats.PrimaryWeapon;
+                    _c.SecondaryWeapon = _stats.SecondaryWeapon;
+                }
+            }
+            gamemaster.CallEventUpdateCharacterStats();
+        }
+        #endregion
+
+        #region Helpers
+        protected virtual CharacterStats ConvertToCharacterStats(CharacterStatsSimple _simple, CharacterStatsNonPersistent _nonPersistent)
+        {
+            return new CharacterStats
+            {
+                name = _simple.name,
+                CharacterType = _simple.CharacterType,
+                CharacterPrefab = _nonPersistent.CharacterPrefab,
+                CharacterPortrait = _nonPersistent.CharacterPortrait,
+                MaxHealth = _simple.MaxHealth,
+                Health = _simple.Health,
+                MaxStamina = _simple.MaxStamina,
+                Stamina = _simple.Stamina,
+                EquippedWeapon = _simple.EquippedWeapon,
+                PrimaryWeapon = _simple.PrimaryWeapon,
+                SecondaryWeapon = _simple.SecondaryWeapon
+            };
+        }
+
+        protected virtual CharacterStatsSimple ConvertCharacterStatsToSimple(CharacterStats _stats)
+        {
+            return new CharacterStatsSimple
+            {
+                name = _stats.name,
+                CharacterType = _stats.CharacterType,
+                MaxHealth = _stats.MaxHealth,
+                Health = _stats.Health,
+                MaxStamina = _stats.MaxStamina,
+                Stamina = _stats.Stamina,
+                EquippedWeapon = _stats.EquippedWeapon,
+                PrimaryWeapon = _stats.PrimaryWeapon,
+                SecondaryWeapon = _stats.SecondaryWeapon
+            };
+        }
+        #endregion
+
         #region UnityMessages
         protected virtual void OnEnable()
         {
@@ -169,12 +239,6 @@ namespace RTSCoreFramework
 
         // Use this for initialization
         protected virtual void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        protected virtual void Update()
         {
 
         }
@@ -191,7 +255,7 @@ namespace RTSCoreFramework
         /// </summary>
         protected virtual void CheckForDictionaryInit()
         {
-            if(bInitializedDictionaries == false)
+            if (bInitializedDictionaries == false)
             {
                 InitializeDictionaryValues();
                 bInitializedDictionaries = true;
@@ -207,17 +271,20 @@ namespace RTSCoreFramework
                 Debug.LogError("No CharacterStats Data on StatHandler");
                 return;
             }
-            foreach (var _stat in characterStatsData.CharacterStatList)
+
+            foreach (var _simple in saveManager.LoadCharacterStats())
             {
-                CharacterStatDictionary.Add(_stat.CharacterType, _stat);
+                foreach (var _nonPersistent in characterStatsData.CharacterStatList)
+                {
+                    if (_simple.CharacterType == _nonPersistent.CharacterType)
+                    {
+                        CharacterStatDictionary.Add(_simple.CharacterType, ConvertToCharacterStats(_simple, _nonPersistent));
+                    }
+                }
             }
+
             //Tactics Data
-            if(CharacterTacticsDictionary == null)
-            {
-                Debug.LogError("No Tactics Data on StatHandler");
-                return;
-            }
-            foreach (var _stat in characterTacticsData.CharacterTacticsList)
+            foreach (var _stat in saveManager.LoadCharacterTacticsList())
             {
                 CharacterTacticsDictionary.Add(_stat.CharacterType, _stat);
             }

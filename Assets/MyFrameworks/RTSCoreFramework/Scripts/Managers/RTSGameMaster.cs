@@ -59,15 +59,11 @@ namespace RTSCoreFramework
             base.OnDisable();
 
         }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
         #endregion
 
         #region Events and Delegates
         public event GameManagerEventHandler EventAllEnemiesAreDead;
+        public event GameManagerEventHandler EventUpdateCharacterStats;
         //public event OneBoolArgsHandler EventEnableSelectionBox;
 
         //Used by CamRaycaster to broadcast mouse hit type
@@ -87,6 +83,9 @@ namespace RTSCoreFramework
         public event AllyMemberHandler OnRightClickEnemy;
 
         public delegate void AllySwitchHandler(PartyManager _party, AllyMember _toSet, AllyMember _current);
+        /// <summary>
+        /// OnAllySwitch Won't Be Called On All Allies At Start Of Game Because Switch Happens Before They All Spawn.
+        /// </summary>
         public event AllySwitchHandler OnAllySwitch;
 
         public delegate void UiTargetHookHandler(AllyMember _target, AllyEventHandler _eventHandler, PartyManager _party);
@@ -102,6 +101,11 @@ namespace RTSCoreFramework
             base.CallEventGameOver();
         }
 
+        public virtual void CallEventUpdateCharacterStats()
+        {
+            if (EventUpdateCharacterStats != null) EventUpdateCharacterStats();
+        }
+
         public void CallEventAllEnemiesAreDead()
         {
             if (EventAllEnemiesAreDead != null) EventAllEnemiesAreDead();
@@ -113,6 +117,12 @@ namespace RTSCoreFramework
             base.CallEventAllObjectivesCompleted();
         }
 
+        /// <summary>
+        /// Called Before The AllyInCommand has been set by RTSGameMaster
+        /// </summary>
+        /// <param name="_party"></param>
+        /// <param name="_toSet"></param>
+        /// <param name="_current"></param>
         public void CallOnAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
         {
             if (OnAllySwitch != null)
@@ -148,6 +158,7 @@ namespace RTSCoreFramework
             if (gamemode.hasPrevHighAlly && _notAlly)
             {
                 gamemode.hasPrevHighAlly = false;
+                //TODO: RTSPrototype See if OnMouseCursor Change Should Return if PrevHighAlly is Null
                 if (gamemode.prevHighAlly == null) return;
                 //if (OnHoverLeaveAlly != null) OnHoverLeaveAlly(gamemode.prevHighAlly);
                 gamemode.prevHighAlly.allyEventHandler.CallEventOnHoverLeave(hitType, hit);
