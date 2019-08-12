@@ -116,7 +116,7 @@ namespace RPGPrototype
             }
         }
 
-        void Die()
+        void Die(Vector3 position, Vector3 force, GameObject attacker)
         {
             bIsDead = true;
         }

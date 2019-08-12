@@ -8,27 +8,27 @@ namespace RPGPrototype
     public class AllyTacticsRPG : AllyTacticsController
     {
         #region Handlers
-        protected override void HandleToggleTactics(bool _enable)
-        {
-            //Do not want to disable tactics
-            //when freemoving or on finish moving
-            //Only when switching from allyincommand
-        }
+        //protected override void HandleToggleTactics(bool _enable)
+        //{
+        //    //Do not want to disable tactics
+        //    //when freemoving or on finish moving
+        //    //Only when switching from allyincommand
+        //}
 
-        void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
-        {
-            if (allyMember.partyManager != _party) return;
+        //void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
+        //{
+        //    if (allyMember.partyManager != _party) return;
             
-            if (allyMember == _toSet &&
-                _toSet.bIsInGeneralCommanderParty)
-            {
-                RPGToggleEnableTactics(false);
-            }
-            else
-            {
-                RPGToggleEnableTactics(true);
-            }
-        }
+        //    if (allyMember == _toSet &&
+        //        _toSet.bIsInGeneralCommanderParty)
+        //    {
+        //        RPGToggleEnableTactics(false);
+        //    }
+        //    else
+        //    {
+        //        RPGToggleEnableTactics(true);
+        //    }
+        //}
         #endregion
 
         #region UnityMessages

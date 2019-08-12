@@ -142,7 +142,7 @@ namespace RPGPrototype
             AttemptSpecialAbility(_key);
         }
 
-        void OnAllyDeath()
+        void OnAllyDeath(Vector3 position, Vector3 force, GameObject attacker)
         {
             CancelInvoke();
         }

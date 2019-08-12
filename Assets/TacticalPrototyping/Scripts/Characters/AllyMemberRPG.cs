@@ -79,22 +79,22 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
-        public override void AllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject)
-        {
-            base.AllyTakeDamage(amount, position, force, _instigator, hitGameObject);
-            //if (bIsCurrentPlayer)
-            //    EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject>(gameObject, "OnHealthDamageDetails", amount, position, force, _instigator.gameObject);
+        //public override void AllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject)
+        //{
+        //    base.AllyTakeDamage(amount, position, force, _instigator, hitGameObject);
+        //    //if (bIsCurrentPlayer)
+        //    //    EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject>(gameObject, "OnHealthDamageDetails", amount, position, force, _instigator.gameObject);
             
-            //if (IsAlive == false)
-            //{
-            //    EventHandler.ExecuteEvent<Vector3, Vector3, GameObject>(gameObject, "OnDeathDetails", force, position, _instigator.gameObject);
-            //}
-        }
+        //    //if (IsAlive == false)
+        //    //{
+        //    //    EventHandler.ExecuteEvent<Vector3, Vector3, GameObject>(gameObject, "OnDeathDetails", force, position, _instigator.gameObject);
+        //    //}
+        //}
 
-        public override void AllyOnDeath()
-        {
-            base.AllyOnDeath();
-        }
+        //public override void AllyOnDeath()
+        //{
+        //    base.AllyOnDeath();
+        //}
 
 
         #endregion

@@ -17,7 +17,7 @@ namespace RPGPrototype
         {
             get
             {
-                if (_appendedConditionDictionary.Count <= 0)
+                if (_appendedConditionDictionary == null || _appendedConditionDictionary.Count <= 0)
                 {
                     _appendedConditionDictionary = base.IGBPI_Conditions.AddRange(new Dictionary<string, IGBPI_Condition>
                     {
@@ -30,17 +30,24 @@ namespace RPGPrototype
         #endregion
 
         #region ActionDictionary
-        Dictionary<string, IGBPI_Action> _appendedActionDictionary;
+        Dictionary<string, RTSActionItem> _appendedActionDictionary;
 
-        public override Dictionary<string, IGBPI_Action> IGBPI_Actions
+        public override Dictionary<string, RTSActionItem> IGBPI_Actions
         {
             get
             {
-                if (_appendedActionDictionary.Count <= 0)
+                if (_appendedActionDictionary == null || _appendedActionDictionary.Count <= 0)
                 {
-                    _appendedActionDictionary = base.IGBPI_Actions.AddRange(new Dictionary<string, IGBPI_Action>
+                    _appendedActionDictionary = base.IGBPI_Actions.AddRange(new Dictionary<string, RTSActionItem>
                     {
-                        
+                        //{ "Self: Area of Effect", new RTSActionItem((_ally) =>
+                        //{ _ally.allyEventHandler.CallOnTrySpecialAbility(typeof(AreaOfEffectConfigTPC)); },
+                        //(_ally) => _ally.CanUseAbility(typeof(AreaOfEffectConfigTPC)),
+                        //ActionFilters.Abilities, false, true, true, false, _ally => true, _ally => _ally.bIsUsingAbility, _ally => { })},
+                        //{ "Self: Heal", new RTSActionItem((_ally) =>
+                        //{ _ally.allyEventHandler.CallOnTrySpecialAbility(typeof(SelfHealConfigTPC)); },
+                        //(_ally) => _ally.CanUseAbility(typeof(SelfHealConfigTPC)),
+                        //ActionFilters.Abilities, false, true, true, false, _ally => true, _ally => _ally.bIsUsingAbility, _ally => { })}
                     });
                 }
                 return _appendedActionDictionary;

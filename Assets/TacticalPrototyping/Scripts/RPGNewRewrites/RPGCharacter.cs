@@ -245,7 +245,7 @@ namespace RPGPrototype
                 2f : 1f;
         }
 
-        public void Kill()
+        public void Kill(Vector3 position, Vector3 force, GameObject attacker)
         {
             isAlive = false;
             StartCoroutine(KillCharacter());
