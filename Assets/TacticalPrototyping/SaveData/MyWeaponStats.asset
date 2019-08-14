@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,11 +13,75 @@ MonoBehaviour:
   m_Name: MyWeaponStats
   m_EditorClassIdentifier: 
   WeaponStatList:
-  - WeaponType: 2
+  - name: Pistol
+    WeaponType: 2
+    WeaponUsage: 1
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-  - WeaponType: 1
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Knife
+    WeaponType: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Fist
+    WeaponType: 0
+    WeaponUsage: 0
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Assault Rifle
+    WeaponType: 3
+    WeaponUsage: 1
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Shotgun
+    WeaponType: 4
+    WeaponUsage: 1
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Sniper Rifle
+    WeaponType: 5
+    WeaponUsage: 1
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Axe
+    WeaponType: 6
+    WeaponUsage: 0
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Crossbow
+    WeaponType: 7
+    WeaponUsage: 1
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0
+  - name: Katana
+    WeaponType: 8
+    WeaponUsage: 0
+    WeaponIcon: {fileID: 0}
+    DamageRate: 10
+    Accuracy: 10
+    AttackRate: 0
+    MeleeAttackDistance: 0

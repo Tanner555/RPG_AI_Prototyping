@@ -40,7 +40,6 @@ namespace RPGPrototype
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
             audioSource.clip = clip;
-            InvokeRepeating("SE_CheckForPlay", 0.1f, repeatRate);
         }
 
         void SE_CheckForPlay()
@@ -89,6 +88,9 @@ namespace RPGPrototype
             if (_party.bIsCurrentPlayerCommander)
             {
                 player = _toSet.gameObject;
+                if(IsInvoking("SE_CheckForPlay") == false) { 
+                    InvokeRepeating("SE_CheckForPlay", 0.1f, repeatRate);
+                }
             }
         }
 

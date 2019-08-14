@@ -71,31 +71,45 @@ namespace RPGPrototype
         #endregion
 
         #region UnityMessages
-        protected override void Start()
+        protected override void OnDelayStart()
         {
-            base.Start();
+            base.OnDelayStart();
 
         }
         #endregion
 
         #region Handlers
-        //public override void AllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject)
-        //{
-        //    base.AllyTakeDamage(amount, position, force, _instigator, hitGameObject);
-        //    //if (bIsCurrentPlayer)
-        //    //    EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject>(gameObject, "OnHealthDamageDetails", amount, position, force, _instigator.gameObject);
-            
-        //    //if (IsAlive == false)
-        //    //{
-        //    //    EventHandler.ExecuteEvent<Vector3, Vector3, GameObject>(gameObject, "OnDeathDetails", force, position, _instigator.gameObject);
-        //    //}
-        //}
+        protected override void InitializeAlly(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {
+            AllyFaction = _specific.AllyFaction;
+            GeneralCommander = _specific.GeneralCommander;
+            if (_allFields.bBuildLOSChildObject)
+            {
+                LOSTransform = _specific.LOSChildObjectTransform;
+            }
 
-        //public override void AllyOnDeath()
-        //{
-        //    base.AllyOnDeath();
-        //}
+            if (gamemode == null)
+            {
+                Debug.LogError("No gamemode on ai player!");
+            }
 
+            //Adding To PartyMan Is Delayed Because AllyStatController
+            //Is Not Added Before AllyMember
+            StartCoroutine(InitializeAllyCoroutine());
+            //Create Overrideable Late Start to Accommodate 
+            //Assets Having Long StartUp 
+            Invoke("OnDelayStart", 0.5f);
+        }
+
+        IEnumerator InitializeAllyCoroutine()
+        {
+            yield return new WaitForSeconds(0.1f);
+            //Add Ally to PartyMembers Rather than Finding them
+            //To Make Spawning Easier
+            if (partyManager != null) partyManager.AddPartyMember(this);
+
+            StartServices();
+        }
 
         #endregion
 

@@ -62,12 +62,17 @@ namespace RPGPrototype {
         #region CharacterSetup_UpdateCharacterSetup
         protected override IEnumerator CharacterSetup_UpdateCharacterSetup()
         {
+            spawnedGameObject.layer = gamemode.SingleAllyLayer;
+            spawnedGameObject.tag = gamemode.AllyTag;
 
             // Wait For 0.05 Seconds
             yield return new WaitForSeconds(0.05f);
 
             //Delay Adding These Components
-            
+
+            //Call Ally Init Comps Event
+            var _eventHandler = spawnedGameObject.GetComponent<AllyEventHandler>();
+            _eventHandler.CallInitializeAllyComponents(AllySpecificComponentsToSetUp, AllAllyComponentFields);
         }
         #endregion
 
