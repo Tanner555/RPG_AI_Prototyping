@@ -16,7 +16,8 @@ MonoBehaviour:
     sightRange: 0
     followDistance: 0
     specialAbilitiesArray: []
-    outOfEnergySoundClip: {fileID: 0}
+    outOfEnergySoundClip: {fileID: 8300000, guid: 8136ff2516a8e4083a19bfd8fad67741,
+      type: 3}
     tacticsExecutionsPerSecond: 5
     bBuildLOSChildObject: 1
     LOSChildObjectPosition: {x: 0, y: 0, z: 0}

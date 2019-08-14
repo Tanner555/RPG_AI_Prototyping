@@ -36,6 +36,8 @@ sysinfo.txt
 *.unitypackage
 
 # Ignore These Folders and Files
+Assets/Plugins
+Assets/Plugins.meta
 Assets/Standard Assets
 Assets/Standard Assets.meta
 Assets/_Environment

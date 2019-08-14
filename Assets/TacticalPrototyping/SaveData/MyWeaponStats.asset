@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MyWeaponStats
   m_EditorClassIdentifier: 
   WeaponStatList:
-  - name: Pistol
-    WeaponType: 2
-    WeaponUsage: 1
+  - name: Fist
+    WeaponType: 0
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
@@ -29,9 +29,9 @@ MonoBehaviour:
     Accuracy: 10
     AttackRate: 0
     MeleeAttackDistance: 0
-  - name: Fist
-    WeaponType: 0
-    WeaponUsage: 0
+  - name: Pistol
+    WeaponType: 2
+    WeaponUsage: 1
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
