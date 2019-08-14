@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1091271651888040
+--- !u!1 &4208539417211409035
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4865895404069244}
-  - component: {fileID: 1743611914519680638}
+  - component: {fileID: 4208539417211409034}
+  - component: {fileID: 2336377670992382907}
   m_Layer: 0
-  m_Name: EnemyAssaultVillain1Spawner
+  m_Name: BlueSillyPantsSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4865895404069244
+--- !u!4 &4208539417211409034
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091271651888040}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.5, y: 16.24, z: -92.76}
+  m_GameObject: {fileID: 4208539417211409035}
+  m_LocalRotation: {x: -0, y: -0.51183975, z: -0, w: 0.859081}
+  m_LocalPosition: {x: -93.67, y: 9.92, z: -89.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1743611914519680638
+  m_LocalEulerAnglesHint: {x: 0, y: -61.573, z: 0}
+--- !u!114 &2336377670992382907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091271651888040}
+  m_GameObject: {fileID: 4208539417211409035}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd8f75113a621f4da7c000e84b88c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterType: 25
-  isFriendlyAlly: 0
+  CharacterType: 0
+  isFriendlyAlly: 1
   FriendlyColor: {r: 0, g: 1, b: 0, a: 1}
   EnemyColor: {r: 1, g: 0, b: 0, a: 1}
   GizmosRadius: 1.5
   spawnedGameObject: {fileID: 0}
   AllySpecificComponentsToSetUp:
-    CharacterType: 25
-    AllyFaction: 1
-    GeneralCommander: 1
+    CharacterType: 0
+    AllyFaction: 0
+    GeneralCommander: 0
     bBuildCharacterCompletely: 0
-    bBuildEnemyHealthBar: 1
+    bBuildEnemyHealthBar: 0
     LOSChildObjectTransform: {fileID: 0}
     EnemyHealthBarImage: {fileID: 0}
     EnemyActiveBarImage: {fileID: 0}
