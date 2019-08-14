@@ -70,5 +70,12 @@ namespace RPGPrototype {
             
         }
         #endregion
+
+        #region Helpers
+        void TryRetrievingExistingInitData()
+        {
+
+        }
+        #endregion
     }
 }
