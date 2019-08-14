@@ -9,8 +9,8 @@ namespace RPGPrototype
     public class AllyVisualsRPG : AllyVisuals
     {
         #region Fields
-        [SerializeField]
-        Image myHealthBar;
+        //[SerializeField]
+        //Image myHealthBar;
         #endregion
 
         #region UnityMessages
@@ -28,14 +28,14 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
-        void OnHealthUpdate(int _current, int _max)
-        {
-            if(myHealthBar != null)
-            {
-                float _healthAsPercentage = ((float)_current / (float)_max);
-                myHealthBar.fillAmount = _healthAsPercentage;
-            }
-        }
+        //void OnHealthUpdate(int _current, int _max)
+        //{
+        //    if(myHealthBar != null)
+        //    {
+        //        float _healthAsPercentage = ((float)_current / (float)_max);
+        //        myHealthBar.fillAmount = _healthAsPercentage;
+        //    }
+        //}
         #endregion
     }
 }

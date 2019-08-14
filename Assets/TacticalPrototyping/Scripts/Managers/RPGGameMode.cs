@@ -8,6 +8,13 @@ namespace RPGPrototype
 {
     public class RPGGameMode : RTSGameMode
     {
-
+        #region Properties
+        //Static GameMode Instance For Easy Access
+        [HideInInspector]
+        public static new RPGGameMode thisInstance
+        {
+            get { return (RPGGameMode)GameMode.thisInstance; }
+        }
+        #endregion
     }
 }
