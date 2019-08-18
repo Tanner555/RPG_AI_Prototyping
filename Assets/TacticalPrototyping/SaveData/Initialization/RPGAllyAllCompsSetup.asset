@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RPGAllyAllCompsSetup
   m_EditorClassIdentifier: 
   AllyComponentSetupFields:
-    sightRange: 0
-    followDistance: 0
+    sightRange: 40
+    followDistance: 5
     specialAbilitiesArray: []
     outOfEnergySoundClip: {fileID: 8300000, guid: 8136ff2516a8e4083a19bfd8fad67741,
       type: 3}
