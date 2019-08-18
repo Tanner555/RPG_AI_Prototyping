@@ -42,6 +42,8 @@ namespace RPGPrototype {
         protected override IEnumerator CharacterSetup_SetupCharacter()
         {
             yield return new WaitForSeconds(0f);
+            //Immediately Add Event Handler For Easy Access
+            spawnedGameObject.AddComponent<AllyEventHandlerRPG>();
         }
         #endregion
 
@@ -65,10 +67,76 @@ namespace RPGPrototype {
             spawnedGameObject.layer = gamemode.SingleAllyLayer;
             spawnedGameObject.tag = gamemode.AllyTag;
 
+            if (AllySpecificComponentsToSetUp.bBuildCharacterCompletely)
+            {
+                spawnedGameObject.AddComponent<AllyStatControllerRPG>();
+                spawnedGameObject.AddComponent<AllyActionQueueController>();
+
+                //Spawn Child Objects
+                if (AllAllyComponentFields.bBuildLOSChildObject)
+                {
+                    var _losObject = new GameObject("LOSObject");
+                    _losObject.transform.parent = spawnedGameObject.transform;
+                    _losObject.transform.localPosition = AllAllyComponentFields.LOSChildObjectPosition;
+                    _losObject.transform.localEulerAngles = AllAllyComponentFields.LOSChildObjectRotation;
+                    AllySpecificComponentsToSetUp.LOSChildObjectTransform = _losObject.transform;
+                }
+
+                if (AllySpecificComponentsToSetUp.bBuildEnemyHealthBar &&
+                    AllAllyComponentFields.EnemyHealthBarPrefab != null)
+                {
+                    var _enemyHealthBar = GameObject.Instantiate(AllAllyComponentFields.EnemyHealthBarPrefab,
+                        spawnedGameObject.transform, false);
+                    var _rect = _enemyHealthBar.GetComponent<RectTransform>();
+                    _rect.localPosition = AllAllyComponentFields.EnemyHealthBarPosition;
+                    _rect.localEulerAngles = AllAllyComponentFields.EnemyHealthBarRotation;
+                    _rect.sizeDelta = AllAllyComponentFields.EnemyHealthSizeDelta;
+                    _rect.anchorMin = new Vector2(0.5f, 0.5f);
+                    _rect.anchorMax = new Vector2(0.5f, 0.5f);
+                    _rect.pivot = new Vector2(0.5f, 0.5f);
+                    _rect.localScale = AllAllyComponentFields.EnemyHealthLocalScale;
+
+                    //Attempt To Set Health and ActiveBar Images By Looking For Them in Code
+                    foreach (var _image in _enemyHealthBar.transform.GetComponentsInChildren<Image>(true))
+                    {
+                        if (_image.name.ToLower().Contains("health"))
+                        {
+                            AllySpecificComponentsToSetUp.EnemyHealthBarImage = _image;
+                        }
+                        else if (_image.name.ToLower().Contains("active"))
+                        {
+                            AllySpecificComponentsToSetUp.EnemyActiveBarImage = _image;
+                        }
+                    }
+                }
+
+                if (AllAllyComponentFields.bBuildAllyIndicatorSpotlight &&
+                    AllAllyComponentFields.AllyIndicatorSpotlightPrefab != null)
+                {
+                    var _spotlight = GameObject.Instantiate(AllAllyComponentFields.AllyIndicatorSpotlightPrefab,
+                        spawnedGameObject.transform, false);
+                    _spotlight.transform.localPosition = AllAllyComponentFields.AllyIndicatorSpotlightPosition;
+                    _spotlight.transform.localEulerAngles = AllAllyComponentFields.AllyIndicatorSpotlightRotation;
+                    AllySpecificComponentsToSetUp.AllyIndicatorSpotlightInstance = _spotlight;
+                    _spotlight.GetComponent<Light>().enabled = false;
+                }
+            }
+
             // Wait For 0.05 Seconds
             yield return new WaitForSeconds(0.05f);
 
             //Delay Adding These Components
+            //Added Redundant Check For Now For Organization
+            if (AllySpecificComponentsToSetUp.bBuildCharacterCompletely)
+            {
+                spawnedGameObject.AddComponent<AllyMemberRPG>();
+                spawnedGameObject.AddComponent<AIControllerRPG>();
+                spawnedGameObject.AddComponent<RPGCharacter>();
+                spawnedGameObject.AddComponent<RPGSpecialAbilities>();
+                spawnedGameObject.AddComponent<RPGWeaponSystem>();
+                spawnedGameObject.AddComponent<AllyVisualsRPG>();
+                spawnedGameObject.AddComponent<AllyTacticsRPG>();
+            }
 
             //Call Ally Init Comps Event
             var _eventHandler = spawnedGameObject.GetComponent<AllyEventHandler>();
