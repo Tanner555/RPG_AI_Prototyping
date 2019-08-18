@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RPG.Characters;
+using RTSCoreFramework;
 
 namespace RPGPrototype
 {
@@ -80,17 +80,15 @@ namespace RPGPrototype
         // Use this for initialization
         void Start()
         {
-            audioSource = GetComponent<AudioSource>();
-
-            InitializeAbilityDictionary();
-            InvokeRepeating("SE_AddEnergyPoints", 1f, addStaminaRepeatRate);
             eventhandler.EventAllyDied += OnAllyDeath;
+            eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
             gamemaster.OnNumberKeyPress += OnKeyPress;
         }
 
         private void OnDisable()
         {
             eventhandler.EventAllyDied -= OnAllyDeath;
+            eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
             gamemaster.OnNumberKeyPress -= OnKeyPress;
         }
         #endregion
@@ -131,6 +129,13 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
+        {
+            audioSource = GetComponent<AudioSource>();
+            InitializeAbilityDictionary();
+            InvokeRepeating("SE_AddEnergyPoints", 1f, addStaminaRepeatRate);
+        }
+
         void OnKeyPress(int _key)
         {
             if (bIsDead) return;

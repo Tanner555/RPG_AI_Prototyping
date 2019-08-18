@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using RTSCoreFramework;
 using System.Collections;
@@ -152,6 +151,7 @@ namespace RPGPrototype
             eventHandler.EventCommandMove += HandleSetDestination;
             eventHandler.EventToggleIsSprinting += ToggleSprint;
             eventHandler.EventFinishedMoving += FinishMoving;
+            eventHandler.InitializeAllyComponents += OnInitializeAllyComponents;
         }
 
         private void OnDisable()
@@ -160,6 +160,7 @@ namespace RPGPrototype
             eventHandler.EventCommandMove -= HandleSetDestination;
             eventHandler.EventToggleIsSprinting -= ToggleSprint;
             eventHandler.EventFinishedMoving -= FinishMoving;
+            eventHandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
 
         void FixedUpdate()
@@ -226,6 +227,11 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
+        {
+            
+        }
+
         void HandleSetDestination(Vector3 _destination)
         {
             SetDestination(_destination);

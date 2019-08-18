@@ -85,12 +85,14 @@ namespace RPGPrototype
         {
             eventhandler.StopAttackingRPGTarget += OnStopAttacking;
             eventhandler.AttackRPGTarget += AttackTarget;
+            eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
         }
 
         private void OnDisable()
         {
             eventhandler.StopAttackingRPGTarget -= OnStopAttacking;
             eventhandler.AttackRPGTarget -= AttackTarget;
+            eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
 
         void Update()
@@ -100,6 +102,11 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
+        {
+            
+        }
+
         void OnStopAttacking()
         {
             StopAttacking();
