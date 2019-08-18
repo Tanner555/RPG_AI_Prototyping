@@ -12,7 +12,9 @@ namespace RPGPrototype
     [System.Serializable]
     public class AllyComponentSpecificFieldsRPG : RTSAllyComponentSpecificFields
     {
- 
+        [Header("RPG Character Attributes")]
+        [SerializeField]
+        RPGAllySpecificCharacterAttributesObject RPGCharacterAttributesObject;
     }
     #endregion
 
@@ -20,7 +22,7 @@ namespace RPGPrototype
     [System.Serializable]
     public class AllyComponentsAllCharacterFieldsRPG : RTSAllyComponentsAllCharacterFields
     {
-
+        
     }
     #endregion
 
