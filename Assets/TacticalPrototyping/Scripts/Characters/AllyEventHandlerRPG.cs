@@ -1,11 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 using RTSCoreFramework;
 using RPG.Characters;
 
 namespace RPGPrototype
 {
+    #region RTSAllyComponentSpecificFields
+    [System.Serializable]
+    public class AllyComponentSpecificFieldsRPG : RTSAllyComponentSpecificFields
+    {
+ 
+    }
+    #endregion
+
+    #region RTSAllyComponentsAllCharacterFields
+    [System.Serializable]
+    public class AllyComponentsAllCharacterFieldsRPG : RTSAllyComponentsAllCharacterFields
+    {
+
+    }
+    #endregion
+
     public class AllyEventHandlerRPG : AllyEventHandler
     {
         #region Fields

@@ -14,13 +14,13 @@ namespace RPGPrototype {
         [Header("Character Setup Fields")]
         [Header("Ally Instance Setup Fields")]
         [SerializeField]
-        protected RTSAllyComponentSpecificFields AllySpecificComponentsToSetUp;
+        protected AllyComponentSpecificFieldsRPG AllySpecificComponentsToSetUp;
 
         [Header("All Allies Setup Fields")]
         [SerializeField]
         protected RPGAllyComponentSetupObject AllAllyComponentFieldsObject;
 
-        protected RTSAllyComponentsAllCharacterFields AllAllyComponentFields
+        protected AllyComponentsAllCharacterFieldsRPG AllAllyComponentFields
         {
             get { return AllAllyComponentFieldsObject.AllyComponentSetupFields; }
         }

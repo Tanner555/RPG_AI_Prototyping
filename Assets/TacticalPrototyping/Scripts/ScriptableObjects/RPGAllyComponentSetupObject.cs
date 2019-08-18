@@ -9,6 +9,6 @@ namespace RPGPrototype
     public class RPGAllyComponentSetupObject : ScriptableObject
     {
         [Header("Fields That All Allies Will Use")]
-        public RTSAllyComponentsAllCharacterFields AllyComponentSetupFields;
+        public AllyComponentsAllCharacterFieldsRPG AllyComponentSetupFields;
     }
 }
