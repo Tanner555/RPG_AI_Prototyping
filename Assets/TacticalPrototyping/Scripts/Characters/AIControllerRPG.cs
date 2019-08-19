@@ -45,22 +45,7 @@ namespace RPGPrototype
         #endregion
 
         #region Properties
-        bool bIsDead
-        {
-            get
-            {
-                return allyMember == null ||
-                  allyMember.IsAlive == false;
-            }
-        }
 
-        bool bIsMeleeing
-        {
-            get
-            {
-                return myEventHandler.bIsMeleeingEnemy;
-            }
-        }
         #endregion
 
         #region UnityMessages
@@ -76,6 +61,11 @@ namespace RPGPrototype
             if (myRPGWeapon == null) return false;
             float distanceToTarget = (target.transform.position - transform.position).magnitude;
             return distanceToTarget <= myRPGWeapon.GetMaxAttackRange();
+        }
+
+        public override float GetAttackRate()
+        {
+            return 0.25f;
         }
         #endregion
 
@@ -95,6 +85,11 @@ namespace RPGPrototype
         #region ShootingAndBattleBehavior
         protected override void UpdateBattleBehavior()
         {
+            RPGUpdateBattleBehaviorOLD();
+        }
+        
+        private void RPGUpdateBattleBehaviorOLD()
+        {
             // Pause Ally Tactics If Ally Is Paused
             // Due to the Game Pausing Or Control Pause Mode
             // Is Active
@@ -113,14 +108,52 @@ namespace RPGPrototype
             {
                 if (bIsMeleeing == false)
                 {
-                    myEventHandler.CallAttackRPGTarget(currentTargettedEnemy.gameObject);
+                    //myEventHandler.CallAttackRPGTarget(currentTargettedEnemy.gameObject);
+                    myEventHandler.CallEventFinishedMoving();
+                    StartMeleeAttackBehavior();
                 }
             }
             else
             {
                 if (bIsMeleeing == true)
                 {
-                    myEventHandler.CallStopAttackingRPGTarget();
+                    //myEventHandler.CallStopAttackingRPGTarget();
+                    StopMeleeAttackBehavior();
+                }
+
+                myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);
+            }
+        }
+
+        //Probably Won't Use, From RTSCoreFramework AIController
+        private void RPGUpdateBattleBehaviorNEW()
+        {
+            // Pause Ally Tactics If Ally Is Paused
+            // Due to the Game Pausing Or Control Pause Mode
+            // Is Active
+            if (myEventHandler.bAllyIsPaused) return;
+
+            if (bStopUpdatingBattleBehavior)
+            {
+                myEventHandler.CallEventStopTargettingEnemy();
+                myEventHandler.CallEventFinishedMoving();
+                return;
+            }
+
+            //Melee Behavior
+            if (IsTargetInMeleeRange(currentTargettedEnemy.gameObject))
+            {
+                if (bIsMeleeing == false)
+                {
+                    StartMeleeAttackBehavior();
+                    myEventHandler.CallEventFinishedMoving();
+                }
+            }
+            else
+            {
+                if (bIsMeleeing == true)
+                {
+                    StopMeleeAttackBehavior();
                 }
 
                 myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);

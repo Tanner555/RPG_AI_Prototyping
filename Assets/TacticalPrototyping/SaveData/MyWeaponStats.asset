@@ -19,7 +19,7 @@ MonoBehaviour:
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Knife
     WeaponType: 1
@@ -27,39 +27,39 @@ MonoBehaviour:
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Pistol
     WeaponType: 2
-    WeaponUsage: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Assault Rifle
     WeaponType: 3
-    WeaponUsage: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Shotgun
     WeaponType: 4
-    WeaponUsage: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Sniper Rifle
     WeaponType: 5
-    WeaponUsage: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Axe
     WeaponType: 6
@@ -67,15 +67,15 @@ MonoBehaviour:
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Crossbow
     WeaponType: 7
-    WeaponUsage: 1
+    WeaponUsage: 0
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0
   - name: Katana
     WeaponType: 8
@@ -83,5 +83,5 @@ MonoBehaviour:
     WeaponIcon: {fileID: 0}
     DamageRate: 10
     Accuracy: 10
-    AttackRate: 0
+    AttackRate: 0.25
     MeleeAttackDistance: 0

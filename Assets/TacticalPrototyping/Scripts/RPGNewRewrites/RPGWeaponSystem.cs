@@ -78,14 +78,18 @@ namespace RPGPrototype
         private void OnEnable()
         {
             eventhandler.StopAttackingRPGTarget += OnStopAttacking;
-            eventhandler.AttackRPGTarget += AttackTarget;
+            eventhandler.OnTryUseWeapon += CheckTargetAndAttackEnemy;
+            eventhandler.OnUpdateTargettedEnemy += OnUpdateTargettedEnemy;
+            //eventhandler.AttackRPGTarget += AttackTarget;
             eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
         }
 
         private void OnDisable()
         {
             eventhandler.StopAttackingRPGTarget -= OnStopAttacking;
-            eventhandler.AttackRPGTarget -= AttackTarget;
+            eventhandler.OnTryUseWeapon -= CheckTargetAndAttackEnemy;
+            eventhandler.OnUpdateTargettedEnemy -= OnUpdateTargettedEnemy;
+            //eventhandler.AttackRPGTarget -= AttackTarget;
             eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
 
@@ -114,6 +118,23 @@ namespace RPGPrototype
             SetAttackAnimation();
 
             InvokeRepeating("SE_CheckForAttack", 1f, checkForAttackRate);
+        }
+
+        void CheckTargetAndAttackEnemy()
+        {
+            eventhandler.CallOnActiveTimeBarDepletion();
+
+            if (target == null) return;
+
+            AttackTargetOnce();
+        }
+
+        private void OnUpdateTargettedEnemy(AllyMember ally)
+        {
+            if (ally != null)
+            {
+                target = ally.gameObject;
+            }
         }
 
         void OnStopAttacking()
