@@ -6,7 +6,7 @@ using RPG.Characters;
 
 namespace RPGPrototype
 {
-    public abstract class AbilityConfig : ScriptableObject
+    public abstract class AbilityConfigOLD : ScriptableObject
     {
         [Header("Spcial Ability General")]
         [SerializeField] float energyCost = 10f;
@@ -19,7 +19,7 @@ namespace RPGPrototype
         /// </summary>
         /// <param name="objectToAttachTo"></param>
         /// <returns></returns>
-        public abstract AbilityBehaviour AddBehaviourComponent(GameObject objectToAttachTo);
+        public abstract AbilityBehaviourOLD AddBehaviourComponent(GameObject objectToAttachTo);
 
         public float GetEnergyCost()
         {

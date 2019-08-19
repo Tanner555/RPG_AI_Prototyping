@@ -7,7 +7,7 @@ using System;
 
 namespace RPGPrototype
 {
-    public class AreaEffectBehaviour : AbilityBehaviour
+    public class AreaEffectBehaviour : AbilityBehaviourOLD
     {
         #region Properties
         RPGGameMaster gamemaster

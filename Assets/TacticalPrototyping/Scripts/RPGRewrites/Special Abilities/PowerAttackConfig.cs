@@ -6,12 +6,12 @@ using RPG.Characters;
 namespace RPGPrototype
 {
     [CreateAssetMenu(menuName = ("RPG/Special Abiltiy/Power Attack"))]
-    public class PowerAttackConfig : AbilityConfig
+    public class PowerAttackConfig : AbilityConfigOLD
     {
         [Header("Power Attack Specific")]
         [SerializeField] float extraDamage = 10f;
 
-        public override AbilityBehaviour AddBehaviourComponent(GameObject objectToAttachTo)
+        public override AbilityBehaviourOLD AddBehaviourComponent(GameObject objectToAttachTo)
         {
             return objectToAttachTo.AddComponent<PowerAttackBehaviour>();
         }

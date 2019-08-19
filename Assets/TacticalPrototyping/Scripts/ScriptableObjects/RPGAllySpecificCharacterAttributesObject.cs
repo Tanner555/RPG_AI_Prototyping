@@ -63,7 +63,7 @@ namespace RPGPrototype
 
         #region RPG Special Abilites Attributes
         [FoldoutGroup("RPG Special Abilites Attributes")]
-        [SerializeField] public AbilityConfig[] abilities;
+        [SerializeField] public AbilityConfigOLD[] abilities;
         [FoldoutGroup("RPG Special Abilites Attributes")]
         [SerializeField] public Image energyBar;
         [FoldoutGroup("RPG Special Abilites Attributes")]

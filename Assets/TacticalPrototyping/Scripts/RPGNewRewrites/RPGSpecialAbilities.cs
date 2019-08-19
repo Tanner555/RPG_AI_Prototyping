@@ -60,7 +60,7 @@ namespace RPGPrototype
         #endregion
 
         #region Fields
-        [SerializeField] AbilityConfig[] abilities;
+        [SerializeField] AbilityConfigOLD[] abilities;
         [SerializeField] Image energyBar;
         //Once per second
         float addStaminaRepeatRate = 1f;
@@ -73,7 +73,7 @@ namespace RPGPrototype
         /// Allows me to store a behavior on this script
         /// instead of depending on the config for behavior reference
         /// </summary>
-        Dictionary<AbilityConfig, AbilityBehaviour> AbilityDictionary = new Dictionary<AbilityConfig, AbilityBehaviour>();
+        Dictionary<AbilityConfigOLD, AbilityBehaviourOLD> AbilityDictionary = new Dictionary<AbilityConfigOLD, AbilityBehaviourOLD>();
         #endregion
 
         #region UnityMessages
@@ -167,9 +167,9 @@ namespace RPGPrototype
         #endregion
 
         #region DictionaryBehavior
-        public AbilityBehaviour AddAbilityBehaviorFromConfig(AbilityConfig _config, GameObject objectToattachTo)
+        public AbilityBehaviourOLD AddAbilityBehaviorFromConfig(AbilityConfigOLD _config, GameObject objectToattachTo)
         {
-            AbilityBehaviour _behaviourComponent = 
+            AbilityBehaviourOLD _behaviourComponent = 
                 _config.AddBehaviourComponent(objectToattachTo);
             _behaviourComponent.SetConfig(_config);
             return _behaviourComponent;

@@ -5,7 +5,7 @@ using RPG.Characters;
 
 namespace RPGPrototype
 {
-    public class SelfHealBehaviour : AbilityBehaviour
+    public class SelfHealBehaviour : AbilityBehaviourOLD
     {
         #region Properties
         RPGGameMaster gamemaster

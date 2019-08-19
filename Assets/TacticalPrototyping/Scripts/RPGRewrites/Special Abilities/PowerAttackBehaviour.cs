@@ -5,7 +5,7 @@ using RPG.Characters;
 
 namespace RPGPrototype
 {
-    public class PowerAttackBehaviour : AbilityBehaviour
+    public class PowerAttackBehaviour : AbilityBehaviourOLD
     {
         #region Properties
         RPGGameMaster gamemaster

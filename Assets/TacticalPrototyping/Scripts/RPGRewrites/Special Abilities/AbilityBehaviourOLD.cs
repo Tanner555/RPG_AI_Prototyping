@@ -4,9 +4,9 @@ using RPG.Characters;
 
 namespace RPGPrototype
 {
-    public abstract class AbilityBehaviour : MonoBehaviour
+    public abstract class AbilityBehaviourOLD : MonoBehaviour
     {
-        protected AbilityConfig config;
+        protected AbilityConfigOLD config;
 
         const string ATTACK_TRIGGER = "Attack";
         const string DEFAULT_ATTACK_STATE = "DEFAULT ATTACK";
@@ -14,7 +14,7 @@ namespace RPGPrototype
 
         public abstract void Use(GameObject target = null);
 
-        public void SetConfig(AbilityConfig configToSet)
+        public void SetConfig(AbilityConfigOLD configToSet)
         {
             config = configToSet;
         }

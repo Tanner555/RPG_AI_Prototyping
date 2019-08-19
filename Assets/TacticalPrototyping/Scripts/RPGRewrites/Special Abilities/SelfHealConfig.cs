@@ -6,12 +6,12 @@ using RPG.Characters;
 namespace RPGPrototype
 {
     [CreateAssetMenu(menuName = ("RPG/Special Abiltiy/Self Heal"))]
-    public class SelfHealConfig : AbilityConfig
+    public class SelfHealConfig : AbilityConfigOLD
 	{
 		[Header("Self Heal Specific")]
 		[SerializeField] float extraHealth = 50f;
 
-        public override AbilityBehaviour AddBehaviourComponent(GameObject objectToAttachTo)
+        public override AbilityBehaviourOLD AddBehaviourComponent(GameObject objectToAttachTo)
         {
             return objectToAttachTo.AddComponent<SelfHealBehaviour>();
         }

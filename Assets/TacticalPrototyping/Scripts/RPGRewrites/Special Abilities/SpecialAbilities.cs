@@ -7,7 +7,7 @@ namespace RPGPrototype
 {
     public class SpecialAbilities : MonoBehaviour
     {
-        [SerializeField] AbilityConfig[] abilities;
+        [SerializeField] AbilityConfigOLD[] abilities;
         [SerializeField] Image energyBar;
         [SerializeField] float maxEnergyPoints = 100f;
         [SerializeField] float regenPointsPerSecond = 1f;
