@@ -30,8 +30,8 @@ namespace RPGPrototype
         public event OnMouseOverTerrain onMouseOverPotentiallyWalkable;
 
         //Custom
-        public delegate void OneIntParamHandler(int _number);
-        public event OneIntParamHandler OnNumberKeyPress;
+        //public delegate void OneIntParamHandler(int _number);
+        //public event OneIntParamHandler OnNumberKeyPress;
         #endregion
 
         #region Calls
@@ -51,10 +51,10 @@ namespace RPGPrototype
         }
 
         //Custom
-        public void CallOnNumberKeyPress(int _number)
-        {
-            if (OnNumberKeyPress != null) OnNumberKeyPress(_number);
-        }
+        //public void CallOnNumberKeyPress(int _number)
+        //{
+        //    if (OnNumberKeyPress != null) OnNumberKeyPress(_number);
+        //}
 
         protected override void ToggleGamePauseTimeScale()
         {
