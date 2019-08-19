@@ -15,73 +15,67 @@ namespace RPGPrototype
         //Used For Character Death
         [FoldoutGroup("RPG Character Attributes")]
         [Header("Character Death")]
-        [SerializeField] AudioClip[] damageSounds;
+        [SerializeField] public AudioClip[] damageSounds;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] AudioClip[] deathSounds;
+        [SerializeField] public AudioClip[] deathSounds;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float deathVanishSeconds = 2.0f;
+        [SerializeField] public float deathVanishSeconds = 2.0f;
 
         [FoldoutGroup("RPG Character Attributes")]
-        const string DEATH_TRIGGER = "Death";
-
+        [Header("Animator")] [SerializeField] public RuntimeAnimatorController animatorController;
         [FoldoutGroup("RPG Character Attributes")]
-        AudioSource audioSource;
-
+        [SerializeField] public AnimatorOverrideController animatorOverrideController;
         [FoldoutGroup("RPG Character Attributes")]
-        [Header("Animator")] [SerializeField] RuntimeAnimatorController animatorController;
+        [SerializeField] public Avatar characterAvatar;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] AnimatorOverrideController animatorOverrideController;
-        [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] Avatar characterAvatar;
-        [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] [Range(.1f, 1f)] float animatorForwardCap = 1f;
+        [SerializeField] [Range(.1f, 1f)] public float animatorForwardCap = 1f;
 
         [FoldoutGroup("RPG Character Attributes")]
         [Header("Audio")]
-        [SerializeField] float audioSourceSpatialBlend = 0.5f;
+        [SerializeField] public float audioSourceSpatialBlend = 0.5f;
 
         [FoldoutGroup("RPG Character Attributes")]
         [Header("Capsule Collider")]
-        [SerializeField] Vector3 colliderCenter = new Vector3(0, 1.03f, 0);
+        [SerializeField] public Vector3 colliderCenter = new Vector3(0, 1.03f, 0);
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float colliderRadius = 0.2f;
+        [SerializeField] public float colliderRadius = 0.2f;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float colliderHeight = 2.03f;
+        [SerializeField] public float colliderHeight = 2.03f;
 
         [FoldoutGroup("RPG Character Attributes")]
         [Header("Movement")]
-        [SerializeField] float moveSpeedMultiplier = .7f;
+        [SerializeField] public float moveSpeedMultiplier = .7f;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float animationSpeedMultiplier = 1.5f;
+        [SerializeField] public float animationSpeedMultiplier = 1.5f;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float movingTurnSpeed = 360;
+        [SerializeField] public float movingTurnSpeed = 360;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float stationaryTurnSpeed = 180;
+        [SerializeField] public float stationaryTurnSpeed = 180;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float moveThreshold = 1f;
+        [SerializeField] public float moveThreshold = 1f;
 
         [FoldoutGroup("RPG Character Attributes")]
         [Header("Nav Mesh Agent")]
-        [SerializeField] float navMeshAgentSteeringSpeed = 1.0f;
+        [SerializeField] public float navMeshAgentSteeringSpeed = 1.0f;
         [FoldoutGroup("RPG Character Attributes")]
-        [SerializeField] float navMeshAgentStoppingDistance = 1.3f;
+        [SerializeField] public float navMeshAgentStoppingDistance = 1.3f;
         #endregion
 
         #region RPG Special Abilites Attributes
         [FoldoutGroup("RPG Special Abilites Attributes")]
-        [SerializeField] AbilityConfig[] abilities;
+        [SerializeField] public AbilityConfig[] abilities;
         [FoldoutGroup("RPG Special Abilites Attributes")]
-        [SerializeField] Image energyBar;
+        [SerializeField] public Image energyBar;
         [FoldoutGroup("RPG Special Abilites Attributes")]
-        [SerializeField] AudioClip outOfEnergy;
+        [SerializeField] public AudioClip outOfEnergy;
         #endregion
 
         #region WeaponSystemAttributes
         [Header("WeaponSystemAttributes")]
         [FoldoutGroup("WeaponSystemAttributes")]
-        [SerializeField] float baseDamage = 10f;
+        [SerializeField] public float baseDamage = 10f;
         [FoldoutGroup("WeaponSystemAttributes")]
-        [SerializeField] WeaponConfig currentWeaponConfig = null;
+        [SerializeField] public WeaponConfig currentWeaponConfig = null;
         #endregion
     }
 }

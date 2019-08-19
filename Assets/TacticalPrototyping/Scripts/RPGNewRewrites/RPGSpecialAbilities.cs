@@ -131,6 +131,19 @@ namespace RPGPrototype
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
+            if (_specificComps.bBuildCharacterCompletely)
+            {
+                var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject;
+                this.abilities = _rpgCharAttr.abilities;
+                if(_rpgCharAttr.energyBar != null)
+                {
+                    this.energyBar = _rpgCharAttr.energyBar;
+                }
+                if(_rpgCharAttr.outOfEnergy != null)
+                {
+                    this.outOfEnergy = _rpgCharAttr.outOfEnergy;
+                }
+            }
             audioSource = GetComponent<AudioSource>();
             InitializeAbilityDictionary();
             InvokeRepeating("SE_AddEnergyPoints", 1f, addStaminaRepeatRate);

@@ -63,6 +63,13 @@ namespace RPGPrototype
         }
         #endregion
 
+        #region UnityMessages
+        protected override void Start()
+        {
+            //Overriding AIController To Remove Checks and StartServices
+        }
+        #endregion
+
         #region Getters
         bool IsTargetInRange(GameObject target)
         {
@@ -76,6 +83,12 @@ namespace RPGPrototype
         void PutWeaponInHand(WeaponConfig _config)
         {
             myRPGWeapon = _config;
+            //Moved Comps Check Into PutWeaponInHad Handler
+            if (!AllCompsAreValid)
+            {
+                Debug.LogError("Not all comps are valid!");
+            }
+            StartServices();
         }
         #endregion
 

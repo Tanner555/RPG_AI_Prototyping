@@ -14,7 +14,7 @@ namespace RPGPrototype
     {
         [Header("RPG Character Attributes")]
         [SerializeField]
-        RPGAllySpecificCharacterAttributesObject RPGCharacterAttributesObject;
+        public RPGAllySpecificCharacterAttributesObject RPGCharacterAttributesObject;
     }
     #endregion
 

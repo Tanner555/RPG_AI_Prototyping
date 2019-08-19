@@ -70,16 +70,10 @@ namespace RPGPrototype
         #endregion
 
         #region UnityMessages
-        void Start()
-        {
-            animator = GetComponent<Animator>();
-            character = GetComponent<RPGCharacter>();
-
-            PutWeaponInHand(currentWeaponConfig);
-            SetAttackAnimation();
-
-            InvokeRepeating("SE_CheckForAttack", 1f, checkForAttackRate);       
-        }
+        //void Start()
+        //{
+     
+        //}
 
         private void OnEnable()
         {
@@ -95,16 +89,31 @@ namespace RPGPrototype
             eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
 
-        void Update()
-        {
-            //SE_CheckForAttack();
-        }
+        //void Update()
+        //{
+        //    //SE_CheckForAttack();
+        //}
         #endregion
 
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
-            
+            if (_specificComps.bBuildCharacterCompletely)
+            {
+                var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject;
+                this.baseDamage = _rpgCharAttr.baseDamage;
+                if(_rpgCharAttr.currentWeaponConfig != null)
+                {
+                    this.currentWeaponConfig = _rpgCharAttr.currentWeaponConfig;
+                }
+            }
+            animator = GetComponent<Animator>();
+            character = GetComponent<RPGCharacter>();
+
+            PutWeaponInHand(currentWeaponConfig);
+            SetAttackAnimation();
+
+            InvokeRepeating("SE_CheckForAttack", 1f, checkForAttackRate);
         }
 
         void OnStopAttacking()

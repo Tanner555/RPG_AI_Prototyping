@@ -10,6 +10,8 @@ namespace RPGPrototype
     public class RPGCharacter : MonoBehaviour
     {
         #region Fields
+        //Init Field
+        bool bInitializedAlly = false;
         //Used For Character Death
         [Header("Character Death")]
         [SerializeField] AudioClip[] damageSounds;
@@ -140,10 +142,10 @@ namespace RPGPrototype
 
         #region UnityMessages
         // messages, then public methods, then private methods...
-        void Awake()
-        {
-            AddRequiredComponents();
-        }
+        //void Awake()
+        //{
+            
+        //}
 
         private void OnEnable()
         {
@@ -165,6 +167,9 @@ namespace RPGPrototype
 
         void FixedUpdate()
         {
+            //Only Update Movement If Ally is Initialized
+            if(bInitializedAlly == false) return;
+
             if (PlayerWantsFreeMovement())
             {
                 if (bWasFreeMoving == false)
@@ -229,7 +234,31 @@ namespace RPGPrototype
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
-            
+            if (_specificComps.bBuildCharacterCompletely)
+            {
+                var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject;
+                this.damageSounds = _rpgCharAttr.damageSounds;
+                this.deathSounds = _rpgCharAttr.deathSounds;
+                this.deathVanishSeconds = _rpgCharAttr.deathVanishSeconds;
+                this.animatorController = _rpgCharAttr.animatorController;
+                this.animatorOverrideController = _rpgCharAttr.animatorOverrideController;
+                this.characterAvatar = _rpgCharAttr.characterAvatar;
+                this.animatorForwardCap = _rpgCharAttr.animatorForwardCap;
+                this.audioSourceSpatialBlend = _rpgCharAttr.audioSourceSpatialBlend;
+                this.colliderCenter = _rpgCharAttr.colliderCenter;
+                this.colliderRadius = _rpgCharAttr.colliderRadius;
+                this.colliderHeight = _rpgCharAttr.colliderHeight;
+                this.moveSpeedMultiplier = _rpgCharAttr.moveSpeedMultiplier;
+                this.animationSpeedMultiplier = _rpgCharAttr.animationSpeedMultiplier;
+                this.movingTurnSpeed = _rpgCharAttr.movingTurnSpeed;
+                this.stationaryTurnSpeed = _rpgCharAttr.stationaryTurnSpeed;
+                this.moveThreshold = _rpgCharAttr.moveThreshold;
+                this.navMeshAgentSteeringSpeed = _rpgCharAttr.navMeshAgentSteeringSpeed;
+                this.navMeshAgentStoppingDistance = _rpgCharAttr.navMeshAgentStoppingDistance;
+            }
+
+            AddRequiredComponents();
+            bInitializedAlly = true;
         }
 
         void HandleSetDestination(Vector3 _destination)
