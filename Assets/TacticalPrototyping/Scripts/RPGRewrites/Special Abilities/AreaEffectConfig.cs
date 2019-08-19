@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Characters;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     [CreateAssetMenu(menuName = ("RPG/Special Abiltiy/Area Effect"))]
     public class AreaEffectConfig : AbilityConfigOLD

@@ -5,7 +5,7 @@ using RPG.Characters;
 using RPG.Core;
 using System;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     public class AreaEffectBehaviour : AbilityBehaviourOLD
     {

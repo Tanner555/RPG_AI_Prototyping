@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using RPG.Characters;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     public class SpecialAbilities : MonoBehaviour
     {

@@ -132,7 +132,7 @@ namespace RPGPrototype {
                 spawnedGameObject.AddComponent<AllyMemberRPG>();
                 spawnedGameObject.AddComponent<AIControllerRPG>();
                 spawnedGameObject.AddComponent<RPGCharacter>();
-                spawnedGameObject.AddComponent<RPGSpecialAbilities>();
+                spawnedGameObject.AddComponent<RPGPrototype.OLDAbilities.RPGSpecialAbilities>();
                 spawnedGameObject.AddComponent<RPGWeaponSystem>();
                 spawnedGameObject.AddComponent<AllyVisualsRPG>();
                 spawnedGameObject.AddComponent<AllyTacticsRPG>();

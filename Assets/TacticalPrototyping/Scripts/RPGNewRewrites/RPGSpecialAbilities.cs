@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using RPG.Characters;
 using RTSCoreFramework;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     public class RPGSpecialAbilities : MonoBehaviour
     {

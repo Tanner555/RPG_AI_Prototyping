@@ -3,6 +3,8 @@ using System.Collections;
 using RPG.CameraUI; // for mouse events
 using BaseFramework;
 using RPGPrototype;
+//Not using player control script anyways
+using RPGPrototype.OLDAbilities;
 
 namespace RPG.Characters
 {

@@ -4,7 +4,7 @@ using UnityEngine;
 using RPG.Core;
 using RPG.Characters;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     public abstract class AbilityConfigOLD : ScriptableObject
     {

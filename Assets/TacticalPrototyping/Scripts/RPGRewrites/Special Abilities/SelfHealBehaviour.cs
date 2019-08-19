@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Characters;
 
-namespace RPGPrototype
+namespace RPGPrototype.OLDAbilities
 {
     public class SelfHealBehaviour : AbilityBehaviourOLD
     {

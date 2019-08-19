@@ -4,6 +4,8 @@ using RPG.CameraUI; // for mouse events
 using BaseFramework;
 using RTSCoreFramework;
 using RPG.Characters;
+//Not using player control script anyways
+using RPGPrototype.OLDAbilities;
 
 namespace RPGPrototype
 {
