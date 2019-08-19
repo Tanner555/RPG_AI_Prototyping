@@ -15,7 +15,9 @@ MonoBehaviour:
   AllyComponentSetupFields:
     sightRange: 40
     followDistance: 5
-    specialAbilitiesArray: []
+    specialAbilitiesArray:
+    - {fileID: 11400000, guid: ba25eb43f3d0e674390d4881b05c20a5, type: 2}
+    - {fileID: 11400000, guid: d1b47cd1196ec34479d0563b28eace1b, type: 2}
     outOfEnergySoundClip: {fileID: 8300000, guid: 8136ff2516a8e4083a19bfd8fad67741,
       type: 3}
     tacticsExecutionsPerSecond: 5
