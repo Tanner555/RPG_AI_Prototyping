@@ -12,6 +12,12 @@ namespace RPGPrototype
         #endregion
 
         #region Properties
+        public override bool bIsCarryingMeleeWeapon => true;
+
+        //TODO: Fix Self: Attack Targetted Enemy False Conditions
+        //Only Setting to fix IGBPI Bug, Due to Self: Attack Targetted Enemy False Conditions
+        public override int CurrentEquipedAmmo => 200;
+
         public override int AllyHealth
         {
             get { return allyStatController.Stat_Health; }
