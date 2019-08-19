@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if RTSCore_StandardAssets_OLD
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace RTSCoreFramework.StandardAssets
         private bool bZoomCamera = false;
         private bool bZoomIsPostive = false;
 
-        #region ZoomValues
+#region ZoomValues
         private float zoomOutPivot = 0.5f;
         private float zoomOutCamera = -0.5f;
 
@@ -79,9 +80,9 @@ namespace RTSCoreFramework.StandardAssets
         {
             get { return zoomCameraNormal + zoomCameraMinAdd; }
         }
-        #endregion
+#endregion
 
-        #region UnityMessages
+#region UnityMessages
         protected override void Start()
         {
             base.Start();
@@ -112,9 +113,9 @@ namespace RTSCoreFramework.StandardAssets
                 ZoomCamera();
             }
         }
-        #endregion
+#endregion
 
-        #region ZoomFunctionality
+#region ZoomFunctionality
         void ZoomCamera()
         {
             // Not Regarding Zoom Positive, Only Position Related
@@ -154,9 +155,9 @@ namespace RTSCoreFramework.StandardAssets
                 m_Cam.transform.localEulerAngles.z
                 );
         }
-        #endregion
+#endregion
 
-        #region Handlers
+#region Handlers
         void ToggleMoveCamera(bool enable)
         {
             moveCamera = enable;
@@ -180,9 +181,9 @@ namespace RTSCoreFramework.StandardAssets
             bZoomCamera = enable;
             bZoomIsPostive = isPositive;
         }
-        #endregion
+#endregion
 
-        #region BoilerPlateCode
+#region BoilerPlateCode
 
         // This script is designed to be placed on the root object of a camera rig,
         // comprising 3 gameobjects, each parented to the next:
@@ -271,7 +272,8 @@ namespace RTSCoreFramework.StandardAssets
             }
         }
 
-        #endregion
+#endregion
     }
 
 }
+#endif
