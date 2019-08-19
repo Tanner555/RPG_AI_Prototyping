@@ -5,7 +5,7 @@ using RTSCoreFramework;
 
 namespace RPGPrototype
 {
-    [CreateAssetMenu(menuName = ("RTSPrototype/SpecialAbiltiesTPC/Area Of Effect RPG"))]
+    [CreateAssetMenu(menuName = ("RTSPrototype/SpecialAbiltiesRPG/Area Of Effect RPG"))]
     public class AreaOfEffectConfigRPG : AbilityConfigRPG
     {
         [Header("Area Effect Specific")]
