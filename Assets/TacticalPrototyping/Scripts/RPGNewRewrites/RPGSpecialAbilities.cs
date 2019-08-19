@@ -78,7 +78,7 @@ namespace RPGPrototype
 
         #region UnityMessages
         // Use this for initialization
-        void Start()
+        private void OnEnable()
         {
             eventhandler.EventAllyDied += OnAllyDeath;
             eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
