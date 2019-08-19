@@ -408,11 +408,11 @@ namespace RPGPrototype
                     if (Vector3.Distance(transform.position, navMeshAgent.destination) > navMeshAgent.stoppingDistance + 0.1f)
                     {
                         //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
-                        string _msg = "Temporarily Ignoring Stopping Distance Issue." +
-                            $"Remaining Distance: {navMeshAgent.remainingDistance}" +
-                            $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
-                            $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
-                        Debug.Log(_msg);
+                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+                        //Debug.Log(_msg);
                     }
                     else
                     {

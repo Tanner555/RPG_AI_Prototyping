@@ -53,7 +53,7 @@ MonoBehaviour:
     CharacterType: 25
     AllyFaction: 1
     GeneralCommander: 1
-    bBuildCharacterCompletely: 0
+    bBuildCharacterCompletely: 1
     bBuildEnemyHealthBar: 1
     LOSChildObjectTransform: {fileID: 0}
     EnemyHealthBarImage: {fileID: 0}

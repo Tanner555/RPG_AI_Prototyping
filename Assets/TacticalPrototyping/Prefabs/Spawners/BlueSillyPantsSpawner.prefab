@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4208539417211409035}
-  m_LocalRotation: {x: -0, y: -0.51183975, z: -0, w: 0.859081}
+  m_LocalRotation: {x: 0, y: -0.5118405, z: 0, w: 0.85908055}
   m_LocalPosition: {x: -93.67, y: 9.92, z: -89.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -53,7 +53,7 @@ MonoBehaviour:
     CharacterType: 0
     AllyFaction: 0
     GeneralCommander: 0
-    bBuildCharacterCompletely: 0
+    bBuildCharacterCompletely: 1
     bBuildEnemyHealthBar: 0
     LOSChildObjectTransform: {fileID: 0}
     EnemyHealthBarImage: {fileID: 0}
