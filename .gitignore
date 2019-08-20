@@ -36,6 +36,8 @@ sysinfo.txt
 *.unitypackage
 
 # Ignore These Folders and Files
+Assets/ModelsAndAssets
+Assets/ModelsAndAssets.meta
 Assets/RTSCoreFramework
 Assets/RTSCoreFramework.meta
 Assets/Plugins
