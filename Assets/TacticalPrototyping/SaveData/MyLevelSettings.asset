@@ -25,3 +25,10 @@ MonoBehaviour:
     ScenarioSettingsList:
     - ScenarioName: First Main Scenario
       Scenario: 0
+  - LevelName: Level 1 Training
+    Level: 2
+    LevelBuildIndex: 2
+    LevelImage: {fileID: 0}
+    ScenarioSettingsList:
+    - ScenarioName: First Main Scenario
+      Scenario: 0

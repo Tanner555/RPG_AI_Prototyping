@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TacticalPrototyping/Levels/My Custom Village.unity
     guid: ad9883d0da397504eb7ae077b0d90769
+  - enabled: 1
+    path: Assets/TacticalPrototyping/Levels/Lvl 1-Training UCC.unity
+    guid: 2fb5480f2418efc4f80d3b1fef088016
   m_configObjects: {}
