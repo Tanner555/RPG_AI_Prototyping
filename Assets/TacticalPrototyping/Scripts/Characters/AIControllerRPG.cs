@@ -10,7 +10,8 @@ namespace RPGPrototype
     {
         #region Fields
         WeaponConfig myRPGWeapon = null;
-
+        //Extra
+        bool bUseAStarPath = false;
         #endregion
 
         #region ComponentsAndSingletons
@@ -42,6 +43,8 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;
+
+        protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
 
         #region Properties
@@ -56,6 +59,24 @@ namespace RPGPrototype
         #endregion
 
         #region Getters
+        public override bool isSurfaceWalkable(RaycastHit hit)
+        {
+            if (bUseAStarPath == false)
+            {
+                return base.isSurfaceWalkable(hit);
+            }
+            return false;
+        }
+
+        public override bool isSurfaceWalkable(Vector3 _point)
+        {
+            if (bUseAStarPath == false)
+            {
+                return base.isSurfaceWalkable(_point);
+            }
+            return false;
+        }
+
         bool IsTargetInRange(GameObject target)
         {
             if (myRPGWeapon == null) return false;
@@ -70,6 +91,13 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        protected override void OnAllyInitComps(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {
+            base.OnAllyInitComps(_specific, _allFields);
+            var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
+            this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+        }
+
         void PutWeaponInHand(WeaponConfig _config)
         {
             myRPGWeapon = _config;

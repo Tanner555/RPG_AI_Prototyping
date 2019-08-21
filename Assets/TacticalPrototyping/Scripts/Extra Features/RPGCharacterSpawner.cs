@@ -24,6 +24,8 @@ namespace RPGPrototype {
         {
             get { return AllAllyComponentFieldsObject.AllyComponentSetupFields; }
         }
+
+        protected 
         #endregion
 
         #region Properties

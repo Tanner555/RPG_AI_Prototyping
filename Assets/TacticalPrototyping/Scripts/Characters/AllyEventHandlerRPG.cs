@@ -15,6 +15,8 @@ namespace RPGPrototype
         [Header("RPG Character Attributes")]
         [SerializeField]
         public RPGAllySpecificCharacterAttributesObject RPGCharacterAttributesObject;
+        [SerializeField]
+        public RPGAllySpecificCharacterAttributesObject ASTAR_RPGCharacterAttributesObject;
     }
     #endregion
 
@@ -22,7 +24,8 @@ namespace RPGPrototype
     [System.Serializable]
     public class AllyComponentsAllCharacterFieldsRPG : RTSAllyComponentsAllCharacterFields
     {
-        
+        [Header("Custom AI Path Settings")]
+        public bool bUseAStarPath = false;
     }
     #endregion
 

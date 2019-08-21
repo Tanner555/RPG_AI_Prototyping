@@ -102,9 +102,13 @@ namespace RPGPrototype
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
+            var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allAllyComps;
             if (_specificComps.bBuildCharacterCompletely)
             {
-                var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject;
+                var _rpgCharAttr = _RPGallAllyComps.bUseAStarPath == false ?
+                    ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject :
+                    ((AllyComponentSpecificFieldsRPG)_specificComps).ASTAR_RPGCharacterAttributesObject;
+                
                 this.baseDamage = _rpgCharAttr.baseDamage;
                 if(_rpgCharAttr.currentWeaponConfig != null)
                 {

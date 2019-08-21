@@ -40,3 +40,4 @@ MonoBehaviour:
     WaypointRendererMaterial: {fileID: 2100000, guid: 6d824634677c23d40b27f91a5aef6ce7,
       type: 2}
     BloodParticles: {fileID: 0}
+    bUseAStarPath: 0

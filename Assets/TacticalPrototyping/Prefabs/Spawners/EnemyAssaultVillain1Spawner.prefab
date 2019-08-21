@@ -61,5 +61,7 @@ MonoBehaviour:
     AllyIndicatorSpotlightInstance: {fileID: 0}
     RPGCharacterAttributesObject: {fileID: 11400000, guid: 9c14c81fa1337cf47af2e067db26d987,
       type: 2}
+    ASTAR_RPGCharacterAttributesObject: {fileID: 11400000, guid: 16cea28e917b5da4f8a1622e804dd7b3,
+      type: 2}
   AllAllyComponentFieldsObject: {fileID: 11400000, guid: 9a6cab6b0d240524a99266237fcddfb2,
     type: 2}

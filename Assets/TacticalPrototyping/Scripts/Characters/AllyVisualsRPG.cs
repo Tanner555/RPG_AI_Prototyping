@@ -11,6 +11,8 @@ namespace RPGPrototype
         #region Fields
         //[SerializeField]
         //Image myHealthBar;
+        //Extra
+        bool bUseAStarPath = false;
         #endregion
 
         #region UnityMessages
@@ -28,6 +30,12 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        protected override void OnAllyInitComponents(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {
+            base.OnAllyInitComponents(_specific, _allFields);
+            var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
+            this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+        }
         //void OnHealthUpdate(int _current, int _max)
         //{
         //    if(myHealthBar != null)
@@ -37,5 +45,13 @@ namespace RPGPrototype
         //    }
         //}
         #endregion
+
+        protected override void UpdateWaypointRenderer()
+        {
+            if (bUseAStarPath == false)
+            {
+                base.UpdateWaypointRenderer();
+            }
+        }
     }
 }
