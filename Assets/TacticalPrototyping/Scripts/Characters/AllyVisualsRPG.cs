@@ -3,11 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RTSCoreFramework;
+using Pathfinding;
 
 namespace RPGPrototype
 {
     public class AllyVisualsRPG : AllyVisuals
     {
+        #region Properties
+        Seeker mySeeker
+        {
+            get
+            {
+                if (_mySeeker == null)
+                {
+                    _mySeeker = GetComponent<Seeker>();
+                }
+                return _mySeeker;
+            }
+        }
+        Seeker _mySeeker = null;
+
+        AIPath myAIPath
+        {
+            get
+            {
+                if (_myAIPath == null)
+                    _myAIPath = GetComponent<AIPath>();
+
+                return _myAIPath;
+            }
+        }
+        AIPath _myAIPath = null;
+        #endregion
+
         #region Fields
         //[SerializeField]
         //Image myHealthBar;

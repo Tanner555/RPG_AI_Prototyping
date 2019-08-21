@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTSCoreFramework;
 using RPG.Characters;
+using Pathfinding;
 
 namespace RPGPrototype
 {
@@ -12,12 +13,20 @@ namespace RPGPrototype
         WeaponConfig myRPGWeapon = null;
         //Extra
         bool bUseAStarPath = false;
+        ABPath myCurrentABPath = null;
+        LayerMask currWalkLayers;
+        int currHitLayer;
         #endregion
 
         #region ComponentsAndSingletons
         new RPGGameMaster gamemaster
         {
             get { return RPGGameMaster.thisInstance; }
+        }
+
+        new RPGGameMode gamemode
+        {
+            get { return RPGGameMode.thisInstance; }
         }
 
         new AllyEventHandlerRPG myEventHandler
@@ -48,7 +57,30 @@ namespace RPGPrototype
         #endregion
 
         #region Properties
+        Seeker mySeeker
+        {
+            get
+            {
+                if (_mySeeker == null)
+                {
+                    _mySeeker = GetComponent<Seeker>();
+                }
+                return _mySeeker;
+            }
+        }
+        Seeker _mySeeker = null;
 
+        AIPath myAIPath
+        {
+            get
+            {
+                if (_myAIPath == null)
+                    _myAIPath = GetComponent<AIPath>();
+
+                return _myAIPath;
+            }
+        }
+        AIPath _myAIPath = null;
         #endregion
 
         #region UnityMessages
@@ -65,7 +97,12 @@ namespace RPGPrototype
             {
                 return base.isSurfaceWalkable(hit);
             }
-            return false;
+            else
+            {
+                currWalkLayers = gamemode.WalkableLayers;
+                currHitLayer = hit.transform.gameObject.layer;
+                return currWalkLayers == (currWalkLayers | (1 << currHitLayer));
+            }
         }
 
         public override bool isSurfaceWalkable(Vector3 _point)
@@ -74,7 +111,10 @@ namespace RPGPrototype
             {
                 return base.isSurfaceWalkable(_point);
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         bool IsTargetInRange(GameObject target)
