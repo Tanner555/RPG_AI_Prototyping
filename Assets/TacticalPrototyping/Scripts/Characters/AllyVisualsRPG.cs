@@ -80,6 +80,36 @@ namespace RPGPrototype
             {
                 base.UpdateWaypointRenderer();
             }
+            else
+            {
+                if (bHasSwitched || myAIPath == null || mySeeker == null ||
+                myAIPath.hasPath == false || myEventHandler.bIsAIMoving) return;
+
+                if (waypointRenderer != null && waypointRenderer.enabled == false)
+                {
+                    waypointRenderer.enabled = true;
+                }
+                else if (waypointRenderer == null)
+                {
+                    waypointRenderer = this.gameObject.AddComponent<LineRenderer>();
+                    if (waypointRendererMaterial != null)
+                        waypointRenderer.material = waypointRendererMaterial;
+
+                    waypointRenderer.startWidth = waypointStartWidth;
+                    waypointRenderer.endWidth = waypointEndWidth;
+                    waypointRenderer.startColor = waypointStartColor;
+                    waypointRenderer.endColor = waypointEndColor;
+                }
+
+                var path = mySeeker.GetCurrentPath();
+
+                waypointRenderer.positionCount = path.path.Count;
+
+                for (int i = 0; i < path.path.Count; i++)
+                {
+                    waypointRenderer.SetPosition(i, (Vector3)path.path[i].position);
+                }
+            }
         }
     }
 }

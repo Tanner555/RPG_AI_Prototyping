@@ -320,6 +320,11 @@ namespace RPGPrototype
             {
                 navMeshAgent.velocity = Vector3.zero;
             }
+            else
+            {
+                myAIPath.canMove = false;
+                myAIPath.enableRotation = false;
+            }
         }
 
         void ToggleSprint()
@@ -365,6 +370,10 @@ namespace RPGPrototype
             {
                 navMeshAgent.destination = worldPos;
             }
+            else
+            {
+                mySeeker.StartPath(transform.position, worldPos);
+            }
         }
 
         void SetForwardAndTurn(Vector3 movement)
@@ -390,6 +399,11 @@ namespace RPGPrototype
             {
                 navMeshAgent.updateRotation = false;
                 navMeshAgent.velocity = Vector3.zero;
+            }
+            else
+            {
+                myAIPath.enableRotation = false;
+                myAIPath.canMove = false;
             }
             // X = Horizontal Z = Forward
             // calculate move direction to pass to character
@@ -487,7 +501,56 @@ namespace RPGPrototype
 
         void MoveCharacterFromAStarPath()
         {
+            if (myAIPath.canMove != true)
+            {
+                myAIPath.canMove = true;
+            }
+            if (myAIPath.maxSpeed != speedMultiplier)
+            {
+                myAIPath.maxSpeed = speedMultiplier;
+            }
 
+            if (myAIPath.remainingDistance > myAIPath.endReachedDistance &&
+                isAlive &&
+                eventHandler != null &&
+                eventHandler.bIsFreeMoving == false &&
+                eventHandler.bIsNavMoving
+                )
+            {
+                Move(myAIPath.desiredVelocity);
+            }
+            else if (eventHandler.bIsFreeMoving == false)
+            {
+                if (eventHandler.bIsNavMoving && bHasSetDestination)
+                {
+                    if (Vector3.Distance(transform.position, myAIPath.destination) > myAIPath.endReachedDistance + 0.1f)
+                    {
+                        //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
+                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+                        //Debug.Log(_msg);
+                    }
+                    else
+                    {
+                        eventHandler.CallEventFinishedMoving();
+                    }
+                }
+                Move(Vector3.zero);
+            }
+            else
+            {
+                if (eventHandler.bIsNavMoving)
+                {
+                    eventHandler.CallEventFinishedMoving();
+                }
+            }
+
+            if (myAIPath.enableRotation != true)
+            {
+                myAIPath.enableRotation = true;
+            }
         }
         #endregion
 
