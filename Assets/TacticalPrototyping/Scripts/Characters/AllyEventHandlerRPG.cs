@@ -5,6 +5,8 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using RTSCoreFramework;
 using RPG.Characters;
+using Pathfinding;
+using Sirenix.OdinInspector;
 
 namespace RPGPrototype
 {
@@ -24,8 +26,26 @@ namespace RPGPrototype
     [System.Serializable]
     public class AllyComponentsAllCharacterFieldsRPG : RTSAllyComponentsAllCharacterFields
     {
-        [Header("Custom AI Path Settings")]
+        [FoldoutGroup("AStar PathFinding Settings")]
+        [Header("AStar PathFinding Settings")]
         public bool bUseAStarPath = false;
+        [FoldoutGroup("AStar PathFinding Settings")]
+        public string aStar_traversableGraphs = "RTS Graph";
+        [FoldoutGroup("AStar PathFinding Settings")]
+        public float aStar_Radius = 0.5f;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_Height = 1.8f;
+        [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_CanSearch = true;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_RepathRate = 0.5f;
+        [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_CanMove = false;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_MaxSpeed = 1;
+        [FoldoutGroup("AStar PathFinding Settings")] public OrientationMode aStar_Orientation;
+        [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_EnableRotation = false;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_PickNextWaypointDistance = 0.75f;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_SlowdownDistance = 0.6f;
+        [FoldoutGroup("AStar PathFinding Settings")] public float aStar_EndReachedDistance = 1;
+        [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_AlwaysDrawGizmos = false;
+        [FoldoutGroup("AStar PathFinding Settings")] public CloseToDestinationMode aStar_CloseToDestination;
+        [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_ConstrainInsideGraph = false;
     }
     #endregion
 

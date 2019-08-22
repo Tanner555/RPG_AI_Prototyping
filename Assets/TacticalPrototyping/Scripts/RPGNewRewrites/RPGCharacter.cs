@@ -322,8 +322,14 @@ namespace RPGPrototype
             }
             else
             {
-                myAIPath.canMove = false;
-                myAIPath.enableRotation = false;
+                if (myAIPath.canMove)
+                {
+                    myAIPath.canMove = false;
+                }
+                if (myAIPath.enableRotation)
+                {
+                    myAIPath.enableRotation = false;
+                }
             }
         }
 
@@ -402,8 +408,14 @@ namespace RPGPrototype
             }
             else
             {
-                myAIPath.enableRotation = false;
-                myAIPath.canMove = false;
+                if (myAIPath.enableRotation)
+                {
+                    myAIPath.enableRotation = false;
+                }
+                if (myAIPath.canMove)
+                {
+                    myAIPath.canMove = false;
+                }
             }
             // X = Horizontal Z = Forward
             // calculate move direction to pass to character
@@ -507,7 +519,7 @@ namespace RPGPrototype
             }
             if (myAIPath.maxSpeed != speedMultiplier)
             {
-                myAIPath.maxSpeed = speedMultiplier;
+                myAIPath.maxSpeed = speedMultiplier * 2;
             }
 
             if (myAIPath.remainingDistance > myAIPath.endReachedDistance &&

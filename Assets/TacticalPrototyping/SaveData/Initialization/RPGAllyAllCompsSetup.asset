@@ -41,3 +41,18 @@ MonoBehaviour:
       type: 2}
     BloodParticles: {fileID: 0}
     bUseAStarPath: 0
+    aStar_traversableGraphs: RTS Graph
+    aStar_Radius: 0.5
+    aStar_Height: 1.8
+    aStar_CanSearch: 1
+    aStar_RepathRate: 0.5
+    aStar_CanMove: 0
+    aStar_MaxSpeed: 1
+    aStar_Orientation: 0
+    aStar_EnableRotation: 0
+    aStar_PickNextWaypointDistance: 0.75
+    aStar_SlowdownDistance: 0.6
+    aStar_EndReachedDistance: 1
+    aStar_AlwaysDrawGizmos: 0
+    aStar_CloseToDestination: 0
+    aStar_ConstrainInsideGraph: 0

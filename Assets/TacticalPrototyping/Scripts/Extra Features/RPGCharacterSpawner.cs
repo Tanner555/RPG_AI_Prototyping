@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using RTSCoreFramework;
 using BaseFramework;
+using Pathfinding;
 
 namespace RPGPrototype { 
     public class RPGCharacterSpawner : CharacterSpawner
@@ -138,6 +139,27 @@ namespace RPGPrototype {
                 spawnedGameObject.AddComponent<RPGWeaponSystem>();
                 spawnedGameObject.AddComponent<AllyVisualsRPG>();
                 spawnedGameObject.AddComponent<AllyTacticsRPG>();
+            }
+
+            if (AllAllyComponentFields.bUseAStarPath)
+            {
+                var _aiStarSeeker = spawnedGameObject.AddComponent<Seeker>();
+                var _aiStarAIPath = spawnedGameObject.AddComponent<AIPath>();
+                _aiStarSeeker.graphMask = GraphMask.FromGraphName(AllAllyComponentFields.aStar_traversableGraphs);
+                _aiStarAIPath.radius = AllAllyComponentFields.aStar_Radius;
+                _aiStarAIPath.height = AllAllyComponentFields.aStar_Height;
+                _aiStarAIPath.canSearch = AllAllyComponentFields.aStar_CanSearch;
+                _aiStarAIPath.repathRate = AllAllyComponentFields.aStar_RepathRate;
+                _aiStarAIPath.canMove = AllAllyComponentFields.aStar_CanMove;
+                _aiStarAIPath.maxSpeed = AllAllyComponentFields.aStar_MaxSpeed;
+                _aiStarAIPath.orientation = AllAllyComponentFields.aStar_Orientation;
+                _aiStarAIPath.enableRotation = AllAllyComponentFields.aStar_EnableRotation;
+                _aiStarAIPath.pickNextWaypointDist = AllAllyComponentFields.aStar_PickNextWaypointDistance;
+                _aiStarAIPath.slowdownDistance = AllAllyComponentFields.aStar_SlowdownDistance;
+                _aiStarAIPath.endReachedDistance = AllAllyComponentFields.aStar_EndReachedDistance;
+                _aiStarAIPath.alwaysDrawGizmos = AllAllyComponentFields.aStar_AlwaysDrawGizmos;
+                _aiStarAIPath.whenCloseToDestination = AllAllyComponentFields.aStar_CloseToDestination;
+                _aiStarAIPath.constrainInsideGraph = AllAllyComponentFields.aStar_ConstrainInsideGraph;
             }
 
             //Call Ally Init Comps Event
