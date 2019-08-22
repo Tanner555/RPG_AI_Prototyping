@@ -517,7 +517,7 @@ namespace RPGPrototype
             {
                 myAIPath.canMove = true;
             }
-            if (myAIPath.maxSpeed != speedMultiplier)
+            if (myAIPath.maxSpeed != speedMultiplier * 2)
             {
                 myAIPath.maxSpeed = speedMultiplier * 2;
             }
