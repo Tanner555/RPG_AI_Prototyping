@@ -141,7 +141,10 @@ namespace RPGPrototype {
                 spawnedGameObject.AddComponent<AllyTacticsRPG>();
             }
 
-            if (AllAllyComponentFields.bUseAStarPath)
+            if (AllySpecificComponentsToSetUp.bBuildCharacterCompletely && 
+                AllAllyComponentFields.bUseAStarPath &&
+                spawnedGameObject.GetComponent<Seeker>() == null &&
+                spawnedGameObject.GetComponent<AIPath>() == null)
             {
                 var _aiStarSeeker = spawnedGameObject.AddComponent<Seeker>();
                 var _aiStarAIPath = spawnedGameObject.AddComponent<AIPath>();
