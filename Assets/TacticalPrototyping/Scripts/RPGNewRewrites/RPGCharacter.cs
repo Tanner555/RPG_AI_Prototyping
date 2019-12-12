@@ -3,6 +3,9 @@ using UnityEngine.AI;
 using RTSCoreFramework;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+#if RTSAStarPathfinding
+using Pathfinding;
+#endif
 
 namespace RPGPrototype
 {
@@ -56,6 +59,9 @@ namespace RPGPrototype
         NavMeshAgent navMeshAgent;
         Animator animator;
         Rigidbody ridigBody;
+
+        //Extra
+        bool bUseAStarPath = false;
         #endregion
 
         #region MovementFields
@@ -138,13 +144,40 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;
+
+#if RTSAStarPathfinding
+        Seeker mySeeker
+        {
+            get
+            {
+                if(_mySeeker == null)
+                {
+                    _mySeeker = GetComponent<Seeker>();
+                }
+                return _mySeeker;
+            }
+        }
+        Seeker _mySeeker = null;
+
+        AIPath myAIPath
+        {
+            get
+            {
+                if (_myAIPath == null)
+                    _myAIPath = GetComponent<AIPath>();
+
+                return _myAIPath;
+            }
+        }
+        AIPath _myAIPath = null;
+#endif
         #endregion
 
         #region UnityMessages
         // messages, then public methods, then private methods...
         //void Awake()
         //{
-            
+
         //}
 
         private void OnEnable()
@@ -184,7 +217,15 @@ namespace RPGPrototype
                     eventHandler.CallEventFinishedMoving();
                     bWasFreeMoving = false;
                 }
-                MoveCharacterMain();
+
+                if (bUseAStarPath == false)
+                {
+                    MoveCharacterMain();
+                }
+                else
+                {
+                    MoveCharacterFromAStarPath();
+                }
             }
         }
 
@@ -221,22 +262,30 @@ namespace RPGPrototype
             animator.runtimeAnimatorController = animatorController;
             animator.avatar = characterAvatar;
 
-            navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-            //navMeshAgent = GetComponent<NavMeshAgent>();
-            navMeshAgent.speed = navMeshAgentSteeringSpeed;
-            navMeshAgent.stoppingDistance = navMeshAgentStoppingDistance;
-            navMeshAgent.autoBraking = false;
-            navMeshAgent.updateRotation = false;
-            navMeshAgent.updatePosition = true;
+            if(bUseAStarPath == false)
+            {
+                navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+                //navMeshAgent = GetComponent<NavMeshAgent>();
+                navMeshAgent.speed = navMeshAgentSteeringSpeed;
+                navMeshAgent.stoppingDistance = navMeshAgentStoppingDistance;
+                navMeshAgent.autoBraking = false;
+                navMeshAgent.updateRotation = false;
+                navMeshAgent.updatePosition = true;
+            }
         }
         #endregion
 
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
+            var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allAllyComps;
+            this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+
             if (_specificComps.bBuildCharacterCompletely)
-            {
-                var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject;
+            {                
+                var _rpgCharAttr = this.bUseAStarPath == false ? 
+                    ((AllyComponentSpecificFieldsRPG)_specificComps).RPGCharacterAttributesObject :
+                    ((AllyComponentSpecificFieldsRPG)_specificComps).ASTAR_RPGCharacterAttributesObject;
                 this.damageSounds = _rpgCharAttr.damageSounds;
                 this.deathSounds = _rpgCharAttr.deathSounds;
                 this.deathVanishSeconds = _rpgCharAttr.deathVanishSeconds;
@@ -271,7 +320,24 @@ namespace RPGPrototype
         {
             bHasSetDestination = false;
             SetDestination(transform.position);
-            navMeshAgent.velocity = Vector3.zero;
+            if (bUseAStarPath == false)
+            {
+                navMeshAgent.velocity = Vector3.zero;
+            }
+            else
+            {
+#if RTSAStarPathfinding
+                if (myAIPath.canMove)
+                {
+                    myAIPath.canMove = false;
+                }
+                if (myAIPath.enableRotation)
+                {
+                    myAIPath.enableRotation = false;
+                }
+#endif
+
+            }
         }
 
         void ToggleSprint()
@@ -313,7 +379,16 @@ namespace RPGPrototype
         #region Setters
         public void SetDestination(Vector3 worldPos)
         {
-            navMeshAgent.destination = worldPos;
+            if (bUseAStarPath == false)
+            {
+                navMeshAgent.destination = worldPos;
+            }
+            else
+            {
+#if RTSAStarPathfinding
+                mySeeker.StartPath(transform.position, worldPos);
+#endif
+            }
         }
 
         void SetForwardAndTurn(Vector3 movement)
@@ -335,8 +410,24 @@ namespace RPGPrototype
         #region FreeOrNavMoving
         void MoveFreely()
         {
-            navMeshAgent.updateRotation = false;
-            navMeshAgent.velocity = Vector3.zero;
+            if (bUseAStarPath == false)
+            {
+                navMeshAgent.updateRotation = false;
+                navMeshAgent.velocity = Vector3.zero;
+            }
+            else
+            {
+#if RTSAStarPathfinding
+                if (myAIPath.enableRotation)
+                {
+                    myAIPath.enableRotation = false;
+                }
+                if (myAIPath.canMove)
+                {
+                    myAIPath.canMove = false;
+                }
+#endif
+            }
             // X = Horizontal Z = Forward
             // calculate move direction to pass to character
             if (myCamera != null)
@@ -429,6 +520,62 @@ namespace RPGPrototype
                 }
             }
             navMeshAgent.updateRotation = true;
+        }
+
+        void MoveCharacterFromAStarPath()
+        {
+#if RTSAStarPathfinding
+            if (myAIPath.canMove != true)
+            {
+                myAIPath.canMove = true;
+            }
+            if (myAIPath.maxSpeed != speedMultiplier * 2)
+            {
+                myAIPath.maxSpeed = speedMultiplier * 2;
+            }
+
+            if (myAIPath.remainingDistance > myAIPath.endReachedDistance &&
+                isAlive &&
+                eventHandler != null &&
+                eventHandler.bIsFreeMoving == false &&
+                eventHandler.bIsNavMoving
+                )
+            {
+                Move(myAIPath.desiredVelocity);
+            }
+            else if (eventHandler.bIsFreeMoving == false)
+            {
+                if (eventHandler.bIsNavMoving && bHasSetDestination)
+                {
+                    if (Vector3.Distance(transform.position, myAIPath.destination) > myAIPath.endReachedDistance + 0.1f)
+                    {
+                        //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
+                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+                        //Debug.Log(_msg);
+                    }
+                    else
+                    {
+                        eventHandler.CallEventFinishedMoving();
+                    }
+                }
+                Move(Vector3.zero);
+            }
+            else
+            {
+                if (eventHandler.bIsNavMoving)
+                {
+                    eventHandler.CallEventFinishedMoving();
+                }
+            }
+
+            if (myAIPath.enableRotation != true)
+            {
+                myAIPath.enableRotation = true;
+            }
+#endif
         }
         #endregion
 

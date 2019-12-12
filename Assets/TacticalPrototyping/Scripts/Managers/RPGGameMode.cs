@@ -16,5 +16,13 @@ namespace RPGPrototype
             get { return (RPGGameMode)GameMode.thisInstance; }
         }
         #endregion
+
+        #region LayersAndTags
+        [Header("Layers For AI and Raycasting")]
+        [SerializeField]
+        private LayerMask walkableLayers;
+
+        public LayerMask WalkableLayers => walkableLayers;
+        #endregion
     }
 }

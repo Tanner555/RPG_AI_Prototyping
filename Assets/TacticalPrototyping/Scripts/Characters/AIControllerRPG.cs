@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTSCoreFramework;
 using RPG.Characters;
+#if RTSAStarPathfinding
+using Pathfinding;
+#endif
 
 namespace RPGPrototype
 {
@@ -10,13 +13,24 @@ namespace RPGPrototype
     {
         #region Fields
         WeaponConfig myRPGWeapon = null;
-
+        //Extra
+        bool bUseAStarPath = false;
+        #if RTSAStarPathfinding
+        ABPath myCurrentABPath = null;
+        #endif
+        LayerMask currWalkLayers;
+        int currHitLayer;
         #endregion
 
         #region ComponentsAndSingletons
         new RPGGameMaster gamemaster
         {
             get { return RPGGameMaster.thisInstance; }
+        }
+
+        new RPGGameMode gamemode
+        {
+            get { return RPGGameMode.thisInstance; }
         }
 
         new AllyEventHandlerRPG myEventHandler
@@ -42,10 +56,37 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;
+
+        protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
 
         #region Properties
+        #if RTSAStarPathfinding
+        Seeker mySeeker
+        {
+            get
+            {
+                if (_mySeeker == null)
+                {
+                    _mySeeker = GetComponent<Seeker>();
+                }
+                return _mySeeker;
+            }
+        }
+        Seeker _mySeeker = null;
 
+        AIPath myAIPath
+        {
+            get
+            {
+                if (_myAIPath == null)
+                    _myAIPath = GetComponent<AIPath>();
+
+                return _myAIPath;
+            }
+        }
+        AIPath _myAIPath = null;
+        #endif
         #endregion
 
         #region UnityMessages
@@ -56,6 +97,32 @@ namespace RPGPrototype
         #endregion
 
         #region Getters
+        public override bool isSurfaceWalkable(RaycastHit hit)
+        {
+            if (bUseAStarPath == false)
+            {
+                return base.isSurfaceWalkable(hit);
+            }
+            else
+            {
+                currWalkLayers = gamemode.WalkableLayers;
+                currHitLayer = hit.transform.gameObject.layer;
+                return currWalkLayers == (currWalkLayers | (1 << currHitLayer));
+            }
+        }
+
+        public override bool isSurfaceWalkable(Vector3 _point)
+        {
+            if (bUseAStarPath == false)
+            {
+                return base.isSurfaceWalkable(_point);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         bool IsTargetInRange(GameObject target)
         {
             if (myRPGWeapon == null) return false;
@@ -70,6 +137,13 @@ namespace RPGPrototype
         #endregion
 
         #region Handlers
+        protected override void OnAllyInitComps(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
+        {
+            base.OnAllyInitComps(_specific, _allFields);
+            var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
+            this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+        }
+
         void PutWeaponInHand(WeaponConfig _config)
         {
             myRPGWeapon = _config;
