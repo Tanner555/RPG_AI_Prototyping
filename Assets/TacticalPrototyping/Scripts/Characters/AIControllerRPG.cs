@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTSCoreFramework;
 using RPG.Characters;
+#if RTSAStarPathfinding
 using Pathfinding;
+#endif
 
 namespace RPGPrototype
 {
@@ -13,7 +15,9 @@ namespace RPGPrototype
         WeaponConfig myRPGWeapon = null;
         //Extra
         bool bUseAStarPath = false;
+        #if RTSAStarPathfinding
         ABPath myCurrentABPath = null;
+        #endif
         LayerMask currWalkLayers;
         int currHitLayer;
         #endregion
@@ -57,6 +61,7 @@ namespace RPGPrototype
         #endregion
 
         #region Properties
+        #if RTSAStarPathfinding
         Seeker mySeeker
         {
             get
@@ -81,6 +86,7 @@ namespace RPGPrototype
             }
         }
         AIPath _myAIPath = null;
+        #endif
         #endregion
 
         #region UnityMessages

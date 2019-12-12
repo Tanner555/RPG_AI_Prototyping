@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using RTSCoreFramework;
 using BaseFramework;
+#if RTSAStarPathfinding
 using Pathfinding;
+#endif
 
 namespace RPGPrototype { 
     public class RPGCharacterSpawner : CharacterSpawner
@@ -141,6 +143,7 @@ namespace RPGPrototype {
                 spawnedGameObject.AddComponent<AllyTacticsRPG>();
             }
 
+#if RTSAStarPathfinding
             if (AllySpecificComponentsToSetUp.bBuildCharacterCompletely && 
                 AllAllyComponentFields.bUseAStarPath &&
                 spawnedGameObject.GetComponent<Seeker>() == null &&
@@ -164,6 +167,7 @@ namespace RPGPrototype {
                 _aiStarAIPath.whenCloseToDestination = AllAllyComponentFields.aStar_CloseToDestination;
                 _aiStarAIPath.constrainInsideGraph = AllAllyComponentFields.aStar_ConstrainInsideGraph;
             }
+#endif
 
             //Call Ally Init Comps Event
             var _eventHandler = spawnedGameObject.GetComponent<AllyEventHandler>();

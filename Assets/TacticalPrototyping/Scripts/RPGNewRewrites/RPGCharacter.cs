@@ -3,7 +3,9 @@ using UnityEngine.AI;
 using RTSCoreFramework;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+#if RTSAStarPathfinding
 using Pathfinding;
+#endif
 
 namespace RPGPrototype
 {
@@ -143,6 +145,7 @@ namespace RPGPrototype
         }
         AllyMemberRPG _allymember = null;
 
+#if RTSAStarPathfinding
         Seeker mySeeker
         {
             get
@@ -167,6 +170,7 @@ namespace RPGPrototype
             }
         }
         AIPath _myAIPath = null;
+#endif
         #endregion
 
         #region UnityMessages
@@ -322,6 +326,7 @@ namespace RPGPrototype
             }
             else
             {
+#if RTSAStarPathfinding
                 if (myAIPath.canMove)
                 {
                     myAIPath.canMove = false;
@@ -330,6 +335,8 @@ namespace RPGPrototype
                 {
                     myAIPath.enableRotation = false;
                 }
+#endif
+
             }
         }
 
@@ -378,7 +385,9 @@ namespace RPGPrototype
             }
             else
             {
+#if RTSAStarPathfinding
                 mySeeker.StartPath(transform.position, worldPos);
+#endif
             }
         }
 
@@ -408,6 +417,7 @@ namespace RPGPrototype
             }
             else
             {
+#if RTSAStarPathfinding
                 if (myAIPath.enableRotation)
                 {
                     myAIPath.enableRotation = false;
@@ -416,6 +426,7 @@ namespace RPGPrototype
                 {
                     myAIPath.canMove = false;
                 }
+#endif
             }
             // X = Horizontal Z = Forward
             // calculate move direction to pass to character
@@ -513,6 +524,7 @@ namespace RPGPrototype
 
         void MoveCharacterFromAStarPath()
         {
+#if RTSAStarPathfinding
             if (myAIPath.canMove != true)
             {
                 myAIPath.canMove = true;
@@ -563,6 +575,7 @@ namespace RPGPrototype
             {
                 myAIPath.enableRotation = true;
             }
+#endif
         }
         #endregion
 

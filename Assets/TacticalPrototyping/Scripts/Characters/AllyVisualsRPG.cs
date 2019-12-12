@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RTSCoreFramework;
+#if RTSAStarPathfinding
 using Pathfinding;
+#endif
 
 namespace RPGPrototype
 {
     public class AllyVisualsRPG : AllyVisuals
     {
         #region Properties
+#if RTSAStarPathfinding
         Seeker mySeeker
         {
             get
@@ -34,6 +37,7 @@ namespace RPGPrototype
             }
         }
         AIPath _myAIPath = null;
+#endif
         #endregion
 
         #region Fields
@@ -76,6 +80,7 @@ namespace RPGPrototype
 
         protected override void UpdateWaypointRenderer()
         {
+#if RTSAStarPathfinding
             if (bUseAStarPath == false)
             {
                 base.UpdateWaypointRenderer();
@@ -110,6 +115,9 @@ namespace RPGPrototype
                     waypointRenderer.SetPosition(i, (Vector3)path.path[i].position);
                 }
             }
+#else
+            base.UpdateWaypointRenderer();
+#endif
         }
     }
 }

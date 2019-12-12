@@ -5,7 +5,9 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using RTSCoreFramework;
 using RPG.Characters;
+#if RTSAStarPathfinding
 using Pathfinding;
+#endif
 using Sirenix.OdinInspector;
 
 namespace RPGPrototype
@@ -38,13 +40,17 @@ namespace RPGPrototype
         [FoldoutGroup("AStar PathFinding Settings")] public float aStar_RepathRate = 0.5f;
         [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_CanMove = false;
         [FoldoutGroup("AStar PathFinding Settings")] public float aStar_MaxSpeed = 1;
+#if RTSAStarPathfinding
         [FoldoutGroup("AStar PathFinding Settings")] public OrientationMode aStar_Orientation;
+#endif
         [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_EnableRotation = false;
         [FoldoutGroup("AStar PathFinding Settings")] public float aStar_PickNextWaypointDistance = 0.75f;
         [FoldoutGroup("AStar PathFinding Settings")] public float aStar_SlowdownDistance = 0.6f;
         [FoldoutGroup("AStar PathFinding Settings")] public float aStar_EndReachedDistance = 1;
         [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_AlwaysDrawGizmos = false;
+#if RTSAStarPathfinding
         [FoldoutGroup("AStar PathFinding Settings")] public CloseToDestinationMode aStar_CloseToDestination;
+#endif
         [FoldoutGroup("AStar PathFinding Settings")] public bool aStar_ConstrainInsideGraph = false;
     }
     #endregion
