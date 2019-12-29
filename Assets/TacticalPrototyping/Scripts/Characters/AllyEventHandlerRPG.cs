@@ -9,6 +9,7 @@ using RPG.Characters;
 using Pathfinding;
 #endif
 using Sirenix.OdinInspector;
+using BehaviorDesigner.Runtime;
 
 namespace RPGPrototype
 {
@@ -28,6 +29,9 @@ namespace RPGPrototype
     [System.Serializable]
     public class AllyComponentsAllCharacterFieldsRPG : RTSAllyComponentsAllCharacterFields
     {
+        [Header("Behaviour Designer Settings")]
+        public bool bUseBehaviourTrees = true;
+        public ExternalBehaviorTree allAlliesDefaultBehaviourTree;
         [FoldoutGroup("AStar PathFinding Settings")]
         [Header("AStar PathFinding Settings")]
         public bool bUseAStarPath = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTSCoreFramework;
 using RPG.Characters;
+using BehaviorDesigner.Runtime;
 #if RTSAStarPathfinding
 using Pathfinding;
 #endif
@@ -142,6 +143,21 @@ namespace RPGPrototype
             base.OnAllyInitComps(_specific, _allFields);
             var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+            if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
+            {                
+                var _behaviourtree = gameObject.AddComponent<BehaviorTree>();
+		        _behaviourtree.StartWhenEnabled = false;
+		        _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
+                _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
+                StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
+            }
+        }
+
+        IEnumerator StartDefaultBehaviourTreeAfterDelay()
+        {
+            yield return new WaitForSeconds(0.2f);
+            var _behaviourtree = gameObject.GetComponent<BehaviorTree>();
+            _behaviourtree.EnableBehavior();
         }
 
         void PutWeaponInHand(WeaponConfig _config)

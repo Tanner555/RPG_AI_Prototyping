@@ -40,6 +40,9 @@ MonoBehaviour:
     WaypointRendererMaterial: {fileID: 2100000, guid: 6d824634677c23d40b27f91a5aef6ce7,
       type: 2}
     BloodParticles: {fileID: 0}
+    bUseBehaviourTrees: 1
+    allAlliesDefaultBehaviourTree: {fileID: 11400000, guid: 334fefb8aa4aa724aacb9f1739347f8f,
+      type: 2}
     bUseAStarPath: 0
     aStar_traversableGraphs: RTS Graph
     aStar_Radius: 0.5
@@ -48,11 +51,9 @@ MonoBehaviour:
     aStar_RepathRate: 0.5
     aStar_CanMove: 0
     aStar_MaxSpeed: 1
-    aStar_Orientation: 0
     aStar_EnableRotation: 0
     aStar_PickNextWaypointDistance: 0.75
     aStar_SlowdownDistance: 0.6
     aStar_EndReachedDistance: 1
     aStar_AlwaysDrawGizmos: 0
-    aStar_CloseToDestination: 0
     aStar_ConstrainInsideGraph: 0
