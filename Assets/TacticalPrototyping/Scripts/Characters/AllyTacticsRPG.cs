@@ -7,6 +7,7 @@ namespace RPGPrototype
 {
     public class AllyTacticsRPG : AllyTacticsController
     {
+        /*
         #region Handlers
         //protected override void HandleToggleTactics(bool _enable)
         //{
@@ -73,5 +74,6 @@ namespace RPGPrototype
                 UnLoadAndCancelTactics();
             }
         }
+        */
     }
 }

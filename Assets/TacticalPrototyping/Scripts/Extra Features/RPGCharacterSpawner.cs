@@ -75,7 +75,7 @@ namespace RPGPrototype {
             if (AllySpecificComponentsToSetUp.bBuildCharacterCompletely)
             {
                 spawnedGameObject.AddComponent<AllyStatControllerRPG>();
-                spawnedGameObject.AddComponent<AllyActionQueueController>();
+                //spawnedGameObject.AddComponent<AllyActionQueueController>();
 
                 //Spawn Child Objects
                 if (AllAllyComponentFields.bBuildLOSChildObject)
@@ -140,7 +140,7 @@ namespace RPGPrototype {
                 spawnedGameObject.AddComponent<RPGSpecialAbilities>();
                 spawnedGameObject.AddComponent<RPGWeaponSystem>();
                 spawnedGameObject.AddComponent<AllyVisualsRPG>();
-                spawnedGameObject.AddComponent<AllyTacticsRPG>();
+                //spawnedGameObject.AddComponent<AllyTacticsRPG>();
             }
 
 #if RTSAStarPathfinding
