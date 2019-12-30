@@ -94,10 +94,10 @@ namespace RPGPrototype
         #endregion
 
         #region OverrideCalls
-        protected override void CallEventCommandMove(Vector3 _point)
+        protected override void CallEventCommandMove(Vector3 _point, bool _isCommandMove)
         {
             CallStopAttackingRPGTarget();
-            base.CallEventCommandMove(_point);
+            base.CallEventCommandMove(_point, _isCommandMove);
         }
 
         public override void CallEventStopTargettingEnemy()

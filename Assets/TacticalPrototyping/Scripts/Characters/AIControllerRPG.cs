@@ -85,6 +85,9 @@ namespace RPGPrototype
         public string BBName_MyMoveThreshold => "MyMoveThreshold";
         public string BBName_MyAnimatorForwardCap => "MyAnimatorForwardCap";
         public string BBName_MyAnimationSpeedMultiplier => "MyAnimationSpeedMultiplier";
+        public string BBName_MyNavDestination => "MyNavDestination";
+        public string BBName_bHasSetDestination => "bHasSetDestination";
+        public string BBName_bHasSetCommandMove => "bHasSetCommandMove";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -208,6 +211,17 @@ namespace RPGPrototype
             {
                 AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
                 AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _toSet == allyMember && _toSet.bIsInGeneralCommanderParty);
+            }
+        }
+
+        protected override void HandleOnMoveAlly(Vector3 _point, bool _isCommandMove)
+        {
+            //base.HandleOnMoveAlly(_point);
+            if (bUsingBehaviorTrees)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, _point);
+                AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, true);
+                AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, _isCommandMove);
             }
         }
         #endregion
