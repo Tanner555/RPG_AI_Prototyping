@@ -14,6 +14,8 @@ namespace RPGPrototype
     {
         #region Fields
         WeaponConfig myRPGWeapon = null;
+        //BTs
+        private bool bUsingBehaviorTrees = true;
         //Extra
         bool bUseAStarPath = false;
         #if RTSAStarPathfinding
@@ -56,12 +58,28 @@ namespace RPGPrototype
                 return _allymember;
             }
         }
-        AllyMemberRPG _allymember = null;
+        AllyMemberRPG _allymember = null;        
 
         protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
 
-        #region Properties
+        #region Properties       
+        BehaviorTree AllyBehaviorTree
+        {
+            get
+            {
+                if(_AllyBehaviorTree == null)
+                {
+                    _AllyBehaviorTree = GetComponent<BehaviorTree>();
+                }
+                return _AllyBehaviorTree;
+            }            
+        }
+        BehaviorTree _AllyBehaviorTree = null;
+
+        public string BBName_bIsAllyInCommand => "bIsAllyInCommand";
+        public string BBName_bIsCurrentPlayer => "bIsCurrentPlayer";
+
         #if RTSAStarPathfinding
         Seeker mySeeker
         {
@@ -143,6 +161,7 @@ namespace RPGPrototype
             base.OnAllyInitComps(_specific, _allFields);
             var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+            bUsingBehaviorTrees = _RPGallAllyComps.bUseBehaviourTrees;
             if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
             {                
                 var _behaviourtree = gameObject.AddComponent<BehaviorTree>();
@@ -156,8 +175,7 @@ namespace RPGPrototype
         IEnumerator StartDefaultBehaviourTreeAfterDelay()
         {
             yield return new WaitForSeconds(0.2f);
-            var _behaviourtree = gameObject.GetComponent<BehaviorTree>();
-            _behaviourtree.EnableBehavior();
+            AllyBehaviorTree.EnableBehavior();
         }
 
         void PutWeaponInHand(WeaponConfig _config)
@@ -169,6 +187,16 @@ namespace RPGPrototype
                 Debug.LogError("Not all comps are valid!");
             }
             StartServices();
+        }
+
+        protected override void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
+        {
+            base.HandleAllySwitch(_party, _toSet, _current);
+            if (bUsingBehaviorTrees)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
+                AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _toSet == allyMember && _toSet.bIsInGeneralCommanderParty);
+            }
         }
         #endregion
 
