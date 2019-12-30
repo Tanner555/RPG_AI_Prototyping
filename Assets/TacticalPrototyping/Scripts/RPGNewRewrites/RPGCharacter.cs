@@ -62,6 +62,7 @@ namespace RPGPrototype
 
         //Extra
         bool bUseAStarPath = false;
+        private Vector3 myAnimMoveVelocity = Vector3.zero;
         #endregion
 
         #region MovementFields
@@ -183,63 +184,63 @@ namespace RPGPrototype
         private void OnEnable()
         {
             eventHandler.EventAllyDied += Kill;
-            eventHandler.EventCommandMove += HandleSetDestination;
-            eventHandler.EventToggleIsSprinting += ToggleSprint;
-            eventHandler.EventFinishedMoving += FinishMoving;
+            //eventHandler.EventCommandMove += HandleSetDestination;
+            //eventHandler.EventToggleIsSprinting += ToggleSprint;
+            //eventHandler.EventFinishedMoving += FinishMoving;
             eventHandler.InitializeAllyComponents += OnInitializeAllyComponents;
         }
 
         private void OnDisable()
         {
             eventHandler.EventAllyDied -= Kill;
-            eventHandler.EventCommandMove -= HandleSetDestination;
-            eventHandler.EventToggleIsSprinting -= ToggleSprint;
-            eventHandler.EventFinishedMoving -= FinishMoving;
+            //eventHandler.EventCommandMove -= HandleSetDestination;
+            //eventHandler.EventToggleIsSprinting -= ToggleSprint;
+            //eventHandler.EventFinishedMoving -= FinishMoving;
             eventHandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
 
-        void FixedUpdate()
-        {
-            //Only Update Movement If Ally is Initialized
-            if(bInitializedAlly == false) return;
+        //void FixedUpdate()
+        //{
+        //    //Only Update Movement If Ally is Initialized
+        //    if(bInitializedAlly == false) return;
 
-            if (PlayerWantsFreeMovement())
-            {
-                if (bWasFreeMoving == false)
-                    bWasFreeMoving = true;
+        //    if (PlayerWantsFreeMovement())
+        //    {
+        //        if (bWasFreeMoving == false)
+        //            bWasFreeMoving = true;
 
-                MoveFreely();
-            }
-            else
-            {
-                if (bWasFreeMoving)
-                {
-                    eventHandler.CallEventFinishedMoving();
-                    bWasFreeMoving = false;
-                }
+        //        MoveFreely();
+        //    }
+        //    else
+        //    {
+        //        if (bWasFreeMoving)
+        //        {
+        //            eventHandler.CallEventFinishedMoving();
+        //            bWasFreeMoving = false;
+        //        }
 
-                if (bUseAStarPath == false)
-                {
-                    MoveCharacterMain();
-                }
-                else
-                {
-                    MoveCharacterFromAStarPath();
-                }
-            }
-        }
-
+        //        if (bUseAStarPath == false)
+        //        {
+        //            MoveCharacterMain();
+        //        }
+        //        else
+        //        {
+        //            MoveCharacterFromAStarPath();
+        //        }
+        //    }
+        //}
+        
         void OnAnimatorMove()
         {
             // we implement this function to override the default root motion.
             // this allows us to modify the positional speed before it's applied.
             if (Time.deltaTime > 0)
             {
-                Vector3 velocity = (animator.deltaPosition * moveSpeedMultiplier) / Time.deltaTime;
+                myAnimMoveVelocity = (animator.deltaPosition * moveSpeedMultiplier) / Time.deltaTime;
 
                 // we preserve the existing y part of the current velocity.
-                velocity.y = ridigBody.velocity.y;
-                ridigBody.velocity = velocity;
+                myAnimMoveVelocity.y = ridigBody.velocity.y;
+                ridigBody.velocity = myAnimMoveVelocity;
             }
         }
         #endregion
