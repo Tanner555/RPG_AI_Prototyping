@@ -10,6 +10,10 @@ namespace RPGPrototype
     [TaskDescription("Returns Success if Owner is Current Player and Movement Input Has Been Received.")]
     public class PlayerWantsFreeMovement : Conditional
 	{
+		#region Shared
+		public SharedVector3 MyMoveDirection;
+		#endregion
+
 		#region Fields
 		private float myHorizontalMovement, myForwardMovement = 0.0f;
 		Vector3 myDirection = Vector3.zero;
@@ -43,13 +47,38 @@ namespace RPGPrototype
 		AllyEventHandler _myEventhandler = null;
 
 		bool bIsAlive => allyMember != null && allyMember.IsAlive;
+
+        Camera myCamera
+        {
+            get
+            {
+                if (_myCamera == null)
+                    _myCamera = Camera.main;
+
+                return _myCamera;
+            }
+        }
+        Camera _myCamera = null;
+
+		Vector3 CamForward
+        {
+            get
+            {
+                return Vector3.Scale(myCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
+            }
+        }
 		#endregion
 
+		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
 			if (bIsAlive == false ||
                 allyMember == null ||
-                allyMember.bIsCurrentPlayer == false) return TaskStatus.Failure;
+                allyMember.bIsCurrentPlayer == false)
+			{
+				ResetFreeMoveDirection();
+				return TaskStatus.Failure;
+			}
 
 			myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
             myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
@@ -68,6 +97,8 @@ namespace RPGPrototype
                 {
                     myEventHandler.CallEventTogglebIsFreeMoving(true);
                 }
+				//Also Calculate Move Direction Used For Movement Task
+				CalculateFreeMoveDirection();
                 return TaskStatus.Success;
             }
             else
@@ -76,9 +107,41 @@ namespace RPGPrototype
                 {
                     myEventHandler.CallEventTogglebIsFreeMoving(false);
                 }
+				ResetFreeMoveDirection();
                 return TaskStatus.Failure;
             }
 
 		}
+
+		public override void OnConditionalAbort()
+		{
+			Debug.Log($"Conditional Abort on {transform.name}");
+			//myEventHandler.CallEventTogglebIsFreeMoving(false);
+			//myEventHandler.CallEventFinishedMoving();
+		}
+		#endregion
+
+		#region Helpers
+		void ResetFreeMoveDirection()
+		{
+			MyMoveDirection.Value = Vector3.zero;
+		}
+
+		void CalculateFreeMoveDirection()
+		{
+			// X = Horizontal Z = Forward
+            // calculate move direction to pass to character
+            if (myCamera != null)
+            {
+                // calculate camera relative direction to move:
+                MyMoveDirection.Value = myDirection.z * CamForward + myDirection.x * myCamera.transform.right;
+            }
+            else
+            {
+                // we use world-relative directions in the case of no main camera
+                MyMoveDirection.Value = myDirection.z * Vector3.forward + myDirection.x * Vector3.right;
+            }
+		}
+		#endregion
 	}
 }

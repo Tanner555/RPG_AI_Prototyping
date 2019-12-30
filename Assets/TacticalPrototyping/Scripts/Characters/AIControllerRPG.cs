@@ -79,6 +79,12 @@ namespace RPGPrototype
 
         public string BBName_bIsAllyInCommand => "bIsAllyInCommand";
         public string BBName_bIsCurrentPlayer => "bIsCurrentPlayer";
+        public string BBName_MyMoveDirection => "MyMoveDirection";
+        public string BBName_MyStationaryTurnSpeed => "MyStationaryTurnSpeed";
+        public string BBName_MyMovingTurnSpeed => "MyMovingTurnSpeed";
+        public string BBName_MyMoveThreshold => "MyMoveThreshold";
+        public string BBName_MyAnimatorForwardCap => "MyAnimatorForwardCap";
+        public string BBName_MyAnimationSpeedMultiplier => "MyAnimationSpeedMultiplier";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -160,6 +166,7 @@ namespace RPGPrototype
         {
             base.OnAllyInitComps(_specific, _allFields);
             var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
+            var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specific).RPGCharacterAttributesObject;
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
             bUsingBehaviorTrees = _RPGallAllyComps.bUseBehaviourTrees;
             if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
@@ -168,6 +175,11 @@ namespace RPGPrototype
 		        _behaviourtree.StartWhenEnabled = false;
 		        _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
                 _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
+                _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
+                _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
+                _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
+                _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
+                _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
                 StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
             }
         }
