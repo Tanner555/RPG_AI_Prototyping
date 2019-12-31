@@ -12,6 +12,7 @@ namespace RPGPrototype {
 		#region Shared
 		public SharedVector3 MyMoveDirection;
 		public SharedVector3 MyNavDestination;
+		public SharedBool bFinishedMoving;
 		#endregion
 
 		#region Properties
@@ -93,9 +94,17 @@ namespace RPGPrototype {
 
 		public override TaskStatus OnUpdate()
 		{
+			//By Default, Will Keep Moving Until in a Finished State
+			bFinishedMoving.Value = false;
+
 			if(navMeshAgent == null) Debug.LogError(gameObject.name + "navmesh is null");
 			if(!navMeshAgent.isOnNavMesh) Debug.LogError(gameObject.name + " uh oh this guy is not on the navmesh");
-			if (navMeshAgent == null || !navMeshAgent.isOnNavMesh) return TaskStatus.Failure;
+			if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
+			{
+				//Stop Moving and Finish Task
+				bFinishedMoving.Value = true;
+				return TaskStatus.Failure;
+			}
 
 			if(navMeshAgent.destination != MyNavDestination.Value) navMeshAgent.SetDestination(MyNavDestination.Value);
 
@@ -103,7 +112,8 @@ namespace RPGPrototype {
 			{
 				navMeshAgent.updateRotation = true;
 				MyMoveDirection.Value = navMeshAgent.desiredVelocity;
-				return TaskStatus.Running;
+				//Haven't Finished Moving Yet, Returning Success Temporarily
+				return TaskStatus.Success;
 			}
 			else if(Vector3.Distance(transform.position, navMeshAgent.destination) > navMeshAgent.stoppingDistance + 0.1f)
 			{
@@ -115,10 +125,13 @@ namespace RPGPrototype {
                 //Debug.Log(_msg);
 				navMeshAgent.updateRotation = true;
 				MyMoveDirection.Value = Vector3.zero;
-				return TaskStatus.Running;
+				//Haven't Finished Moving Yet, Returning Success Temporarily
+				return TaskStatus.Success;
 			}
 			else
 			{
+				//Finished Moving, Stop Running This Task
+				bFinishedMoving.Value = true;
 				return TaskStatus.Success;
 			}
 		}
