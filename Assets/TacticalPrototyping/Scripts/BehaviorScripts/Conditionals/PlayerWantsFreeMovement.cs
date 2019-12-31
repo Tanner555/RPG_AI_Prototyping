@@ -12,6 +12,7 @@ namespace RPGPrototype
 	{
 		#region Shared
 		public SharedVector3 MyMoveDirection;
+		public SharedBool bIsFreeMoving;
 		#endregion
 
 		#region Fields
@@ -77,6 +78,7 @@ namespace RPGPrototype
                 allyMember.bIsCurrentPlayer == false)
 			{
 				ResetFreeMoveDirection();
+				bIsFreeMoving.Value = false;
 				return TaskStatus.Failure;
 			}
 
@@ -99,6 +101,7 @@ namespace RPGPrototype
                 }
 				//Also Calculate Move Direction Used For Movement Task
 				CalculateFreeMoveDirection();
+				bIsFreeMoving.Value = true;
                 return TaskStatus.Success;
             }
             else
@@ -108,6 +111,7 @@ namespace RPGPrototype
                     myEventHandler.CallEventTogglebIsFreeMoving(false);
                 }
 				ResetFreeMoveDirection();
+				bIsFreeMoving.Value = false;
                 return TaskStatus.Failure;
             }
 

@@ -88,6 +88,9 @@ namespace RPGPrototype
         public string BBName_MyNavDestination => "MyNavDestination";
         public string BBName_bHasSetDestination => "bHasSetDestination";
         public string BBName_bHasSetCommandMove => "bHasSetCommandMove";
+        public string BBName_CurrentTargettedEnemy => "CurrentTargettedEnemy";
+        public string BBName_bTargetEnemy => "bTargetEnemy";
+        public string BBName_bIsFreeMoving => "bIsFreeMoving";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -211,6 +214,10 @@ namespace RPGPrototype
             {
                 AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
                 AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _toSet == allyMember && _toSet.bIsInGeneralCommanderParty);
+                if (_toSet.bIsInGeneralCommanderParty)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                }                
             }
         }
 
@@ -222,87 +229,117 @@ namespace RPGPrototype
                 AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, _point);
                 AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, true);
                 AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, _isCommandMove);
+                if (_isCommandMove)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
+                    AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+                }
+            }
+        }
+
+        protected override void HandleCommandAttackEnemy(AllyMember enemy)
+        {
+            base.HandleCommandAttackEnemy(enemy);
+            if (bUsingBehaviorTrees)
+            {
+                bool _isFreeMoving = (bool)AllyBehaviorTree.GetVariable(BBName_bIsFreeMoving).GetValue();
+                if (_isFreeMoving == false)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, enemy.transform);
+                    AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
+                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                }
+            }
+        }
+
+        protected override void HandleStopTargetting()
+        {
+            base.HandleStopTargetting();
+            if (bUsingBehaviorTrees)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
+                AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
             }
         }
         #endregion
 
         #region ShootingAndBattleBehavior
-        protected override void UpdateBattleBehavior()
-        {
-            RPGUpdateBattleBehaviorOLD();
-        }
-        
-        private void RPGUpdateBattleBehaviorOLD()
-        {
-            // Pause Ally Tactics If Ally Is Paused
-            // Due to the Game Pausing Or Control Pause Mode
-            // Is Active
-            if (myEventHandler.bAllyIsPaused) return;
+        //protected override void UpdateBattleBehavior()
+        //{
+        //    RPGUpdateBattleBehaviorOLD();
+        //}
 
-            if (currentTargettedEnemy == null ||
-                currentTargettedEnemy.IsAlive == false ||
-                myEventHandler.bIsFreeMoving)
-            {
-                myEventHandler.CallEventStopTargettingEnemy();
-                myEventHandler.CallEventFinishedMoving();
-                return;
-            }
+        //private void RPGUpdateBattleBehaviorOLD()
+        //{
+        //    // Pause Ally Tactics If Ally Is Paused
+        //    // Due to the Game Pausing Or Control Pause Mode
+        //    // Is Active
+        //    if (myEventHandler.bAllyIsPaused) return;
 
-            if (IsTargetInRange(currentTargettedEnemy.gameObject))
-            {
-                if (bIsMeleeing == false)
-                {
-                    //myEventHandler.CallAttackRPGTarget(currentTargettedEnemy.gameObject);
-                    myEventHandler.CallEventFinishedMoving();
-                    StartMeleeAttackBehavior();
-                }
-            }
-            else
-            {
-                if (bIsMeleeing == true)
-                {
-                    //myEventHandler.CallStopAttackingRPGTarget();
-                    StopMeleeAttackBehavior();
-                }
+        //    if (currentTargettedEnemy == null ||
+        //        currentTargettedEnemy.IsAlive == false ||
+        //        myEventHandler.bIsFreeMoving)
+        //    {
+        //        myEventHandler.CallEventStopTargettingEnemy();
+        //        myEventHandler.CallEventFinishedMoving();
+        //        return;
+        //    }
 
-                myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);
-            }
-        }
+        //    if (IsTargetInRange(currentTargettedEnemy.gameObject))
+        //    {
+        //        if (bIsMeleeing == false)
+        //        {
+        //            //myEventHandler.CallAttackRPGTarget(currentTargettedEnemy.gameObject);
+        //            myEventHandler.CallEventFinishedMoving();
+        //            StartMeleeAttackBehavior();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (bIsMeleeing == true)
+        //        {
+        //            //myEventHandler.CallStopAttackingRPGTarget();
+        //            StopMeleeAttackBehavior();
+        //        }
 
-        //Probably Won't Use, From RTSCoreFramework AIController
-        private void RPGUpdateBattleBehaviorNEW()
-        {
-            // Pause Ally Tactics If Ally Is Paused
-            // Due to the Game Pausing Or Control Pause Mode
-            // Is Active
-            if (myEventHandler.bAllyIsPaused) return;
+        //        myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);
+        //    }
+        //}
 
-            if (bStopUpdatingBattleBehavior)
-            {
-                myEventHandler.CallEventStopTargettingEnemy();
-                myEventHandler.CallEventFinishedMoving();
-                return;
-            }
+        ////Probably Won't Use, From RTSCoreFramework AIController
+        //private void RPGUpdateBattleBehaviorNEW()
+        //{
+        //    // Pause Ally Tactics If Ally Is Paused
+        //    // Due to the Game Pausing Or Control Pause Mode
+        //    // Is Active
+        //    if (myEventHandler.bAllyIsPaused) return;
 
-            //Melee Behavior
-            if (IsTargetInMeleeRange(currentTargettedEnemy.gameObject))
-            {
-                if (bIsMeleeing == false)
-                {
-                    StartMeleeAttackBehavior();
-                    myEventHandler.CallEventFinishedMoving();
-                }
-            }
-            else
-            {
-                if (bIsMeleeing == true)
-                {
-                    StopMeleeAttackBehavior();
-                }
+        //    if (bStopUpdatingBattleBehavior)
+        //    {
+        //        myEventHandler.CallEventStopTargettingEnemy();
+        //        myEventHandler.CallEventFinishedMoving();
+        //        return;
+        //    }
 
-                myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);
-            }
-        }
+        //    //Melee Behavior
+        //    if (IsTargetInMeleeRange(currentTargettedEnemy.gameObject))
+        //    {
+        //        if (bIsMeleeing == false)
+        //        {
+        //            StartMeleeAttackBehavior();
+        //            myEventHandler.CallEventFinishedMoving();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (bIsMeleeing == true)
+        //        {
+        //            StopMeleeAttackBehavior();
+        //        }
+
+        //        myEventHandler.CallEventAIMove(currentTargettedEnemy.transform.position);
+        //    }
+        //}
         #endregion
 
         #region Initialization

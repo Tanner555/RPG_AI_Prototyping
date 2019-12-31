@@ -41,7 +41,7 @@ MonoBehaviour:
       type: 2}
     BloodParticles: {fileID: 0}
     bUseBehaviourTrees: 1
-    allAlliesDefaultBehaviourTree: {fileID: 11400000, guid: 334fefb8aa4aa724aacb9f1739347f8f,
+    allAlliesDefaultBehaviourTree: {fileID: 11400000, guid: c6ee4667eac7b1b40b071f21cf5eb693,
       type: 2}
     bUseAStarPath: 0
     aStar_traversableGraphs: RTS Graph
