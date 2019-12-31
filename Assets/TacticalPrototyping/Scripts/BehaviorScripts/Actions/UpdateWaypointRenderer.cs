@@ -1,7 +1,7 @@
-using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using RTSCoreFramework;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPGPrototype
@@ -16,6 +16,7 @@ namespace RPGPrototype
         public SharedFloat waypointEndWidth = 0.05f;
         public SharedColor waypointStartColor = Color.yellow;
         public SharedColor waypointEndColor = Color.yellow;
+
 		#endregion
 
 		#region Fields
@@ -69,23 +70,18 @@ namespace RPGPrototype
                 Debug.LogError("No Nav Mesh Found On Agent");
                 OnEnd();
             }
-		}
+        }
 
 		public override TaskStatus OnUpdate()
 		{
             UpdateWaypointRendererMain();
-			return TaskStatus.Success;
+            return TaskStatus.Success;
 		}
 		#endregion
 
 		#region Helpers
         protected void UpdateWaypointRendererMain()
         {
-            //if (bHasSwitched || myNavMesh == null ||
-            //    myNavMesh.path == null ||
-            //    myEventHandler.bIsAIMoving)
-            //    return;
-
             if (waypointRenderer != null && waypointRenderer.enabled == false)
             {
                 waypointRenderer.enabled = true;
