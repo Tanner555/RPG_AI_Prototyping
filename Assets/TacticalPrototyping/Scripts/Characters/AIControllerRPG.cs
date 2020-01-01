@@ -13,7 +13,7 @@ namespace RPGPrototype
     public class AIControllerRPG : AllyAIController
     {
         #region Fields
-        WeaponConfig myRPGWeapon = null;
+        public WeaponConfig myRPGWeapon = null;
         //BTs
         private bool bUsingBehaviorTrees = true;
         //Extra
