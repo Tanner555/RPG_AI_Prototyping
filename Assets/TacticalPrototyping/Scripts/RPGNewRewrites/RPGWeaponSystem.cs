@@ -126,7 +126,7 @@ namespace RPGPrototype
 
         void CheckTargetAndAttackEnemy()
         {
-            eventhandler.CallOnActiveTimeBarDepletion();
+            //eventhandler.CallOnActiveTimeBarDepletion();
 
             if (target == null) return;
 
