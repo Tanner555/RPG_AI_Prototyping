@@ -176,17 +176,31 @@ namespace RPGPrototype
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
             bUsingBehaviorTrees = _RPGallAllyComps.bUseBehaviourTrees;
             if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
-            {                
-                var _behaviourtree = gameObject.AddComponent<BehaviorTree>();
-		        _behaviourtree.StartWhenEnabled = false;
-		        _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
-                _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
+            {
+                BehaviorTree _behaviourtree;
+                if(GetComponent<BehaviorTree>() == null)
+                {                    
+                    //If BehaviorTree Can't Be Found, Add One And Initialize It Manually
+                    _behaviourtree = gameObject.AddComponent<BehaviorTree>();
+                    _behaviourtree.StartWhenEnabled = false;
+		            _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
+                    _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
+                }
+                else
+                {
+                    //BehaviorTree Already Exists, Not Need To Manually Set it Up
+                    _behaviourtree = AllyBehaviorTree;
+                }
                 _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
                 _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
                 _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
                 _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
                 _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
-                StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
+                if(_behaviourtree.StartWhenEnabled == false)
+                {
+                    //Only Manually Start Tree if It Doesn't Start On Enable
+                    StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
+                }                
             }
         }
 
