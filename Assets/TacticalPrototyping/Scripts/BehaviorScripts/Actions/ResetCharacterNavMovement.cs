@@ -7,13 +7,14 @@ using UnityEngine.AI;
 namespace RPGPrototype
 {
 	[TaskCategory("RPGPrototype/AllyMember")]
-    [TaskDescription("Resets The Provided Character Navigation Movement BlackBoard Variables and NavMeshAgent Dest.")]
+    [TaskDescription("Resets The Provided Character Navigation Movement BlackBoard Variables and NavMeshAgent Dest. Optional OnlyResetIfHasSetDestination Checkbox Will Only Reset Variables If Destination Has Been Set.")]
 	public class ResetCharacterNavMovement : Action
 	{
         #region Shared
         public SharedVector3 MyNavDestination;
 		public SharedBool bHasSetDestination;
 		public SharedBool bHasSetCommandMove;
+        public SharedBool OnlyResetIfHasSetDestination = false;
         #endregion
 
         #region Properties
@@ -84,23 +85,30 @@ namespace RPGPrototype
         #endregion
 
         #region Overrides
-        public override void OnStart()
-		{
-		
-		}
-
 		public override TaskStatus OnUpdate()
 		{
-			MyNavDestination.Value = Vector3.zero;
-			bHasSetDestination.Value = false;
-			bHasSetCommandMove.Value = false;
-            navMeshAgent.SetDestination(transform.position);
-            navMeshAgent.velocity = Vector3.zero;
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_MyNavDestination, Vector3.zero);
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_bHasSetDestination, false);
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_bHasSetCommandMove, false);
-			return TaskStatus.Success;
-		}
+            if (OnlyResetIfHasSetDestination.Value)
+            {
+                //Only Reset if Destination has been set.
+                if (bHasSetDestination.Value)
+                {
+                    MyNavDestination.Value = Vector3.zero;
+                    bHasSetDestination.Value = false;
+                    bHasSetCommandMove.Value = false;
+                    navMeshAgent.SetDestination(transform.position);
+                    navMeshAgent.velocity = Vector3.zero;
+                }
+            }
+            else
+            {
+                MyNavDestination.Value = Vector3.zero;
+                bHasSetDestination.Value = false;
+                bHasSetCommandMove.Value = false;
+                navMeshAgent.SetDestination(transform.position);
+                navMeshAgent.velocity = Vector3.zero;              
+            }
+            return TaskStatus.Success;
+        }
 
 		public override void OnReset()
 		{
@@ -109,9 +117,6 @@ namespace RPGPrototype
 			bHasSetCommandMove.Value = false;
             navMeshAgent.SetDestination(transform.position);
             navMeshAgent.velocity = Vector3.zero;
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_MyNavDestination, Vector3.zero);
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_bHasSetDestination, false);
-			//AllyBehaviorTree.SetVariableValue(aiController.BBName_bHasSetCommandMove, false);
 		}
 		#endregion
 
