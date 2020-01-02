@@ -37,20 +37,6 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;
-
-        bool targetIsDead
-        {
-            get
-            {
-                if (target == null) return false;
-                var _ally = target.GetComponent<AllyMemberRPG>();
-                if(_ally != null)
-                {
-                    return target.GetComponent<AllyMemberRPG>().IsAlive == false;
-                }
-                return false;
-            }
-        }
         #endregion
 
         #region Fields
@@ -59,7 +45,7 @@ namespace RPGPrototype
         [SerializeField] float baseDamage = 10f;
         [SerializeField] WeaponConfig currentWeaponConfig = null;
 
-        GameObject target;
+        //GameObject target;
         GameObject weaponObject;
         Animator animator;
         RPGCharacter character;
@@ -79,7 +65,6 @@ namespace RPGPrototype
         {
             eventhandler.StopAttackingRPGTarget += OnStopAttacking;
             eventhandler.OnTryUseWeapon += CheckTargetAndAttackEnemy;
-            eventhandler.OnUpdateTargettedEnemy += OnUpdateTargettedEnemy;
             //eventhandler.AttackRPGTarget += AttackTarget;
             eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
         }
@@ -88,7 +73,6 @@ namespace RPGPrototype
         {
             eventhandler.StopAttackingRPGTarget -= OnStopAttacking;
             eventhandler.OnTryUseWeapon -= CheckTargetAndAttackEnemy;
-            eventhandler.OnUpdateTargettedEnemy -= OnUpdateTargettedEnemy;
             //eventhandler.AttackRPGTarget -= AttackTarget;
             eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
         }
@@ -121,24 +105,16 @@ namespace RPGPrototype
             PutWeaponInHand(currentWeaponConfig);
             SetAttackAnimation();
 
-            InvokeRepeating("SE_CheckForAttack", 1f, checkForAttackRate);
+            //InvokeRepeating("SE_CheckForAttack", 1f, checkForAttackRate);
         }
 
-        void CheckTargetAndAttackEnemy()
+        void CheckTargetAndAttackEnemy(Transform target)
         {
             //eventhandler.CallOnActiveTimeBarDepletion();
 
             if (target == null) return;
 
-            AttackTargetOnce();
-        }
-
-        private void OnUpdateTargettedEnemy(AllyMember ally)
-        {
-            if (ally != null)
-            {
-                target = ally.gameObject;
-            }
+            AttackTargetOnce(target);
         }
 
         void OnStopAttacking()
@@ -148,34 +124,47 @@ namespace RPGPrototype
         #endregion
 
         #region Services
-        void SE_CheckForAttack()
+        ////void SE_CheckForAttack()
+        ////{
+        ////    bool targetIsOutOfRange;
+
+        ////    if (target == null)
+        ////    {
+        ////        //targetIsDead = false;
+        ////        targetIsOutOfRange = false;
+        ////    }
+        ////    else
+        ////    {
+        ////        // test if target is dead
+        ////        //var targethealth = allymember.healthAsPercentage;
+        ////        //targetIsDead = targethealth <= Mathf.Epsilon;
+
+        ////        // test if target is out of range
+        ////        var distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        ////        targetIsOutOfRange = distanceToTarget > currentWeaponConfig.GetMaxAttackRange();
+        ////    }
+        ////    ///float characterHealth
+        ////    bool characterIsDead = allymember == null ||
+        ////        allymember.IsAlive == false;
+        ////    //bool characterIsDead = (characterHealth <= Mathf.Epsilon);
+
+        ////    if (characterIsDead || targetIsOutOfRange || targetIsDead(target))
+        ////    {
+        ////        StopAllCoroutines();
+        ////    }
+        ////}
+        #endregion
+
+        #region Helpers
+        bool targetIsDead(Transform target)
         {
-            bool targetIsOutOfRange;
-
-            if (target == null)
+            if (target == null) return false;
+            var _ally = target.GetComponent<AllyMemberRPG>();
+            if (_ally != null)
             {
-                //targetIsDead = false;
-                targetIsOutOfRange = false;
+                return target.GetComponent<AllyMemberRPG>().IsAlive == false;
             }
-            else
-            {
-                // test if target is dead
-                //var targethealth = allymember.healthAsPercentage;
-                //targetIsDead = targethealth <= Mathf.Epsilon;
-
-                // test if target is out of range
-                var distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-                targetIsOutOfRange = distanceToTarget > currentWeaponConfig.GetMaxAttackRange();
-            }
-            ///float characterHealth
-            bool characterIsDead = allymember == null ||
-                allymember.IsAlive == false;
-            //bool characterIsDead = (characterHealth <= Mathf.Epsilon);
-
-            if (characterIsDead || targetIsOutOfRange || targetIsDead)
-            {
-                StopAllCoroutines();
-            }
+            return false;
         }
         #endregion
 
@@ -191,11 +180,10 @@ namespace RPGPrototype
             eventhandler.CallPutRPGWeaponInHand(currentWeaponConfig);
         }
 
-        public void AttackTarget(GameObject targetToAttack)
-        {
-            target = targetToAttack;
-            StartCoroutine(AttackTargetRepeatedly());
-        }
+        //public void AttackTarget(GameObject targetToAttack)
+        //{
+        //    StartCoroutine(AttackTargetRepeatedly());
+        //}
 
         public void StopAttacking()
         {
@@ -203,7 +191,7 @@ namespace RPGPrototype
             StopAllCoroutines();
         }
 
-        IEnumerator AttackTargetRepeatedly()
+        IEnumerator AttackTargetRepeatedly(Transform target)
         {
             // determine if alive (attacker and defender)
             var _targetAlly = target.GetComponent<AllyMemberRPG>();
@@ -220,26 +208,26 @@ namespace RPGPrototype
 
                 if (isTimeToHitAgain)
                 {
-                    AttackTargetOnce();
+                    AttackTargetOnce(target);
                     lastHitTime = Time.time;
                 }
                 yield return new WaitForSeconds(timeToWait);
             }
         }
 
-        void AttackTargetOnce()
+        void AttackTargetOnce(Transform target)
         {
-            transform.LookAt(target.transform);
+            transform.LookAt(target);
             animator.SetTrigger(ATTACK_TRIGGER);
             float damageDelay = currentWeaponConfig.GetDamageDelay();
             SetAttackAnimation();
-            StartCoroutine(DamageAfterDelay(damageDelay));
+            StartCoroutine(DamageAfterDelay(damageDelay, target));
         }
 
-        IEnumerator DamageAfterDelay(float delay)
+        IEnumerator DamageAfterDelay(float delay, Transform target)
         {
             yield return new WaitForSecondsRealtime(delay);
-            DamageAlly(target, (int)CalculateDamage());
+            DamageAlly(target.gameObject, (int)CalculateDamage());
         }
 
         public WeaponConfig GetCurrentWeapon()
@@ -280,7 +268,7 @@ namespace RPGPrototype
         void DamageAlly(GameObject _allyObject, int _damage)
         {
             AllyMemberRPG _ally = _allyObject.GetComponent<AllyMemberRPG>();
-            _ally.AllyTakeDamage(_damage, this.GetComponent<AllyMember>());
+            _ally.AllyTakeDamage(_damage, allymember);
         }
 
         float GetAllyHealthAsPercent(GameObject _allyObject)
