@@ -6,12 +6,11 @@ using RTSCoreFramework;
 namespace RPGPrototype
 {
 	[TaskCategory("RPGPrototype/AllyMember")]
-	[TaskDescription("Attempts To Use Weapon And Attack Enemy. Bind HalfWeaponAttackRate Variable For Wait Node. Currently Doesn't Apply Damage To Target. Use DamageTarget Task To Apply Damage.")]
-	public class TryAttackTarget : Action
+	[TaskDescription("Damages The Ally Target. Doesn't Use Any Animations.")]
+	public class DamageTarget : Action
 	{
 		#region Shared
-		public SharedFloat HalfWeaponAttackRate;
-		public SharedTransform CurrentTargettedEnemy;		
+		public SharedTransform CurrentTargettedEnemy;
 		#endregion
 
 		#region Properties
@@ -40,29 +39,16 @@ namespace RPGPrototype
 			}
 		}
 		AIControllerRPG _aiController = null;
-
-		AllyEventHandler myEventHandler
-		{
-			get
-			{
-				if (_myEventhandler == null)
-				{
-					_myEventhandler = GetComponent<AllyEventHandler>();
-				}
-				return _myEventhandler;
-			}
-		}
-		AllyEventHandler _myEventhandler = null;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			HalfWeaponAttackRate.Value = (aiController.GetAttackRate()) / 2;
-			myEventHandler.CallOnTryUseWeapon(CurrentTargettedEnemy.Value);
+			int _damage = aiController.GetDamageRate();
+			AllyMemberRPG _ally = CurrentTargettedEnemy.Value.GetComponent<AllyMemberRPG>();
+			_ally.AllyTakeDamage(_damage, allyMember);
 			return TaskStatus.Success;
 		}
 		#endregion
-
 	}
 }
