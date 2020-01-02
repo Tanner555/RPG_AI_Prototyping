@@ -60,6 +60,9 @@ namespace RPGPrototype
 		{
 			WeaponAttackRate.Value = aiController.GetAttackRate();
 			myEventHandler.CallOnTryUseWeapon(CurrentTargettedEnemy.Value);
+			int _damage = aiController.GetDamageRate();
+			AllyMemberRPG _ally = CurrentTargettedEnemy.Value.GetComponent<AllyMemberRPG>();
+			_ally.AllyTakeDamage(_damage, allyMember);
 			return TaskStatus.Success;
 		}
 		#endregion

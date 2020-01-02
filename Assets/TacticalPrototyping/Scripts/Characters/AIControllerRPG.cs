@@ -24,7 +24,7 @@ namespace RPGPrototype
         LayerMask currWalkLayers;
         int currHitLayer;
 
-        float baseDamage = 10f;
+        int baseDamage = 10;
         #endregion
 
         #region ComponentsAndSingletons
@@ -180,7 +180,7 @@ namespace RPGPrototype
         /// Doesn't Use AllyMember Values, A Quick Hack To Get Damage Without using other Comps
         /// </summary>
         /// <returns></returns>
-        public float GetDamageRate()
+        public int GetDamageRate()
         {
             if (myRPGWeapon == null) return baseDamage;
 
@@ -260,7 +260,7 @@ namespace RPGPrototype
         protected override void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
         {
             base.HandleAllySwitch(_party, _toSet, _current);
-            if (bUsingBehaviorTrees)
+            if (bUsingBehaviorTrees && _party == allyMember.partyManager)
             {
                 AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
                 AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _toSet == allyMember && _toSet.bIsInGeneralCommanderParty);
