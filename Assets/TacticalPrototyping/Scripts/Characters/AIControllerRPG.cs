@@ -106,6 +106,8 @@ namespace RPGPrototype
         public string BBName_CurrentTargettedEnemy => "CurrentTargettedEnemy";
         public string BBName_bTargetEnemy => "bTargetEnemy";
         public string BBName_bIsFreeMoving => "bIsFreeMoving";
+        public string BBName_bUpdateActiveTimeBar => "bUpdateActiveTimeBar";
+        public string BBName_ActiveTimeBarRefillRate => "ActiveTimeBarRefillRate";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -132,7 +134,7 @@ namespace RPGPrototype
             }
         }
         AIPath _myAIPath = null;
-        #endif
+#endif
         #endregion
 
         #region UnityMessages
@@ -227,12 +229,17 @@ namespace RPGPrototype
                     //BehaviorTree Already Exists, Not Need To Manually Set it Up
                     _behaviourtree = AllyBehaviorTree;
                 }
+                //RPG Character Moving
                 _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
                 _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
                 _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
                 _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
                 _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
-                if(_behaviourtree.StartWhenEnabled == false)
+                //Active Time Bar
+                _behaviourtree.SetVariableValue(BBName_bUpdateActiveTimeBar, false);
+                _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
+
+                if (_behaviourtree.StartWhenEnabled == false)
                 {
                     //Only Manually Start Tree if It Doesn't Start On Enable
                     StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
@@ -310,6 +317,17 @@ namespace RPGPrototype
                 AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
                 AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
             }
+        }
+
+        protected override void OnAllyDeath(Vector3 position, Vector3 force, GameObject attacker)
+        {
+            if (bUsingBehaviorTrees)
+            {
+                AllyBehaviorTree.DisableBehavior();
+            }
+            StopAllCoroutines();
+            CancelInvoke();
+            this.enabled = false;
         }
         #endregion
 

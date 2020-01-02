@@ -6,9 +6,13 @@ using RTSCoreFramework;
 namespace RPGPrototype
 {
 	[TaskCategory("RPGPrototype/AllyMember")]
-	[TaskDescription("Empties The Active Time Bar.")]
+	[TaskDescription("Empties The Active Time Bar. OnlyDepleteIfAboveMinimum Checkbox Will Only Deplete Time Bar if Amount is Greater Than 0.")]
 	public class DepleteActiveTimeBar : Action
 	{
+		#region Shared
+		public SharedBool OnlyDepleteIfAboveMinimum = false;
+		#endregion
+
 		#region Properties
 		AllyMember allyMember
 		{
@@ -26,8 +30,15 @@ namespace RPGPrototype
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
-		{
-			if(allyMember != null && allyMember.ActiveTimeBarIsFull())
+		{			
+			if (OnlyDepleteIfAboveMinimum.Value)
+			{
+				if (allyMember.AllyActiveTimeBar > allyMember.AllyMinActiveTimeBar)
+				{
+					allyMember.DepleteActiveTimeBar();
+				}
+			}
+			else
 			{
 				allyMember.DepleteActiveTimeBar();
 			}
