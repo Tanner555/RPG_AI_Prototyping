@@ -22,7 +22,9 @@ namespace RPGPrototype {
 			{
 				//Don't Retrieve AllyMember if TargetTransform Doesn't Exist
 				if(CurrentTargettedEnemy.Value == null) return null;
-				if(_CurrentTargettedEnemyAlly == null)
+				//If TargetAllyComp is NULL or TargetAllyComp is a Reference of another Ally (Switched Target)
+				if (_CurrentTargettedEnemyAlly == null || 
+					_CurrentTargettedEnemyAlly.transform != CurrentTargettedEnemy.Value)
 				{
 					_CurrentTargettedEnemyAlly = CurrentTargettedEnemy.Value.GetComponent<AllyMember>();
 				}

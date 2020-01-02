@@ -200,7 +200,7 @@ namespace RPGPrototype
                 _targetAlly != null &&
                 _targetAlly.IsAlive)
             {
-                var animationClip = currentWeaponConfig.GetAttackAnimClip();
+                var animationClip = currentWeaponConfig.GetAttackAnimClip();                
                 float animationClipTime = animationClip.length / character.GetAnimSpeedMultiplier();
                 float timeToWait = animationClipTime + currentWeaponConfig.GetTimeBetweenAnimationCycles();
 
@@ -219,16 +219,16 @@ namespace RPGPrototype
         {
             transform.LookAt(target);
             animator.SetTrigger(ATTACK_TRIGGER);
-            float damageDelay = currentWeaponConfig.GetDamageDelay();
+            //float damageDelay = currentWeaponConfig.GetDamageDelay();
             SetAttackAnimation();
-            StartCoroutine(DamageAfterDelay(damageDelay, target));
+            //StartCoroutine(DamageAfterDelay(damageDelay, target));
         }
 
-        IEnumerator DamageAfterDelay(float delay, Transform target)
-        {
-            yield return new WaitForSecondsRealtime(delay);
-            DamageAlly(target.gameObject, (int)CalculateDamage());
-        }
+        //IEnumerator DamageAfterDelay(float delay, Transform target)
+        //{
+        //    yield return new WaitForSecondsRealtime(delay);
+        //    DamageAlly(target.gameObject, (int)CalculateDamage());
+        //}
 
         public WeaponConfig GetCurrentWeapon()
         {

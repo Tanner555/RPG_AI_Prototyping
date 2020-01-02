@@ -23,6 +23,8 @@ namespace RPGPrototype
         #endif
         LayerMask currWalkLayers;
         int currHitLayer;
+
+        float baseDamage = 10f;
         #endregion
 
         #region ComponentsAndSingletons
@@ -59,6 +61,19 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;        
+
+        Animator myAnimator
+        {
+            get
+            {
+                if(_myAnimator == null)
+                {
+                    _myAnimator = GetComponent<Animator>();
+                }
+                return _myAnimator;
+            }
+        }
+        Animator _myAnimator = null;
 
         protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
@@ -161,9 +176,30 @@ namespace RPGPrototype
             return distanceToTarget <= myRPGWeapon.GetMaxAttackRange();
         }
 
+        /// <summary>
+        /// Doesn't Use AllyMember Values, A Quick Hack To Get Damage Without using other Comps
+        /// </summary>
+        /// <returns></returns>
+        public float GetDamageRate()
+        {
+            if (myRPGWeapon == null) return baseDamage;
+
+            return baseDamage + myRPGWeapon.GetAdditionalDamage();
+        }
+
         public override float GetAttackRate()
         {
-            return 0.25f;
+            if (myRPGWeapon != null)
+            {
+                var animationClip = myRPGWeapon.GetAttackAnimClip();
+                float animationClipTime = animationClip.length / myAnimator.speed;/*character.GetAnimSpeedMultiplier()*/
+                float _timeToWait = animationClipTime + myRPGWeapon.GetTimeBetweenAnimationCycles();
+                return _timeToWait;
+            }
+            else
+            {
+                return 0.25f;
+            }
         }
         #endregion
 
