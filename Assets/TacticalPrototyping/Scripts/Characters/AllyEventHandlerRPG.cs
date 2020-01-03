@@ -66,26 +66,26 @@ namespace RPGPrototype
         #endregion
 
         #region Delegates
-        public delegate void OneGameObjectParamHandler(GameObject _target);
-        public event OneGameObjectParamHandler AttackRPGTarget;
-        public event GeneralEventHandler StopAttackingRPGTarget;
+        //public delegate void OneGameObjectParamHandler(GameObject _target);
+        //public event OneGameObjectParamHandler AttackRPGTarget;
+        //public event GeneralEventHandler StopAttackingRPGTarget;
 
         public delegate void WeaponConfigParamHandler(WeaponConfig weaponToUse);
         public event WeaponConfigParamHandler PutRPGWeaponInHand;
         #endregion
 
         #region Calls
-        public void CallAttackRPGTarget(GameObject _target)
-        {
-            bIsMeleeingEnemy = true;
-            if (AttackRPGTarget != null) AttackRPGTarget(_target);
-        }
+        //public void CallAttackRPGTarget(GameObject _target)
+        //{
+        //    bIsMeleeingEnemy = true;
+        //    if (AttackRPGTarget != null) AttackRPGTarget(_target);
+        //}
 
-        public void CallStopAttackingRPGTarget()
-        {
-            bIsMeleeingEnemy = false;
-            if (StopAttackingRPGTarget != null) StopAttackingRPGTarget();
-        }
+        //public void CallStopAttackingRPGTarget()
+        //{
+        //    bIsMeleeingEnemy = false;
+        //    if (StopAttackingRPGTarget != null) StopAttackingRPGTarget();
+        //}
 
         public void CallPutRPGWeaponInHand(WeaponConfig _weapon)
         {
@@ -96,15 +96,15 @@ namespace RPGPrototype
         #region OverrideCalls
         protected override void CallEventCommandMove(Vector3 _point, bool _isCommandMove)
         {
-            CallStopAttackingRPGTarget();
+            //CallStopAttackingRPGTarget();
             base.CallEventCommandMove(_point, _isCommandMove);
         }
 
-        public override void CallEventStopTargettingEnemy()
-        {
-            CallStopAttackingRPGTarget();
-            base.CallEventStopTargettingEnemy();
-        }
+        //public override void CallEventStopTargettingEnemy()
+        //{
+        //    CallStopAttackingRPGTarget();
+        //    base.CallEventStopTargettingEnemy();
+        //}
         #endregion
     }
 }

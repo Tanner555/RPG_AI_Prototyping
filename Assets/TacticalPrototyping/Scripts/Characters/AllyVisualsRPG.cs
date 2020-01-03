@@ -78,46 +78,46 @@ namespace RPGPrototype
         //}
         #endregion
 
-        protected override void UpdateWaypointRenderer()
-        {
-#if RTSAStarPathfinding
-            if (bUseAStarPath == false)
-            {
-                base.UpdateWaypointRenderer();
-            }
-            else
-            {
-                if (bHasSwitched || myAIPath == null || mySeeker == null ||
-                myAIPath.hasPath == false || myEventHandler.bIsAIMoving) return;
+//        protected override void UpdateWaypointRenderer()
+//        {
+//#if RTSAStarPathfinding
+//            if (bUseAStarPath == false)
+//            {
+//                base.UpdateWaypointRenderer();
+//            }
+//            else
+//            {
+//                if (bHasSwitched || myAIPath == null || mySeeker == null ||
+//                myAIPath.hasPath == false || myEventHandler.bIsAIMoving) return;
 
-                if (waypointRenderer != null && waypointRenderer.enabled == false)
-                {
-                    waypointRenderer.enabled = true;
-                }
-                else if (waypointRenderer == null)
-                {
-                    waypointRenderer = this.gameObject.AddComponent<LineRenderer>();
-                    if (waypointRendererMaterial != null)
-                        waypointRenderer.material = waypointRendererMaterial;
+//                if (waypointRenderer != null && waypointRenderer.enabled == false)
+//                {
+//                    waypointRenderer.enabled = true;
+//                }
+//                else if (waypointRenderer == null)
+//                {
+//                    waypointRenderer = this.gameObject.AddComponent<LineRenderer>();
+//                    if (waypointRendererMaterial != null)
+//                        waypointRenderer.material = waypointRendererMaterial;
 
-                    waypointRenderer.startWidth = waypointStartWidth;
-                    waypointRenderer.endWidth = waypointEndWidth;
-                    waypointRenderer.startColor = waypointStartColor;
-                    waypointRenderer.endColor = waypointEndColor;
-                }
+//                    waypointRenderer.startWidth = waypointStartWidth;
+//                    waypointRenderer.endWidth = waypointEndWidth;
+//                    waypointRenderer.startColor = waypointStartColor;
+//                    waypointRenderer.endColor = waypointEndColor;
+//                }
 
-                var path = mySeeker.GetCurrentPath();
+//                var path = mySeeker.GetCurrentPath();
 
-                waypointRenderer.positionCount = path.path.Count;
+//                waypointRenderer.positionCount = path.path.Count;
 
-                for (int i = 0; i < path.path.Count; i++)
-                {
-                    waypointRenderer.SetPosition(i, (Vector3)path.path[i].position);
-                }
-            }
-#else
-            base.UpdateWaypointRenderer();
-#endif
-        }
+//                for (int i = 0; i < path.path.Count; i++)
+//                {
+//                    waypointRenderer.SetPosition(i, (Vector3)path.path[i].position);
+//                }
+//            }
+//#else
+//            base.UpdateWaypointRenderer();
+//#endif
+//        }
     }
 }

@@ -309,15 +309,15 @@ namespace RPGPrototype
             }
         }
 
-        protected override void HandleStopTargetting()
-        {
-            base.HandleStopTargetting();
-            if (bUsingBehaviorTrees)
-            {
-                AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
-                AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
-            }
-        }
+        //protected override void HandleStopTargetting()
+        //{
+        //    base.HandleStopTargetting();
+        //    if (bUsingBehaviorTrees)
+        //    {
+        //        AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
+        //        AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+        //    }
+        //}
 
         protected override void OnAllyDeath(Vector3 position, Vector3 force, GameObject attacker)
         {

@@ -91,14 +91,14 @@ namespace RPGPrototype
 
 			if (myDirection.sqrMagnitude > 0.05f)
             {
-                if (myEventHandler.bIsNavMoving)
-                {
-                    myEventHandler.CallEventFinishedMoving();
-                }
-                if (myEventHandler.bIsFreeMoving == false)
-                {
-                    myEventHandler.CallEventTogglebIsFreeMoving(true);
-                }
+                //if (myEventHandler.bIsNavMoving)
+                //{
+                //    myEventHandler.CallEventFinishedMoving();
+                //}
+                //if (myEventHandler.bIsFreeMoving == false)
+                //{
+                //    myEventHandler.CallEventTogglebIsFreeMoving(true);
+                //}
 				//Also Calculate Move Direction Used For Movement Task
 				CalculateFreeMoveDirection();
 				bIsFreeMoving.Value = true;
@@ -106,10 +106,10 @@ namespace RPGPrototype
             }
             else
             {
-                if (myEventHandler.bIsFreeMoving)
-                {
-                    myEventHandler.CallEventTogglebIsFreeMoving(false);
-                }
+                //if (myEventHandler.bIsFreeMoving)
+                //{
+                //    myEventHandler.CallEventTogglebIsFreeMoving(false);
+                //}
 				ResetFreeMoveDirection();
 				bIsFreeMoving.Value = false;
                 return TaskStatus.Failure;

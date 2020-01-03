@@ -63,7 +63,7 @@ namespace RPGPrototype
 
         private void OnEnable()
         {
-            eventhandler.StopAttackingRPGTarget += OnStopAttacking;
+            //eventhandler.StopAttackingRPGTarget += OnStopAttacking;
             eventhandler.OnTryUseWeapon += CheckTargetAndAttackEnemy;
             //eventhandler.AttackRPGTarget += AttackTarget;
             eventhandler.InitializeAllyComponents += OnInitializeAllyComponents;
@@ -71,7 +71,7 @@ namespace RPGPrototype
 
         private void OnDisable()
         {
-            eventhandler.StopAttackingRPGTarget -= OnStopAttacking;
+            //eventhandler.StopAttackingRPGTarget -= OnStopAttacking;
             eventhandler.OnTryUseWeapon -= CheckTargetAndAttackEnemy;
             //eventhandler.AttackRPGTarget -= AttackTarget;
             eventhandler.InitializeAllyComponents -= OnInitializeAllyComponents;
@@ -117,10 +117,10 @@ namespace RPGPrototype
             AttackTargetOnce(target);
         }
 
-        void OnStopAttacking()
-        {
-            StopAttacking();
-        }
+        //void OnStopAttacking()
+        //{
+        //    StopAttacking();
+        //}
         #endregion
 
         #region Services
@@ -185,11 +185,11 @@ namespace RPGPrototype
         //    StartCoroutine(AttackTargetRepeatedly());
         //}
 
-        public void StopAttacking()
-        {
-            animator.StopPlayback();
-            StopAllCoroutines();
-        }
+        //public void StopAttacking()
+        //{
+        //    animator.StopPlayback();
+        //    StopAllCoroutines();
+        //}
 
         IEnumerator AttackTargetRepeatedly(Transform target)
         {

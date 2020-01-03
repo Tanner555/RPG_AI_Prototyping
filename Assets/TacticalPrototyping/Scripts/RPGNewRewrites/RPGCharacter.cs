@@ -70,15 +70,15 @@ namespace RPGPrototype
         float myForwardMovement = 0f;
         Vector3 myDirection = Vector3.zero;
         Vector3 MyMove = Vector3.zero;
-        float speedMultiplier
-        {
-            get
-            {
-                return eventHandler.bIsFreeMoving ?
-                    1.2f * _baseSpeedMultiplier :
-                    1.0f * _baseSpeedMultiplier;
-            }
-        }
+        //float speedMultiplier
+        //{
+        //    get
+        //    {
+        //        return eventHandler.bIsFreeMoving ?
+        //            1.2f * _baseSpeedMultiplier :
+        //            1.0f * _baseSpeedMultiplier;
+        //    }
+        //}
         float _baseSpeedMultiplier = 1.0f;
         bool bWasFreeMoving = false;
         //Used to Fix issue with Command Movement 
@@ -341,11 +341,11 @@ namespace RPGPrototype
             }
         }
 
-        void ToggleSprint()
-        {
-            _baseSpeedMultiplier = eventHandler.bIsSprinting ?
-                2f : 1f;
-        }
+        //void ToggleSprint()
+        //{
+        //    _baseSpeedMultiplier = eventHandler.bIsSprinting ?
+        //        2f : 1f;
+        //}
 
         public void Kill(Vector3 position, Vector3 force, GameObject attacker)
         {
@@ -409,175 +409,175 @@ namespace RPGPrototype
         #endregion
 
         #region FreeOrNavMoving
-        void MoveFreely()
-        {
-            if (bUseAStarPath == false)
-            {
-                navMeshAgent.updateRotation = false;
-                navMeshAgent.velocity = Vector3.zero;
-            }
-            else
-            {
-#if RTSAStarPathfinding
-                if (myAIPath.enableRotation)
-                {
-                    myAIPath.enableRotation = false;
-                }
-                if (myAIPath.canMove)
-                {
-                    myAIPath.canMove = false;
-                }
-#endif
-            }
-            // X = Horizontal Z = Forward
-            // calculate move direction to pass to character
-            if (myCamera != null)
-            {
-                // calculate camera relative direction to move:
-                MyMove = myDirection.z * CamForward + myDirection.x * myCamera.transform.right;
-            }
-            else
-            {
-                // we use world-relative directions in the case of no main camera
-                MyMove = myDirection.z * Vector3.forward + myDirection.x * Vector3.right;
-            }
-            Move(MyMove);
-        }
+//        void MoveFreely()
+//        {
+//            if (bUseAStarPath == false)
+//            {
+//                navMeshAgent.updateRotation = false;
+//                navMeshAgent.velocity = Vector3.zero;
+//            }
+//            else
+//            {
+//#if RTSAStarPathfinding
+//                if (myAIPath.enableRotation)
+//                {
+//                    myAIPath.enableRotation = false;
+//                }
+//                if (myAIPath.canMove)
+//                {
+//                    myAIPath.canMove = false;
+//                }
+//#endif
+//            }
+//            // X = Horizontal Z = Forward
+//            // calculate move direction to pass to character
+//            if (myCamera != null)
+//            {
+//                // calculate camera relative direction to move:
+//                MyMove = myDirection.z * CamForward + myDirection.x * myCamera.transform.right;
+//            }
+//            else
+//            {
+//                // we use world-relative directions in the case of no main camera
+//                MyMove = myDirection.z * Vector3.forward + myDirection.x * Vector3.right;
+//            }
+//            Move(MyMove);
+//        }
 
-        bool PlayerWantsFreeMovement()
-        {
-            if (isAlive == false ||
-                allymember == null ||
-                allymember.bIsCurrentPlayer == false) return false;
-            myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
-            myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
-            myDirection = Vector3.zero;
-            myDirection.x = myHorizontalMovement;
-            myDirection.z = myForwardMovement;
-            myDirection.y = 0;
-            if (myDirection.sqrMagnitude > 0.05f)
-            {
-                if (eventHandler.bIsNavMoving)
-                {
-                    eventHandler.CallEventFinishedMoving();
-                }
-                if (eventHandler.bIsFreeMoving == false)
-                {
-                    eventHandler.CallEventTogglebIsFreeMoving(true);
-                }
-                return true;
-            }
-            else
-            {
-                if (eventHandler.bIsFreeMoving)
-                {
-                    eventHandler.CallEventTogglebIsFreeMoving(false);
-                }
-                return false;
-            }
-        }
+        //bool PlayerWantsFreeMovement()
+        //{
+        //    if (isAlive == false ||
+        //        allymember == null ||
+        //        allymember.bIsCurrentPlayer == false) return false;
+        //    myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
+        //    myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
+        //    myDirection = Vector3.zero;
+        //    myDirection.x = myHorizontalMovement;
+        //    myDirection.z = myForwardMovement;
+        //    myDirection.y = 0;
+        //    if (myDirection.sqrMagnitude > 0.05f)
+        //    {
+        //        if (eventHandler.bIsNavMoving)
+        //        {
+        //            eventHandler.CallEventFinishedMoving();
+        //        }
+        //        if (eventHandler.bIsFreeMoving == false)
+        //        {
+        //            eventHandler.CallEventTogglebIsFreeMoving(true);
+        //        }
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        if (eventHandler.bIsFreeMoving)
+        //        {
+        //            eventHandler.CallEventTogglebIsFreeMoving(false);
+        //        }
+        //        return false;
+        //    }
+        //}
 
-        void MoveCharacterMain()
-        {
-            //navMeshAgent.updatePosition = true;
-            if (!navMeshAgent.isOnNavMesh)
-            {
-                Debug.LogError(gameObject.name + " uh oh this guy is not on the navmesh");
-            }
-            else if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance &&
-                isAlive &&
-                eventHandler != null &&
-                eventHandler.bIsFreeMoving == false &&
-                eventHandler.bIsNavMoving
-                )
-            {
-                Move(navMeshAgent.desiredVelocity);
-            }
-            else if (eventHandler.bIsFreeMoving == false)
-            {
-                if (eventHandler.bIsNavMoving && bHasSetDestination)
-                {
-                    if (Vector3.Distance(transform.position, navMeshAgent.destination) > navMeshAgent.stoppingDistance + 0.1f)
-                    {
-                        //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
-                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
-                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
-                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
-                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
-                        //Debug.Log(_msg);
-                    }
-                    else
-                    {
-                        eventHandler.CallEventFinishedMoving();
-                    }
-                }
-                Move(Vector3.zero);
-            }
-            else
-            {
-                if (eventHandler.bIsNavMoving)
-                {
-                    eventHandler.CallEventFinishedMoving();
-                }
-            }
-            navMeshAgent.updateRotation = true;
-        }
+        //void MoveCharacterMain()
+        //{
+        //    //navMeshAgent.updatePosition = true;
+        //    if (!navMeshAgent.isOnNavMesh)
+        //    {
+        //        Debug.LogError(gameObject.name + " uh oh this guy is not on the navmesh");
+        //    }
+        //    else if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance &&
+        //        isAlive &&
+        //        eventHandler != null &&
+        //        eventHandler.bIsFreeMoving == false &&
+        //        eventHandler.bIsNavMoving
+        //        )
+        //    {
+        //        Move(navMeshAgent.desiredVelocity);
+        //    }
+        //    else if (eventHandler.bIsFreeMoving == false)
+        //    {
+        //        if (eventHandler.bIsNavMoving && bHasSetDestination)
+        //        {
+        //            if (Vector3.Distance(transform.position, navMeshAgent.destination) > navMeshAgent.stoppingDistance + 0.1f)
+        //            {
+        //                //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
+        //                //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+        //                //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+        //                //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+        //                //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+        //                //Debug.Log(_msg);
+        //            }
+        //            else
+        //            {
+        //                eventHandler.CallEventFinishedMoving();
+        //            }
+        //        }
+        //        Move(Vector3.zero);
+        //    }
+        //    else
+        //    {
+        //        if (eventHandler.bIsNavMoving)
+        //        {
+        //            eventHandler.CallEventFinishedMoving();
+        //        }
+        //    }
+        //    navMeshAgent.updateRotation = true;
+        //}
 
-        void MoveCharacterFromAStarPath()
-        {
-#if RTSAStarPathfinding
-            if (myAIPath.canMove != true)
-            {
-                myAIPath.canMove = true;
-            }
-            if (myAIPath.maxSpeed != speedMultiplier * 2)
-            {
-                myAIPath.maxSpeed = speedMultiplier * 2;
-            }
+//        void MoveCharacterFromAStarPath()
+//        {
+//#if RTSAStarPathfinding
+//            if (myAIPath.canMove != true)
+//            {
+//                myAIPath.canMove = true;
+//            }
+//            if (myAIPath.maxSpeed != speedMultiplier * 2)
+//            {
+//                myAIPath.maxSpeed = speedMultiplier * 2;
+//            }
 
-            if (myAIPath.remainingDistance > myAIPath.endReachedDistance &&
-                isAlive &&
-                eventHandler != null &&
-                eventHandler.bIsFreeMoving == false &&
-                eventHandler.bIsNavMoving
-                )
-            {
-                Move(myAIPath.desiredVelocity);
-            }
-            else if (eventHandler.bIsFreeMoving == false)
-            {
-                if (eventHandler.bIsNavMoving && bHasSetDestination)
-                {
-                    if (Vector3.Distance(transform.position, myAIPath.destination) > myAIPath.endReachedDistance + 0.1f)
-                    {
-                        //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
-                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
-                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
-                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
-                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
-                        //Debug.Log(_msg);
-                    }
-                    else
-                    {
-                        eventHandler.CallEventFinishedMoving();
-                    }
-                }
-                Move(Vector3.zero);
-            }
-            else
-            {
-                if (eventHandler.bIsNavMoving)
-                {
-                    eventHandler.CallEventFinishedMoving();
-                }
-            }
+//            if (myAIPath.remainingDistance > myAIPath.endReachedDistance &&
+//                isAlive &&
+//                eventHandler != null &&
+//                eventHandler.bIsFreeMoving == false &&
+//                eventHandler.bIsNavMoving
+//                )
+//            {
+//                Move(myAIPath.desiredVelocity);
+//            }
+//            else if (eventHandler.bIsFreeMoving == false)
+//            {
+//                if (eventHandler.bIsNavMoving && bHasSetDestination)
+//                {
+//                    if (Vector3.Distance(transform.position, myAIPath.destination) > myAIPath.endReachedDistance + 0.1f)
+//                    {
+//                        //TODO: RPGPrototype Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
+//                        //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+//                        //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+//                        //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+//                        //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+//                        //Debug.Log(_msg);
+//                    }
+//                    else
+//                    {
+//                        eventHandler.CallEventFinishedMoving();
+//                    }
+//                }
+//                Move(Vector3.zero);
+//            }
+//            else
+//            {
+//                if (eventHandler.bIsNavMoving)
+//                {
+//                    eventHandler.CallEventFinishedMoving();
+//                }
+//            }
 
-            if (myAIPath.enableRotation != true)
-            {
-                myAIPath.enableRotation = true;
-            }
-#endif
-        }
+//            if (myAIPath.enableRotation != true)
+//            {
+//                myAIPath.enableRotation = true;
+//            }
+//#endif
+//        }
         #endregion
 
         #region Moving
@@ -592,7 +592,8 @@ namespace RPGPrototype
         {
             animator.SetFloat("Forward", forwardAmount * animatorForwardCap, 0.1f, Time.deltaTime);
             animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
-            animator.speed = animationSpeedMultiplier * speedMultiplier;
+            animator.speed = animationSpeedMultiplier;
+            //animator.speed = animationSpeedMultiplier * speedMultiplier;
         }
 
         void ApplyExtraTurnRotation()

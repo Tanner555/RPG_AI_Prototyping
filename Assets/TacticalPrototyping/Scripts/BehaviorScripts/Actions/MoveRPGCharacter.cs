@@ -11,6 +11,7 @@ namespace RPGPrototype
 	{
 		#region Shared
 		public SharedVector3 MyMoveDirection;
+		public SharedBool bIsFreeMoving;
 
 		public SharedFloat stationaryTurnSpeed;
 		public SharedFloat movingTurnSpeed;
@@ -69,7 +70,7 @@ namespace RPGPrototype
         {
             get
             {
-                return myEventHandler.bIsFreeMoving ?
+                return bIsFreeMoving.Value ?
                     1.2f * _baseSpeedMultiplier :
                     1.0f * _baseSpeedMultiplier;
             }
