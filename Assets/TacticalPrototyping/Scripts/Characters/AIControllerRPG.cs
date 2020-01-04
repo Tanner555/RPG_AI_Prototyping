@@ -111,6 +111,7 @@ namespace RPGPrototype
         public string BBName_EnergyRegenPointsPerSec => "EnergyRegenPointsPerSec";
         public string BBName_bTryUseAbility => "bTryUseAbility";
         public string BBName_AbilityToUse => "AbilityToUse";
+        public string BBName_bIsPerformingAbility => "bIsPerformingAbility";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -245,6 +246,7 @@ namespace RPGPrototype
                 _behaviourtree.SetVariableValue(BBName_EnergyRegenPointsPerSec, 10);
                 _behaviourtree.SetVariableValue(BBName_bTryUseAbility, false);
                 _behaviourtree.SetVariableValue(BBName_AbilityToUse, null);
+                _behaviourtree.SetVariableValue(BBName_bIsPerformingAbility, false);
 
                 if (_behaviourtree.StartWhenEnabled == false)
                 {

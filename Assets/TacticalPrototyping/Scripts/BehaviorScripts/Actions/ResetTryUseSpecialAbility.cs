@@ -11,6 +11,7 @@ namespace RPGPrototype
 	{
 		#region Shared
 		public SharedBool bTryUseAbility;
+		public SharedBool bIsPerformingAbility;
 		public SharedObject AbilityToUse;
 		#endregion
 
@@ -18,6 +19,7 @@ namespace RPGPrototype
 		public override TaskStatus OnUpdate()
 		{
 			bTryUseAbility.Value = false;
+			bIsPerformingAbility.Value = false;
 			AbilityToUse.Value = null;
 			return TaskStatus.Success;
 		}
