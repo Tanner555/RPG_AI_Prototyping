@@ -109,6 +109,8 @@ namespace RPGPrototype
         public string BBName_bUpdateActiveTimeBar => "bUpdateActiveTimeBar";
         public string BBName_ActiveTimeBarRefillRate => "ActiveTimeBarRefillRate";
         public string BBName_EnergyRegenPointsPerSec => "EnergyRegenPointsPerSec";
+        public string BBName_bTryUseAbility => "bTryUseAbility";
+        public string BBName_AbilityToUse => "AbilityToUse";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -241,6 +243,8 @@ namespace RPGPrototype
                 _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
                 //Abilities and Energy Bar
                 _behaviourtree.SetVariableValue(BBName_EnergyRegenPointsPerSec, 10);
+                _behaviourtree.SetVariableValue(BBName_bTryUseAbility, false);
+                _behaviourtree.SetVariableValue(BBName_AbilityToUse, null);
 
                 if (_behaviourtree.StartWhenEnabled == false)
                 {
@@ -320,7 +324,8 @@ namespace RPGPrototype
                 _index < 0 || _index > allyMember.GetNumberOfAbilities() - 1) return;
 
             var _config = allyMember.GetAbilityConfig(_index);
-
+            AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
+            AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
         }
 
         //protected override void HandleStopTargetting()
