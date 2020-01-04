@@ -312,6 +312,17 @@ namespace RPGPrototype
             }
         }
 
+        protected void OnKeyPress(int _key)
+        {
+            int _index = _key - 1;
+
+            if (allyMember == null || allyMember.IsAlive == false || allyMember.bIsCurrentPlayer == false ||
+                _index < 0 || _index > allyMember.GetNumberOfAbilities() - 1) return;
+
+            var _config = allyMember.GetAbilityConfig(_index);
+
+        }
+
         //protected override void HandleStopTargetting()
         //{
         //    base.HandleStopTargetting();
@@ -418,12 +429,14 @@ namespace RPGPrototype
         {
             base.SubToEvents();
             myEventHandler.PutRPGWeaponInHand += PutWeaponInHand;
+            gamemaster.OnNumberKeyPress += OnKeyPress;
         }
 
         protected override void UnSubFromEvents()
         {
             base.UnSubFromEvents();
             myEventHandler.PutRPGWeaponInHand -= PutWeaponInHand;
+            gamemaster.OnNumberKeyPress -= OnKeyPress;
         }
         #endregion
 
