@@ -309,11 +309,15 @@ namespace RPGPrototype
             if (bUsingBehaviorTrees)
             {
                 bool _isFreeMoving = (bool)AllyBehaviorTree.GetVariable(BBName_bIsFreeMoving).GetValue();
-                if (_isFreeMoving == false)
+                bool _isPerformingAbility = (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+                //Shouldn't Be FreeMoving or Performing Special Ability
+                if (_isFreeMoving == false && _isPerformingAbility == false)
                 {
                     AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, enemy.transform);
                     AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
                     AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                    AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
+                    AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
                 }
             }
         }
