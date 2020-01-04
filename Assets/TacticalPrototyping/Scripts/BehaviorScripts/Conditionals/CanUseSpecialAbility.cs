@@ -6,11 +6,11 @@ using RTSCoreFramework;
 namespace RPGPrototype
 {
 	[TaskCategory("RPGPrototype/AllyMember")]
-	[TaskDescription("Adds Energy Points To The Ally On Every Tick.")]
-	public class AddEnergyPoints : Action
+	[TaskDescription("Checks If Ability Can Be Used.")]
+	public class CanUseSpecialAbility : Conditional
 	{
 		#region Shared
-		public SharedInt EnergyRegenPointsPerSec;
+		public SharedObject AbilityToUse;
 		#endregion
 
 		#region Properties
@@ -30,8 +30,14 @@ namespace RPGPrototype
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			allymember.AllyRegainStamina(EnergyRegenPointsPerSec.Value);
-			return TaskStatus.Success;
+			if (allymember.CanUseAbility(AbilityToUse.Value.GetType()))
+			{
+				return TaskStatus.Success;
+			}
+			else
+			{
+				return TaskStatus.Failure;
+			}
 		}
 		#endregion
 	}
