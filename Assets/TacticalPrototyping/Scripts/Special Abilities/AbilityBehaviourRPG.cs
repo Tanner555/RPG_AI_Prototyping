@@ -30,8 +30,8 @@ namespace RPGPrototype
             if (CanUseAbility())
             {
                 //TPCAbility.StartAbility();
-                allyEventHandler.CallEventToggleIsUsingAbility(true);
-                Invoke("StopAbilityAnimation", config.GetAbilityAnimationTime());
+                //allyEventHandler.CallEventToggleIsUsingAbility(true);
+                //Invoke("StopAbilityAnimation", config.GetAbilityAnimationTime());
                 //From Old Ability Behaviour Method
                 var _rpgconfig = (AbilityConfigRPG)config;
                 var animatorOverrideController = GetComponent<RPGCharacter>().GetOverrideController();
@@ -42,10 +42,10 @@ namespace RPGPrototype
             }
         }
 
-        protected override void StopAbilityAnimation()
+        public override void StopAbilityAnimation()
         {
             //TPCAbility.StopAbility();
-            allyEventHandler.CallEventToggleIsUsingAbility(false);
+            //allyEventHandler.CallEventToggleIsUsingAbility(false);
         }
 
         //protected virtual Opsive.UltimateCharacterController.Character.Abilities.Ability GetTPCAbility()
