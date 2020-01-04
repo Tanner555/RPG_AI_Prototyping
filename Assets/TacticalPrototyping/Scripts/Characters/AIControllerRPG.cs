@@ -108,6 +108,7 @@ namespace RPGPrototype
         public string BBName_bIsFreeMoving => "bIsFreeMoving";
         public string BBName_bUpdateActiveTimeBar => "bUpdateActiveTimeBar";
         public string BBName_ActiveTimeBarRefillRate => "ActiveTimeBarRefillRate";
+        public string BBName_EnergyRegenPointsPerSec => "EnergyRegenPointsPerSec";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -238,6 +239,8 @@ namespace RPGPrototype
                 //Active Time Bar
                 _behaviourtree.SetVariableValue(BBName_bUpdateActiveTimeBar, false);
                 _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
+                //Abilities and Energy Bar
+                _behaviourtree.SetVariableValue(BBName_EnergyRegenPointsPerSec, 10);
 
                 if (_behaviourtree.StartWhenEnabled == false)
                 {
