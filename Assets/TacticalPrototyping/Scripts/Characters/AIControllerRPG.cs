@@ -112,6 +112,7 @@ namespace RPGPrototype
         public string BBName_bTryUseAbility => "bTryUseAbility";
         public string BBName_AbilityToUse => "AbilityToUse";
         public string BBName_bIsPerformingAbility => "bIsPerformingAbility";
+        public string BBName_bEnableTactics => "bEnableTactics";
 
         #if RTSAStarPathfinding
         Seeker mySeeker
@@ -278,10 +279,15 @@ namespace RPGPrototype
             base.HandleAllySwitch(_party, _toSet, _current);
             if (bUsingBehaviorTrees && _party == allyMember.partyManager)
             {
+                bool _isCurrentPlayer = _toSet == allyMember && _toSet.bIsInGeneralCommanderParty;
                 AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
-                AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _toSet == allyMember && _toSet.bIsInGeneralCommanderParty);
+                AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _isCurrentPlayer);
+                //Don't Enable Tactics If Current Player
+                //Otherwise, Load and Execute Tactics
+                ToggleTactics(_isCurrentPlayer == false);
                 if (_toSet.bIsInGeneralCommanderParty)
                 {
+                    //NOT Command Moving If AllySwitch For All Members of Current Player's Party
                     AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
                 }                
             }
@@ -353,6 +359,50 @@ namespace RPGPrototype
             StopAllCoroutines();
             CancelInvoke();
             this.enabled = false;
+        }
+        #endregion
+
+        #region TacticsMainMethods
+        protected override void ToggleTactics(bool _enable)
+        {
+            base.ToggleTactics(_enable);
+        }
+
+        protected override void LoadAndExecuteAllyTactics()
+        {            
+            //base function loads tactics from stat and data handlers
+            base.LoadAndExecuteAllyTactics();
+            if (AllyTacticsList.Count > 0)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, true);
+            }
+            else
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+            }
+        }
+
+        protected override void UnLoadAndCancelTactics()
+        {
+            //Cancel Tactics From Running
+            AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+            //Important For Clearing TacticsList
+            base.UnLoadAndCancelTactics();
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Finish Moving Helper For Tactics
+        /// </summary>
+        protected override void FinishMoving()
+        {
+            //Override To Update BT
+            AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, false);
+            AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+            AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, Vector3.zero);
+            myNavAgent.SetDestination(transform.position);
+            myNavAgent.velocity = Vector3.zero;
         }
         #endregion
 
