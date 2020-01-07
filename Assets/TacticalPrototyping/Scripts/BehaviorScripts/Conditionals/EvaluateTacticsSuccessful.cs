@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using RTSCoreFramework;
@@ -11,11 +12,11 @@ namespace RPGPrototype
     public class EvaluateTacticsSuccessful : Conditional
 	{
         #region Shared
-        public SharedTacticsItem CurrentExecutionItem;
+        public SharedTacticsItem CurrentExecutionItem;        
         #endregion
 
         #region FieldsAndProperties
-        protected List<AllyTacticsItem> evalTactics = new List<AllyTacticsItem>();
+        protected Dictionary<AllyTacticsItem, AllyMember> evalTactics = new Dictionary<AllyTacticsItem, AllyMember>();
         protected List<AllyTacticsItem> AllyTacticsList => aiController.AllyTacticsList;
 
         protected PartyManager myPartyManager { get { return allyMember ? allyMember.partyManager : null; } }
@@ -82,16 +83,18 @@ namespace RPGPrototype
             {
                 //If Condition is True and 
                 //Can Perform The Given Action
-                if (_tactic.condition.action(allyMember) &&
+                var _boolTargetTuple = _tactic.condition.action(allyMember, aiController);
+                if (_boolTargetTuple._success &&
                     _tactic.action.canPerformAction(allyMember))
                 {
-                    evalTactics.Add(_tactic);
+                    evalTactics.Add(_tactic, _boolTargetTuple._target);
                 }
             }
 
             if (evalTactics.Count > 0)
-            {            
-                CurrentExecutionItem.Value = EvaluateTacticalConditionOrders(evalTactics);
+            {
+                var _currentItem = EvaluateTacticalConditionOrders();                
+                CurrentExecutionItem.Value = _currentItem._tacticItem;
                 return TaskStatus.Success;
             }
             else
@@ -103,19 +106,21 @@ namespace RPGPrototype
         #endregion
 
         #region HelperMethods
-        protected virtual AllyTacticsItem EvaluateTacticalConditionOrders(List<AllyTacticsItem> _tactics)
+        protected (AllyTacticsItem _tacticItem, AllyMember _target) EvaluateTacticalConditionOrders()
         {
             int _order = int.MaxValue;
             AllyTacticsItem _exeTactic = null;
-            foreach (var _tactic in _tactics)
-            {
-                if (_tactic.order < _order)
+            AllyMember _exeTarget = null;
+            foreach (var _tactic in evalTactics)
+            {                
+                if (_tactic.Key.order < _order)
                 {
-                    _order = _tactic.order;
-                    _exeTactic = _tactic;
+                    _order = _tactic.Key.order;
+                    _exeTactic = _tactic.Key;
+                    _exeTarget = _tactic.Value;
                 }
             }
-            return _exeTactic;
+            return (_exeTactic, _exeTarget);
         }
         #endregion
     }
