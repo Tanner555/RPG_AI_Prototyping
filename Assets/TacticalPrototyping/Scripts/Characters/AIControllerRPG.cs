@@ -315,7 +315,7 @@ namespace RPGPrototype
             if (bUsingBehaviorTrees)
             {
                 bool _isFreeMoving = (bool)AllyBehaviorTree.GetVariable(BBName_bIsFreeMoving).GetValue();
-                bool _isPerformingAbility = (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+                bool _isPerformingAbility = IsPerformingSpecialAbility();
                 //Shouldn't Be FreeMoving or Performing Special Ability
                 if (_isFreeMoving == false && _isPerformingAbility == false)
                 {
@@ -392,10 +392,15 @@ namespace RPGPrototype
         #endregion
 
         #region Helpers
+        public override bool IsPerformingSpecialAbility()
+        {
+            return (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+        }
+
         /// <summary>
         /// Finish Moving Helper For Tactics
         /// </summary>
-        protected override void FinishMoving()
+        public override void FinishMoving()
         {
             //Override To Update BT
             AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, false);
@@ -403,6 +408,22 @@ namespace RPGPrototype
             AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, Vector3.zero);
             myNavAgent.SetDestination(transform.position);
             myNavAgent.velocity = Vector3.zero;
+        }
+
+        public override void ResetTargetting()
+        {
+            AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
+            AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+        }
+
+        public override void ResetSpecialAbilities()
+        {
+            if (IsPerformingSpecialAbility() == false)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
+                AllyBehaviorTree.SetVariableValue(BBName_bIsPerformingAbility, false);
+                AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
+            }
         }
         #endregion
 
