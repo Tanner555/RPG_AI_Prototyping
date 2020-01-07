@@ -303,8 +303,7 @@ namespace RPGPrototype
                 AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, _isCommandMove);
                 if (_isCommandMove)
                 {
-                    AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
-                    AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+                    ResetTargetting();
                 }
             }
         }
@@ -319,8 +318,7 @@ namespace RPGPrototype
                 //Shouldn't Be FreeMoving or Performing Special Ability
                 if (_isFreeMoving == false && _isPerformingAbility == false)
                 {
-                    AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, enemy.transform);
-                    AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
+                    SetEnemyTarget(enemy);
                     AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
                     AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
                     AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
@@ -391,10 +389,69 @@ namespace RPGPrototype
         }
         #endregion
 
+        #region AITacticsCommands
+        public override (bool _success, AllyMember _target) Tactics_IsEnemyWithinSightRange()
+        {
+            AllyMember _closestEnemy = FindClosestEnemy();
+            bool _valid = _closestEnemy != null && _closestEnemy.IsAlive;
+            if (_valid)
+            {
+                return (true, _closestEnemy);
+            }
+            else
+            {
+                return (false, null);
+            }
+        }
+
+        public override void AttackTargettedEnemy(AllyMember _self, AllyAIController _ai, AllyMember _target)
+        {
+            if (_target != null && _target.IsAlive)
+            {
+                SetEnemyTarget(_target);
+            }
+            else
+            {
+                ResetTargetting();
+            }
+        }
+
+        public override void Tactics_AttackClosestEnemy()
+        {
+            Transform _currentTarget;
+            //Don't Attack Closest Enemy if Already Attacking One
+            if (IsTargettingEnemy(out _currentTarget) == false)
+            {
+                AllyMember _closestEnemy = FindClosestEnemy();
+                if (_closestEnemy != null)
+                {
+                    SetEnemyTarget(_closestEnemy);
+                }
+            }
+        }
+        #endregion
+
         #region Helpers
         public override bool IsPerformingSpecialAbility()
         {
             return (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+        }
+
+        public override bool IsTargettingEnemy(out Transform _currentTarget)
+        {
+            _currentTarget = null;
+            bool _isTargetting = (bool)AllyBehaviorTree.GetVariable(BBName_bTargetEnemy).GetValue();
+            if (_isTargetting)
+            {
+                _currentTarget = (Transform)AllyBehaviorTree.GetVariable(BBName_CurrentTargettedEnemy).GetValue();
+            }
+            return _isTargetting;
+        }
+
+        public override void SetEnemyTarget(AllyMember _target)
+        {
+            AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, _target.transform);
+            AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
         }
 
         /// <summary>
