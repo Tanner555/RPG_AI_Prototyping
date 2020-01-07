@@ -87,7 +87,7 @@ namespace RPGPrototype
                 //Can Perform The Given Action
                 var _boolTargetTuple = _tactic.condition.action(allyMember, aiController);
                 if (_boolTargetTuple._success &&
-                    _tactic.action.canPerformAction(allyMember))
+                    _tactic.action.canPerformAction(allyMember, aiController, _boolTargetTuple._target))
                 {
                     evalTactics.Add(_tactic, _boolTargetTuple._target);
                 }
