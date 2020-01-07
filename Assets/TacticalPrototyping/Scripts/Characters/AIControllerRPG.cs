@@ -448,6 +448,16 @@ namespace RPGPrototype
             return _isTargetting;
         }
 
+        public override void TryStartSpecialAbility(System.Type _abilityType)
+        {
+            AbilityConfig _config;
+            if(IsPerformingSpecialAbility() == false && allyMember.CanUseAbility(_abilityType, out _config))
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
+                AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
+            }
+        }
+
         public override void SetEnemyTarget(AllyMember _target)
         {
             AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, _target.transform);
