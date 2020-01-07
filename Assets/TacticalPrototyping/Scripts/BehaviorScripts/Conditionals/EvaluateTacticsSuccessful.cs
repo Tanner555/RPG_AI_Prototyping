@@ -12,7 +12,8 @@ namespace RPGPrototype
     public class EvaluateTacticsSuccessful : Conditional
 	{
         #region Shared
-        public SharedTacticsItem CurrentExecutionItem;        
+        public SharedTacticsItem CurrentExecutionItem;
+        public SharedAllyMember CurrentExecutionTarget;
         #endregion
 
         #region FieldsAndProperties
@@ -75,6 +76,7 @@ namespace RPGPrototype
             if (allyInCommand == null)
             {
                 CurrentExecutionItem.Value = null;
+                CurrentExecutionTarget.Value = null;
                 return TaskStatus.Failure;
             }
 
@@ -95,11 +97,13 @@ namespace RPGPrototype
             {
                 var _currentItem = EvaluateTacticalConditionOrders();                
                 CurrentExecutionItem.Value = _currentItem._tacticItem;
+                CurrentExecutionTarget.Value = _currentItem._target;
                 return TaskStatus.Success;
             }
             else
             {
                 CurrentExecutionItem.Value = null;
+                CurrentExecutionTarget.Value = null;
                 return TaskStatus.Failure;
             }                
         }
