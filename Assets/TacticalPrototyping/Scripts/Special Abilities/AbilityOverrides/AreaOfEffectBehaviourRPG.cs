@@ -88,7 +88,7 @@ namespace RPGPrototype
                 AllyMember damageable = _hitEnemy.Key;
                 RaycastHit hit = _hitEnemy.Value;
                 float damageToDeal = (config as AreaOfEffectConfigRPG).GetDamageToEachTarget();
-                damageable.allyEventHandler.CallOnAllyTakeDamage(
+                damageable.AllyTakeDamage(
                     (int)damageToDeal, hit.point, Vector3.zero,
                     allymember, hit.transform.gameObject, hit.collider
                     );

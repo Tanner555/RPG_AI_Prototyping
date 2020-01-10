@@ -56,7 +56,6 @@ namespace RPGPrototype
         bool isAlive = true;
 
         // cached references for readability
-        NavMeshAgent navMeshAgent;
         Animator animator;
         Rigidbody ridigBody;
 
@@ -145,6 +144,24 @@ namespace RPGPrototype
             }
         }
         AllyMemberRPG _allymember = null;
+
+        NavMeshAgent navMeshAgent
+        {
+            get
+            {
+                if (_navMeshAgent == null)
+                {
+                    _navMeshAgent = GetComponent<NavMeshAgent>();
+                }
+                if (_navMeshAgent == null)
+                {
+                    //NavMesh hasn't been added yet.
+                    _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+                }
+                return _navMeshAgent;
+            }
+        }
+        NavMeshAgent _navMeshAgent = null;
 
 #if RTSAStarPathfinding
         Seeker mySeeker
@@ -265,8 +282,6 @@ namespace RPGPrototype
 
             if(bUseAStarPath == false)
             {
-                navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-                //navMeshAgent = GetComponent<NavMeshAgent>();
                 navMeshAgent.speed = navMeshAgentSteeringSpeed;
                 navMeshAgent.stoppingDistance = navMeshAgentStoppingDistance;
                 navMeshAgent.autoBraking = false;

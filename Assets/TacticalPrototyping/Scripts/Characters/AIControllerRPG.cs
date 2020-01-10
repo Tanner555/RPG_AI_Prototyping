@@ -213,6 +213,7 @@ namespace RPGPrototype
         #region Handlers
         protected override void OnAllyInitComps(RTSAllyComponentSpecificFields _specific, RTSAllyComponentsAllCharacterFields _allFields)
         {
+            //Make Sure Base is Called Before Override
             base.OnAllyInitComps(_specific, _allFields);
             var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
             var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specific).RPGCharacterAttributesObject;
