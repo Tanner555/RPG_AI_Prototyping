@@ -48,7 +48,6 @@ namespace RPGPrototype
 
         // cached references for readability
         Animator animator;
-        Rigidbody ridigBody;
 
         private Vector3 myAnimMoveVelocity = Vector3.zero;
         #endregion
@@ -66,6 +65,42 @@ namespace RPGPrototype
             }
         }
         AllyEventHandlerRPG _eventHandler = null;
+
+        CapsuleCollider capsuleCollider
+        {
+            get
+            {
+                if (_capsuleCollider == null)
+                    _capsuleCollider = GetComponent<CapsuleCollider>();
+
+                if (_capsuleCollider == null)
+                {
+                    //CapsuleCollider hasn't been added yet.
+                    _capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
+                }
+
+                return _capsuleCollider;
+            }
+        }
+        CapsuleCollider _capsuleCollider = null;
+
+        Rigidbody ridigBody
+        {
+            get
+            {
+                if (_ridigBody == null)
+                    _ridigBody = GetComponent<Rigidbody>();
+
+                if (_ridigBody == null)
+                {
+                    //Rigidbody hasn't been added yet.
+                    _ridigBody = gameObject.AddComponent<Rigidbody>();
+                }
+
+                return _ridigBody;
+            }
+        }
+        Rigidbody _ridigBody = null;
         #endregion
 
         #region UnityMessages
@@ -99,12 +134,10 @@ namespace RPGPrototype
         #region Initialization
         private void AddRequiredComponents()
         {
-            var capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
             capsuleCollider.center = colliderCenter;
             capsuleCollider.radius = colliderRadius;
             capsuleCollider.height = colliderHeight;
 
-            ridigBody = gameObject.AddComponent<Rigidbody>();
             ridigBody.constraints = RigidbodyConstraints.FreezeRotation;
 
             audioSource = gameObject.AddComponent<AudioSource>();

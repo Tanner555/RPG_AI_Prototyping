@@ -28,7 +28,7 @@ MonoBehaviour:
   animatorForwardCap: 1
   audioSourceSpatialBlend: 0.5
   colliderCenter: {x: 0, y: 1.03, z: 0}
-  colliderRadius: 1
+  colliderRadius: 0.3
   colliderHeight: 2.03
   moveSpeedMultiplier: 0.6
   animationSpeedMultiplier: 0.7
