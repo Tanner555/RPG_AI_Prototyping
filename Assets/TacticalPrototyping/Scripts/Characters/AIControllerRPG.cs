@@ -75,7 +75,7 @@ namespace RPGPrototype
         }
         Animator _myAnimator = null;
 
-        protected override bool AllCompsAreValid => myEventHandler && allyMember;
+        //protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
 
         #region Properties       
@@ -274,12 +274,6 @@ namespace RPGPrototype
         void PutWeaponInHand(WeaponConfig _config)
         {
             myRPGWeapon = _config;
-            //Moved Comps Check Into PutWeaponInHad Handler
-            if (!AllCompsAreValid)
-            {
-                Debug.LogError("Not all comps are valid!");
-            }
-            StartServices();
         }
 
         protected override void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
@@ -481,8 +475,11 @@ namespace RPGPrototype
             AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, false);
             AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
             AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, Vector3.zero);
-            myNavAgent.SetDestination(transform.position);
-            myNavAgent.velocity = Vector3.zero;
+            if (IsNavMeshAgentEnabled())
+            {
+                myNavAgent.SetDestination(transform.position);
+                myNavAgent.velocity = Vector3.zero;
+            }
         }
 
         public override void ResetTargetting()
