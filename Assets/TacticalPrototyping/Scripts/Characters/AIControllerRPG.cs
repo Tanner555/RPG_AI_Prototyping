@@ -217,7 +217,14 @@ namespace RPGPrototype
             base.OnAllyInitComps(_specific, _allFields);
             var _RPGallAllyComps = (AllyComponentsAllCharacterFieldsRPG)_allFields;
             var _rpgCharAttr = ((AllyComponentSpecificFieldsRPG)_specific).RPGCharacterAttributesObject;
+            //Set Important NavMeshAgent Attributes
+            myNavAgent.speed = _rpgCharAttr.navMeshAgentSteeringSpeed;
+            myNavAgent.stoppingDistance = _rpgCharAttr.navMeshAgentStoppingDistance;
+            myNavAgent.autoBraking = false;
+            myNavAgent.updateRotation = false;
+            myNavAgent.updatePosition = true;
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
+            //Behavior Tree Init
             bUsingBehaviorTrees = _RPGallAllyComps.bUseBehaviourTrees;
             if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
             {
