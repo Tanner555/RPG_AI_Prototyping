@@ -64,10 +64,23 @@ Assets/Apex-Game-Tools
 Assets/Apex-Game-Tools.meta
 Assets/RTS-Apex-Game-Tools
 Assets/RTS-Apex-Game-Tools.meta
+
+# Behavior Designer
 Assets/Behavior Designer
 Assets/Behavior Designer.meta
 Assets/Behavior Designer Movement
 Assets/Behavior Designer Movement.meta
+
+# UNode
+/Assets/uNode
+/Assets/uNode.meta
+uNodeData
+TempScript
+
+# UAlive
+/Assets/UAlive
+/Assets/UAlive.meta
+
 Assets/Demigiant
 Assets/Demigiant.meta
 Assets/Gizmos
