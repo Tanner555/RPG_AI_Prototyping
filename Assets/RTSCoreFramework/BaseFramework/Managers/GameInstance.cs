@@ -25,10 +25,7 @@ namespace BaseFramework
             get { return currentScenarioSettingsDictionary; }
         }
 
-        public LevelIndex CurrentLevel
-        {
-            get { return currentLevel; }
-        }
+        public LevelIndex CurrentLevel => GetCurrentLevelIndex();
 
         public ScenarioIndex CurrentScenario
         {
@@ -55,8 +52,8 @@ namespace BaseFramework
 
         #region Fields
         [Header("Current Level Info")]
-        [SerializeField]
-        protected LevelIndex currentLevel = LevelIndex.Main_Menu;
+        //[SerializeField]
+        //protected LevelIndex currentLevel = LevelIndex.Main_Menu;
         [SerializeField]
         protected ScenarioIndex currentScenario = ScenarioIndex.No_Scenario;
         [Header("Data Containing Level Settings")]
@@ -68,13 +65,15 @@ namespace BaseFramework
         protected virtual void OnEnable()
         {
             //Check If There's More Than One Instance in Scene
-            if(bHasInstance && thisInstance != this)
+            if (bHasInstance && thisInstance != this)
             {
-                Debug.Log("More than one game instance in scene, destroying instance");
-                DestroyImmediate(this.gameObject); 
+                //More than one game instance in scene, destroying instance
+                Destroy(this.gameObject);
             }
-
-            InitializeDictionaryValues();
+            else
+            {
+                InitializeDictionaryValues();
+            }
         }
         #endregion
 
@@ -84,7 +83,7 @@ namespace BaseFramework
             if (levelSettingsDictionary.ContainsKey(_level))
             {
                 var _levelSettings = levelSettingsDictionary[_level];
-                currentLevel = _level;
+                //currentLevel = _level;
                 currentScenario = _scenario;
                 UpdateScenarioDictionary();
                 SceneManager.LoadScene(_levelSettings.LevelBuildIndex);
@@ -134,6 +133,12 @@ namespace BaseFramework
         #endregion
 
         #region Getters/Checks
+        public virtual LevelIndex GetCurrentLevelIndex()
+        {
+            int _buildIndex = SceneManager.GetActiveScene().buildIndex;
+            return GetLevelIndexFromNumber(_buildIndex);
+        }
+
         public virtual bool IsLoadingNextPermitted(out bool _nextScenario, out bool _nextLevel)
         {
             _nextScenario = IsLoadingNextScenarioPermitted();
@@ -198,7 +203,8 @@ namespace BaseFramework
         {
             var _keysDic = levelSettingsDictionary.Keys;
             var _keysList = _keysDic.ToList();
-            int _keyIndex = _keysList.IndexOf(CurrentLevel);
+            var _currLevel = CurrentLevel;
+            int _keyIndex = _keysList.IndexOf(_currLevel);
             LevelIndex _nextLevel = GetLevelIndexFromNumber(_keyIndex + 1);
             if (_keyIndex + 1 > 0 && _keyIndex + 1 <= _keysList.Count - 1 &&
                 _nextLevel != LevelIndex.No_Level &&
@@ -207,7 +213,7 @@ namespace BaseFramework
                 _level = levelSettingsDictionary[_nextLevel];
                 return true;
             }
-            _level = levelSettingsDictionary[CurrentLevel];
+            _level = levelSettingsDictionary[_currLevel];
             return false;
         }
 

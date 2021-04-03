@@ -12,7 +12,7 @@ namespace BaseFramework
     /// </summary>
     public class MainMenuHandler : MonoBehaviour
     {
-        GameInstance gameInstance
+        protected GameInstance gameInstance
         {
             get { return GameInstance.thisInstance; }
         }
@@ -22,7 +22,7 @@ namespace BaseFramework
         [SerializeField]
         public ScenarioIndex scenario;
 
-        public void Btn_PlayGame()
+        public virtual void Btn_PlayGame()
         {
             if(gameInstance != null)
             {
@@ -30,7 +30,7 @@ namespace BaseFramework
             }
         }
 
-        public void Btn_QuitGame()
+        public virtual void Btn_QuitGame()
         {
             Application.Quit();
         }

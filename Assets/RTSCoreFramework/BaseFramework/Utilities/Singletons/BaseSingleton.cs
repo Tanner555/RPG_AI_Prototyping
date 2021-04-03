@@ -20,6 +20,15 @@ namespace BaseFramework
         protected static bool bHasInstance = false;
         protected static bool bIsBeingDestroyed = false;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void Init()
+        {
+            _thisInstance = null;
+            _lock = null;
+            bHasInstance = false;
+            bIsBeingDestroyed = false;
+        }
+
         public static T thisInstance
         {
             get
@@ -28,24 +37,24 @@ namespace BaseFramework
                 {
                     if (_thisInstance == null)
                     {
-                        var _foundObject = (T)FindObjectOfType(typeof(T));
-                        if(_foundObject == null)
+                        var _foundObjects = (T[])FindObjectsOfType(typeof(T));
+                        if (_foundObjects != null && 
+                            _foundObjects.Length > 0 && 
+                            _foundObjects[0] != null)
                         {
-                            return _thisInstance;
+                            if(_foundObjects.Length > 1)
+                            {
+                                Debug.LogError("[Singleton] Something went really wrong " +
+                                 " - there should never be more than 1 singleton!" +
+                                 " Please Delete The Duplicate " + typeof(T) + " from the scene.");
+                            }
+                            else
+                            {
+                                _thisInstance = _foundObjects[0];
+                                bHasInstance = true;
+                            }
                         }
-                        //Only Set _thisInstance If Found Object Exists
-                        //This Fixes Unsubbing Issues When New Level Is Being Loaded
-                        _thisInstance = _foundObject;
-                        bHasInstance = true;
-                        if (FindObjectsOfType(typeof(T)).Length > 1)
-                        {
-                            Debug.LogError("[Singleton] Something went really wrong " +
-                                " - there should never be more than 1 singleton!" +
-                                " Please Delete The Duplicate "+typeof(T)+" from the scene.");
-                        }
-
                     }
-
                     return _thisInstance;
                 }
             }
@@ -74,6 +83,14 @@ namespace BaseFramework
 
         protected static bool bHasInstance = false;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void Init()
+        {
+            _thisInstance = null;
+            _lock = null;
+            bHasInstance = false;
+        }
+
         public static T thisInstance
         {
             get
@@ -82,11 +99,25 @@ namespace BaseFramework
                 {
                     if (_thisInstance == null)
                     {
-                        _thisInstance = (T)FindObjectOfType(typeof(T));
-                        bHasInstance = true;
-                        DontDestroyOnLoad(_thisInstance);
+                        var _foundObjects = (T[])FindObjectsOfType(typeof(T));
+                        if(_foundObjects != null &&
+                            _foundObjects.Length > 0 &&
+                            _foundObjects[0] != null)
+                        {
+                            if (_foundObjects.Length > 1)
+                            {
+                                Debug.LogError("[Singleton] Something went really wrong " +
+                                " - there should never be more than 1 singleton!" +
+                                " Please Delete The Duplicate " + typeof(T) + " from the scene.");
+                            }
+                            else
+                            {
+                                _thisInstance = _foundObjects[0];
+                                bHasInstance = true;
+                                DontDestroyOnLoad(_thisInstance);
+                            }
+                        }
                     }
-
                     return _thisInstance;
                 }
             }

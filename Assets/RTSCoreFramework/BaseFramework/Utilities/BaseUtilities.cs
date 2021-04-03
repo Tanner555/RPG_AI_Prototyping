@@ -33,6 +33,12 @@ namespace BaseFramework
         #region Invoker
         public class InvokerUtility
         {
+            [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+            static void Init()
+            {
+                invokeCaller = null;
+            }
+
             private static MonoBehaviour invokeCaller = null;
 
             public static void InvokeInRealTime(ref MonoBehaviour caller, string methodName, float time)
