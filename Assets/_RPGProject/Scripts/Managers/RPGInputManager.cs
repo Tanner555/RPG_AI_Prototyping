@@ -10,15 +10,7 @@ namespace RPGPrototype
     public class RPGInputManager : InputManager
     {
         #region Fields
-        //Handles Multi Unit Selection
-        [Header("Selection Config")]
-        [SerializeField]
-        private RectTransform SelectionImage;
-        Vector3 selectionStartPos;
-        Vector3 selectionEndPos;
-        //Sprinting Setup
-        private bool isSprinting = false;
-        private AllyMember setupSprintAlly = null;
+
         #endregion
 
         #region OverrideAndHideProperties
@@ -51,8 +43,7 @@ namespace RPGPrototype
         protected override void InputSetup()
         {
             base.InputSetup();
-            //if (Input.GetKeyDown(KeyCode.I))
-            //    CallInventoryToggle();
+
             if (Input.GetKeyDown(KeyCode.B))
                 CallIGBPIToggle();
             if (Input.GetKeyDown(KeyCode.L))
@@ -67,42 +58,42 @@ namespace RPGPrototype
                 CallPossessAllySubtract();
             if (Input.GetKeyDown(KeyCode.C))
                 CallCoverToggle();
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //    CallSelectNextWeapon();
-            //if (Input.GetKeyDown(KeyCode.Alpha1))
-            //    CallSelectPrevWeapon();
             if (Input.GetKeyDown(KeyCode.R))
                 CallTryReload();
             if (Input.GetKeyDown(KeyCode.Space))
                 CallToggleIsInPauseControl();
-            //if (Input.GetKeyDown(KeyCode.LeftShift))
-            //    CallSprintToggle();
-
-            //if (Input.GetKey(KeyCode.LeftShift))
-            //    SprintingSetup();
-            //else
-            //    EndSprintingSetup();
 
         }
         #endregion
 
         #region InputCalls
-        //void CallInventoryToggle() { uiMaster.CallEventInventoryUIToggle(); }
         void CallToggleIsInPauseControl() { gamemaster.CallOnTogglebIsInPauseControlMode(); }
         void CallIGBPIToggle() { uiMaster.CallEventIGBPIToggle(); }
         void CallLuaEditorToggle() { uiMaster.CallEventLuaEditorToggle(); }
         void CallPossessAllyAdd() { gamemode.GeneralInCommand.PossessAllyAdd(); }
         void CallPossessAllySubtract() { gamemode.GeneralInCommand.PossessAllySubtract(); }
-        //void CallSelectPrevWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToPrevItem(); }
-        //void CallSelectNextWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToNextItem(); }
-        //void CallTryFire() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryUseWeapon(); }
         void CallTryReload() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryReload(); }
         void CallCoverToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryCrouch(); }
-        //void CallSprintToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallEventToggleIsSprinting(); }
 
         #endregion
 
         #region CommentedCode
+        //void CallInventoryToggle() { uiMaster.CallEventInventoryUIToggle(); }
+        //void CallSelectPrevWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToPrevItem(); }
+        //void CallSelectNextWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToNextItem(); }
+        //void CallTryFire() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryUseWeapon(); }
+        //void CallSprintToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallEventToggleIsSprinting(); }
+
+        ////Handles Multi Unit Selection
+        //[Header("Selection Config")]
+        //[SerializeField]
+        //private RectTransform SelectionImage;
+        //Vector3 selectionStartPos;
+        //Vector3 selectionEndPos;
+        //Sprinting Setup
+        //private bool isSprinting = false;
+        //private AllyMember setupSprintAlly = null;
+
         //private AllyMoveSpeed setupMoveSpeed;
         //List<int> NumberKeys = new List<int>
         //{
