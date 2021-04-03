@@ -10,7 +10,42 @@ namespace RPGPrototype
     public class RPGInputManager : InputManager
     {
         #region Fields
-
+        //Handles Right Mouse Down Input
+        [Header("Right Mouse Down Config")]
+        public float RMHeldThreshold = 0.15f;
+        protected bool isRMHeldDown = false;
+        protected bool isRMHeldPastThreshold = false;
+        protected float RMCurrentTimer = 5f;
+        //Handles Left Mouse Down Input
+        [Header("Left Mouse Down Config")]
+        public float LMHeldThreshold = 0.15f;
+        protected bool isLMHeldDown = false;
+        protected bool isLMHeldPastThreshold = false;
+        protected float LMCurrentTimer = 5f;
+        //Handles Mouse ScrollWheel Input
+        //Scroll Input
+        protected string scrollInputName = "Mouse ScrollWheel";
+        protected float scrollInputAxisValue = 0.0f;
+        protected bool bScrollWasPreviouslyPositive = false;
+        protected bool bScrollIsCurrentlyPositive = false;
+        //Scroll Timer Handling
+        protected bool isScrolling = false;
+        //Used to Fix First Scroll Not Working Issue
+        protected bool bBeganScrolling = false;
+        //Stop Scroll Functionality
+        [Header("Mouse ScrollWheel Config")]
+        public float scrollStoppedThreshold = 0.15f;
+        protected bool isNotScrollingPastThreshold = false;
+        protected float noScrollCurrentTimer = 5f;
+        //Number Key Input
+        protected List<int> NumberKeys = new List<int>
+        {
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        };
+        protected List<string> NumberKeyNames = new List<string>
+        {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+        };
         #endregion
 
         #region OverrideAndHideProperties
@@ -37,6 +72,16 @@ namespace RPGPrototype
         {
             get { return RTSCamRaycaster.thisInstance; }
         }
+
+        //Mouse Setup - Scrolling
+        protected bool bScrollAxisIsPositive
+        {
+            get { return scrollInputAxisValue >= 0.0f; }
+        }
+        #endregion
+
+        #region UnityMessages
+
         #endregion
 
         #region InputSetup
@@ -44,6 +89,8 @@ namespace RPGPrototype
         {
             base.InputSetup();
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+                CallMenuToggle();
             if (Input.GetKeyDown(KeyCode.B))
                 CallIGBPIToggle();
             if (Input.GetKeyDown(KeyCode.L))
@@ -63,6 +110,13 @@ namespace RPGPrototype
             if (Input.GetKeyDown(KeyCode.Space))
                 CallToggleIsInPauseControl();
 
+            foreach (int _key in NumberKeys)
+            {
+                if (Input.GetKeyDown(_key.ToString()))
+                {
+                    CallOnNumberKeyPress(_key);
+                }
+            }
         }
         #endregion
 
@@ -75,6 +129,223 @@ namespace RPGPrototype
         void CallTryReload() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryReload(); }
         void CallCoverToggle() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnTryCrouch(); }
 
+        #endregion
+
+        #region MouseSetup
+        void LeftMouseDownSetup()
+        {
+            if (UiIsEnabled) return;
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                if (isRMHeldDown) return;
+                if (isLMHeldDown == false)
+                {
+                    isLMHeldDown = true;
+                    LMCurrentTimer = CurrentGameTime + LMHeldThreshold;
+                }
+
+                if (CurrentGameTime > LMCurrentTimer)
+                {
+                    //Calls Every Update
+                    //CreateSelectionSquare();
+                    if (isLMHeldPastThreshold == false)
+                    {
+                        //OnMouseDown Code Goes Here
+                        isLMHeldPastThreshold = true;
+                        gamemaster.CallEventHoldingLeftMouseDown(true);
+                    }
+                }
+            }
+            else
+            {
+                if (isLMHeldDown == true)
+                {
+                    isLMHeldDown = false;
+                    if (isLMHeldPastThreshold == true)
+                    {
+                        //When MouseDown Code Exits
+                        isLMHeldPastThreshold = false;
+                        gamemaster.CallEventHoldingLeftMouseDown(false);
+                    }
+                    else
+                    {
+                        //Mouse Button Was Let Go Before the Threshold
+                        //Call the Click Event
+                        gamemaster.CallEventOnLeftClick();
+                    }
+                }
+            }
+        }
+
+        void RightMouseDownSetup()
+        {
+            if (UiIsEnabled) return;
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                if (isLMHeldDown) return;
+                if (isRMHeldDown == false)
+                {
+                    isRMHeldDown = true;
+                    RMCurrentTimer = CurrentGameTime + RMHeldThreshold;
+                }
+
+                if (CurrentGameTime > RMCurrentTimer)
+                {
+                    if (isRMHeldPastThreshold == false)
+                    {
+                        //OnMouseDown Code Goes Here
+                        isRMHeldPastThreshold = true;
+                        gamemaster.CallEventHoldingRightMouseDown(true);
+                    }
+                }
+            }
+            else
+            {
+                if (isRMHeldDown == true)
+                {
+                    isRMHeldDown = false;
+                    if (isRMHeldPastThreshold == true)
+                    {
+                        //When MouseDown Code Exits
+                        isRMHeldPastThreshold = false;
+                        gamemaster.CallEventHoldingRightMouseDown(false);
+                    }
+                    else
+                    {
+                        //Mouse Button Was Let Go Before the Threshold
+                        //Call the Click Event
+                        gamemaster.CallEventOnRightClick();
+                    }
+                }
+            }
+
+        }
+
+        void StopMouseScrollWheelSetup()
+        {
+            if (UiIsEnabled) return;
+            scrollInputAxisValue = Input.GetAxis(scrollInputName);
+            if (Mathf.Abs(scrollInputAxisValue) > 0.0f)
+            {
+                if (isLMHeldDown) return;
+                bScrollIsCurrentlyPositive = bScrollAxisIsPositive;
+
+                //Fixes First Scroll Not Working Issue
+                if (bBeganScrolling == false)
+                {
+                    bBeganScrolling = true;
+                    gamemaster.CallEventEnableCameraZoom(true, bScrollAxisIsPositive);
+                }
+
+                if (bScrollWasPreviouslyPositive != bScrollIsCurrentlyPositive)
+                {
+                    gamemaster.CallEventEnableCameraZoom(true, bScrollAxisIsPositive);
+                    bScrollWasPreviouslyPositive = bScrollAxisIsPositive;
+                }
+
+                if (isScrolling == false)
+                {
+                    isScrolling = true;
+                    if (isNotScrollingPastThreshold == true)
+                    {
+                        //When ScrollWheel Code Starts
+                        isNotScrollingPastThreshold = false;
+                        gamemaster.CallEventEnableCameraZoom(true, bScrollAxisIsPositive);
+                        bScrollWasPreviouslyPositive = bScrollAxisIsPositive;
+                    }
+                    else
+                    {
+                        //Scroll Wheel Started Before the Stop Threshold
+                        //Do nothing for now
+                    }
+                }
+            }
+            else
+            {
+                if (isScrolling == true)
+                {
+                    isScrolling = false;
+                    noScrollCurrentTimer = CurrentGameTime + scrollStoppedThreshold;
+                }
+
+                if (CurrentGameTime > noScrollCurrentTimer)
+                {
+                    if (isNotScrollingPastThreshold == false)
+                    {
+                        //OnScrollWheel Stopping Code Goes Here
+                        isNotScrollingPastThreshold = true;
+                        gamemaster.CallEventEnableCameraZoom(false, bScrollAxisIsPositive);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Handlers
+        protected override void OnUpdateHandler()
+        {
+            base.OnUpdateHandler();
+            LeftMouseDownSetup();
+            RightMouseDownSetup();
+            StopMouseScrollWheelSetup();
+        }
+
+        protected override void HandleGamePaused(bool _isPaused)
+        {
+            base.HandleGamePaused(_isPaused);
+            if (_isPaused)
+            {
+                ResetMouseSetup();
+            }
+        }
+
+        protected override void HandleUiActiveSelf(bool _state)
+        {
+            base.HandleUiActiveSelf(_state);
+            if (_state == true)
+            {
+                ResetMouseSetup();
+            }
+        }
+
+        protected override void HandleUiActiveSelf()
+        {
+            base.HandleUiActiveSelf();
+            if (uiMaster.isUiAlreadyInUse)
+            {
+                ResetMouseSetup();
+            }
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Used Whenever Mouse Setup Needs to be disabled,
+        /// Such as when a UI Menu (Pause Menu) is Active
+        /// </summary>
+        void ResetMouseSetup()
+        {
+            if (isRMHeldPastThreshold)
+            {
+                isRMHeldPastThreshold = false;
+                gamemaster.CallEventHoldingRightMouseDown(false);
+            }
+            if (isLMHeldPastThreshold)
+            {
+                isLMHeldPastThreshold = false;
+                gamemaster.CallEventHoldingLeftMouseDown(false);
+            }
+
+            isLMHeldDown = false;
+            isRMHeldDown = false;
+            //Reset Scrolling
+            isScrolling = false;
+            isNotScrollingPastThreshold = true;
+            bBeganScrolling = false;
+            noScrollCurrentTimer = 0.0f;
+            gamemaster.CallEventEnableCameraZoom(false, bScrollAxisIsPositive);
+        }
         #endregion
 
         #region CommentedCode
@@ -95,33 +366,6 @@ namespace RPGPrototype
         //private AllyMember setupSprintAlly = null;
 
         //private AllyMoveSpeed setupMoveSpeed;
-        //List<int> NumberKeys = new List<int>
-        //{
-        //    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-        //};
-
-        //List<string> NumberKeyNames = new List<string>
-        //{
-        //    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-        //};
-
-        //protected override void InputSetup()
-        //{
-        //    base.InputSetup();
-        //    foreach (int _key in NumberKeys)
-        //    {
-        //        if (Input.GetKeyDown(_key.ToString()))
-        //        {
-        //            CallOnNumberKeyPress(_key);
-        //        }
-        //    }
-
-        //}
-
-        //void CallOnNumberKeyPress(int _index)
-        //{
-        //    gameMaster.CallOnNumberKeyPress(_index);
-        //}
 
         //void SelectionInitialize()
         //{
@@ -170,135 +414,7 @@ namespace RPGPrototype
         //    if (SelectionImage.gameObject.activeSelf)
         //        SelectionImage.gameObject.SetActive(false);
         //}
-
-        //List<GameObject> TestGObjects;
-        //JobGroupHandler.JobGroupObject myGroup = null;
-        //int _loopCounter = 0;
-        //int _testCounter = 0;
-        //string _key = "TestingQueue";
-        //string _deleteKey = "DeleteObjects";
-        //[Header("Testing")]
-        //public GameObject TestQueuePrefab;
-        //public int _iterCount = 1000;
-
-        //private void Start()
-        //{
-        //    TestGObjects = new List<GameObject>();
-        //}
-
-        //void TestQueue()
-        //{
-        //    for (int i = 0; i < _iterCount; i++)
-        //    {
-        //        string _gName = "";
-        //        if (_loopCounter > _iterCount)
-        //            _gName = $"New Object: {i + _loopCounter}";
-        //        else
-        //            _gName = $"New Object: {i}";
-
-        //        if (TestQueuePrefab != null)
-        //        {
-        //            GameObject _gObject = GameObject.Instantiate(TestQueuePrefab, this.transform) as GameObject;
-        //            _gObject.name = _gName;
-        //            TestGObjects.Add(_gObject);
-        //        }
-        //        _loopCounter++;
-        //    }
-        //    _testCounter++;
-        //    //Testing Framework
-        //    Action<GameObject> _job = (_gObject) =>
-        //    {
-        //        var _br = _gObject.GetComponent<Rigidbody>() != null;
-        //        var _bc = _gObject.GetComponent<BoxCollider>() != null;
-        //        var _bmr = _gObject.GetComponent<MeshRenderer>() != null;
-        //        var _bmf = _gObject.GetComponent<MeshFilter>() != null;
-        //        if (!_br && !_bc && !_bmr && !_bmf)
-        //        {
-        //            var _rb = _gObject.AddComponent<Rigidbody>();
-        //            _rb.mass = 1000;
-        //            _rb.isKinematic = true;
-        //            var _c = _gObject.AddComponent<BoxCollider>();
-        //            _c.isTrigger = true;
-        //            _gObject.AddComponent<MeshRenderer>();
-        //            _gObject.AddComponent<MeshFilter>();
-        //        }
-        //    };
-
-        //    JobGroupHandler.JobGroupObject _manager = null;
-        //    if (JobGroupHandler.LibraryContainsKey(_key))
-        //    {
-        //        _manager = JobGroupHandler.GetJobGroup(_key);
-        //    }
-        //    else
-        //    {
-        //        _manager = JobGroupHandler.CreateJobGroupForArray<GameObject>(TestGObjects, _job, 10, _key);
-        //    }
-        //    _manager.StartJobQueue(10);
-
-
-        //    foreach (var _gObject in TestGObjects)
-        //    {
-        //        var _br = _gObject.GetComponent<Rigidbody>() != null;
-        //        var _bc = _gObject.GetComponent<BoxCollider>() != null;
-        //        var _bmr = _gObject.GetComponent<MeshRenderer>() != null;
-        //        var _bmf = _gObject.GetComponent<MeshFilter>() != null;
-        //        if (!_br && !_bc && !_bmr && !_bmf)
-        //        {
-        //            var _rb = _gObject.AddComponent<Rigidbody>();
-        //            _rb.mass = 1000;
-        //            _rb.isKinematic = true;
-        //            var _c = _gObject.AddComponent<BoxCollider>();
-        //            _c.isTrigger = true;
-        //            _gObject.AddComponent<MeshRenderer>();
-        //            _gObject.AddComponent<MeshFilter>();
-        //            _gObject.name += "AND" + _gObject.name;
-        //        }
-        //    }
-
-
-        //    Action _job = () =>
-        //    {
-        //        for (int i = 0; i < 1; i++)
-        //        {
-        //            //var _g = new GameObject($"New Object: {i}");
-        //            //GameObject _gObject = GameObject.Instantiate(_g, null) as GameObject;
-        //            TestGObjects.Add(this.gameObject);
-        //        }
-        //    };
-        //    var _group = JobGroupHandler.CreateNewJobGroup(_job, 15000, "Hello", false);
-        //    await Task.Delay(10);
-        //    _group.StartJobQueue();
-
-
-        //    for (int i = 0; i < TestGObjects.Count; i++)
-        //    {
-        //        TestGObjects[i].name = $"Hello Object {i}";
-        //    }
-
-        //    for (int i = 0; i < TestNames.Count; i++)
-        //    {
-        //        TestNames[i] = "Hello There";
-        //    }
-        //    if (myGroup == null)
-        //    {
-        //        List<string> names = new List<string>();
-        //        Action _job = () =>
-        //        {
-        //            //var tempNames = names;
-        //            //foreach (var _name in tempNames)
-        //            //{
-
-        //            //}
-        //        };
-        //        string _key = "testKey";
-        //        myGroup = JobGroupHandler.CreateNewJobGroup(_job, 500, _key, false);
-        //    }
-        //    if (myGroup.GroupExists && myGroup.HasStartedDequeue == false)
-        //    {
-        //        await Task.Delay(1000);
-        //        myGroup.StartJobQueue();
-        //    }
-        //}
         #endregion
+
     }
 }
