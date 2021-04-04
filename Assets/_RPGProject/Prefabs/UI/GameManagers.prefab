@@ -180,15 +180,28 @@ MonoBehaviour:
     m_Bits: 9728
   sightLayers:
     serializedVersion: 2
-    m_Bits: 9985
+    m_Bits: 1921
   sightNoCurrentPlayerLayers:
     serializedVersion: 2
-    m_Bits: 8961
+    m_Bits: 25473
+  sightAndFriendLayers:
+    serializedVersion: 2
+    m_Bits: 18305
+  sightAndEnemyLayers:
+    serializedVersion: 2
+    m_Bits: 10113
   ignoreInvisibleLayersAndAllies:
     serializedVersion: 2
     m_Bits: 257
   singleAllyLayerName: Ally
   singleCurrentPlayerLayerName: CurrentPlayerAlly
+  singleDeadAllyLayerName: DeadAlly
+  singleFriendLayerName: Friend
+  singleEnemyLayerName: Enemy
+  singleIgnoreRaycastLayerName: Ignore Raycast
+  walkableLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114902845866046512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +217,6 @@ MonoBehaviour:
   RMHeldThreshold: 0.15
   LMHeldThreshold: 0.15
   scrollStoppedThreshold: 0.15
-  SelectionImage: {fileID: 0}
 --- !u!114 &114081126024168542
 MonoBehaviour:
   m_ObjectHideFlags: 0

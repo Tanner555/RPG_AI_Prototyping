@@ -138,8 +138,14 @@ namespace RTSCoreFramework
         private LayerMask __allyLayers = -1;
         private LayerMask __sightLayers = -1;
         private LayerMask __allyAndCharacterLayers = -1;
+        protected LayerMask SingleDeadAllyLayer = -1;
         protected NavMeshQueryFilter agentQueryFilter;
         private NavMeshPath surfaceWalkablePath;
+        public virtual float myNavAgentHeight
+        {
+            get { return _myNavAgentHeight; }
+        }
+        protected float _myNavAgentHeight = 3f;
 
         protected Collider[] colliders;
         protected List<Transform> uniqueTransforms = new List<Transform>();
@@ -203,6 +209,23 @@ namespace RTSCoreFramework
                 return __sightLayers;
             }
         }
+
+        public LayerMask enemyHasLOSLayers
+        {
+            get
+            {
+                if(_enemyHasLOSLayers == -1)
+                {
+                    //Set To Opposite Of Ally's Current EasyHit Collider
+                    //That Way Only Enemies Will Be Hit and Not Friends
+                    _enemyHasLOSLayers = allyMember.bIsInGeneralCommanderParty ?
+                        gamemode.SightAndEnemyLayers :
+                        gamemode.SightAndFriendLayers;
+                }
+                return _enemyHasLOSLayers;
+            }
+        }
+        private LayerMask _enemyHasLOSLayers = -1;
 
         public LayerMask allyAndCharacterLayers
         {
@@ -308,6 +331,7 @@ namespace RTSCoreFramework
         {
             sightRange = _allFields.sightRange;
             followDistance = _allFields.followDistance;
+            SingleDeadAllyLayer = gamemode.SingleDeadAllyLayer;
             if (IsNavMeshAgentEnabled() == false)
             {
                 ToggleNavMeshAgent(true);
@@ -318,7 +342,12 @@ namespace RTSCoreFramework
                 areaMask = myNavAgent.areaMask,
                 agentTypeID = myNavAgent.agentTypeID
             };
-            surfaceWalkablePath = new NavMeshPath();
+            surfaceWalkablePath = new NavMeshPath();            
+            if (myNavAgent.height >= 2f)
+            {
+                //Only Set Property If Nav Height Is Accurate, Otherwise Use an Estimate
+                _myNavAgentHeight = myNavAgent.height;
+            }
         }
 
         //protected virtual void OnWeaponChanged(EEquipType _eType, EWeaponType _weaponType, EWeaponUsage _wUsage, bool _equipped)
@@ -386,6 +415,16 @@ namespace RTSCoreFramework
         //}
 
         protected virtual void HandleAllySwitch(PartyManager _party, AllyMember _toSet, AllyMember _current)
+        {
+
+        }
+
+        protected virtual void HandleOnTogglePause(bool _paused)
+        {
+
+        }
+
+        protected virtual void HandleOnTryScheduleSpecialAbility(System.Type _ability)
         {
 
         }
@@ -489,21 +528,19 @@ namespace RTSCoreFramework
 
         public virtual bool hasLOSWithinRange(AllyMember _enemy, out RaycastHit _hit)
         {
-            RaycastHit _myHit;
             bool _bHit = Physics.Linecast(losTransform.position,
-                        _enemy.ChestTransform.position, out _myHit);
-            _hit = _myHit;
-            bool _valid = _bHit && _myHit.transform != null &&
-                _myHit.transform.root.tag == gamemode.AllyTag;
+                        _enemy.ChestTransform.position, out _hit, enemyHasLOSLayers);
+            bool _valid = _bHit && _hit.transform != null &&
+                _hit.transform.root.tag == gamemode.AllyTag;
             if (_valid)
             {
-                AllyMember _hitAlly = _myHit.transform.root.GetComponent<AllyMember>();
+                AllyMember _hitAlly = _hit.transform.root.GetComponent<AllyMember>();
                 if (_hitAlly == allyMember)
                 {
                     Debug.Log(allyMember.CharacterName +
                         " Has LOS With Himself.");
                 }
-                //TODO: RTSPrototype Fix hasLosWithinRange() hitting self instead of enemy
+
                 return _hitAlly != null &&
                     (_hitAlly == allyMember ||
                     _hitAlly.IsEnemyFor(allyMember));
@@ -771,7 +808,10 @@ namespace RTSCoreFramework
             //myEventHandler.EventFinishedMoving += HandleOnAIStopMoving;
             //myEventHandler.OnWeaponChanged += OnWeaponChanged;
             myEventHandler.InitializeAllyComponents += OnAllyInitComps;
-            myEventHandler.EventAllyDied += OnAllyDeath;            
+            myEventHandler.OnTryScheduleSpecialAbility += HandleOnTryScheduleSpecialAbility;
+            myEventHandler.EventAllyDied += OnAllyDeath;
+            gamemaster.OnTogglebIsInPauseControlMode += HandleOnTogglePause;
+            gamemaster.OnToggleIsGamePaused += HandleOnTogglePause;
             gamemaster.EventHoldingRightMouseDown += OnEnableCameraMovement;
             gamemaster.OnAllySwitch += HandleAllySwitch;
         }
@@ -785,7 +825,10 @@ namespace RTSCoreFramework
             //myEventHandler.EventFinishedMoving -= HandleOnAIStopMoving;
             //myEventHandler.OnWeaponChanged -= OnWeaponChanged;
             myEventHandler.InitializeAllyComponents -= OnAllyInitComps;
+            myEventHandler.OnTryScheduleSpecialAbility -= HandleOnTryScheduleSpecialAbility;
             myEventHandler.EventAllyDied -= OnAllyDeath;
+            gamemaster.OnTogglebIsInPauseControlMode -= HandleOnTogglePause;
+            gamemaster.OnToggleIsGamePaused -= HandleOnTogglePause;
             gamemaster.EventHoldingRightMouseDown -= OnEnableCameraMovement;
             gamemaster.OnAllySwitch -= HandleAllySwitch;
         }

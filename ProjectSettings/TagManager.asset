@@ -16,14 +16,14 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Cover
   - Potentially Walkable
   - Ally
   - CurrentPlayerAlly
   - PostProcessVolume
-  - 
+  - DeadAlly
   - Enemy
-  - 
+  - Friend
   - 
   - 
   - 

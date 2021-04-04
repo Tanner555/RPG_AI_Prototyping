@@ -185,7 +185,8 @@ namespace RTSCoreFramework
 
         //For Special Abilities
         public delegate void OneSystemTypeArgHandler(System.Type _type);
-        public event OneSystemTypeArgHandler OnTrySpecialAbility;
+        public event OneSystemTypeArgHandler OnTryScheduleSpecialAbility;
+        public event OneSystemTypeArgHandler OnTryPerformSpecialAbility;
 
         //May use delegate in the future
         //public delegate void RtsHitTypeAndRayCastHitHandler(rtsHitType hitType, RaycastHit hit);
@@ -211,8 +212,8 @@ namespace RTSCoreFramework
         public event TwoIntArgsHandler OnStaminaChanged;
         public event TwoIntArgsHandler OnActiveTimeChanged;
 
-        //public delegate void RTSTakeDamageHandler(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider);
-        //public event RTSTakeDamageHandler OnAllyTakeDamage;
+        public delegate void RTSTakeDamageHandler(int amount, Vector3 position, Vector3 force, AllyMember _instigator, Collider hitCollider);
+        public event RTSTakeDamageHandler OnAllyAfterTakeDamage;
 
         public delegate void RTSAllyComponentInitializationHandler(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps);
         public event RTSAllyComponentInitializationHandler InitializeAllyComponents;
@@ -371,9 +372,14 @@ namespace RTSCoreFramework
             if (OnTryAim != null) OnTryAim(_enable);
         }
 
-        public virtual void CallOnTrySpecialAbility(System.Type _type)
+        public virtual void CallOnTryScheduleSpecialAbility(System.Type _type)
         {
-            if (OnTrySpecialAbility != null) OnTrySpecialAbility(_type);
+            if (OnTryScheduleSpecialAbility != null) OnTryScheduleSpecialAbility(_type);
+        }
+
+        public virtual void CallOnTryPerformSpecialAbility(System.Type _type)
+        {
+            if (OnTryPerformSpecialAbility != null) OnTryPerformSpecialAbility(_type);
         }
 
         //public virtual void CallOnRemoveCommandActionFromQueue()
@@ -590,11 +596,11 @@ namespace RTSCoreFramework
             if (OnActiveTimeChanged != null) OnActiveTimeChanged(_current, _max);
         }
 
-        //public virtual void CallOnAllyTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider)
-        //{
-        //    if (OnAllyTakeDamage != null)
-        //        OnAllyTakeDamage(amount, position, force, _instigator, hitGameObject, hitCollider);
-        //}
+        public virtual void CallOnAllyAfterTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, Collider hitCollider)
+        {
+            if (OnAllyAfterTakeDamage != null)
+                OnAllyAfterTakeDamage(amount, position, force, _instigator, hitCollider);
+        }
 
         public virtual void CallInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {

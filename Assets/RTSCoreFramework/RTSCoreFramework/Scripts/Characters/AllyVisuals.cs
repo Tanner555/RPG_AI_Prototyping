@@ -81,8 +81,8 @@ namespace RTSCoreFramework
         protected float waypointUpdateRate = 0.5f;
         #endregion
 
-        #region UnityMessages
-        protected virtual void OnEnable()
+        #region Initialization
+        void SubToEvents()
         {
             myEventHandler.OnHoverOver += OnCursEnter;
             myEventHandler.OnHoverLeave += OnCursExit;
@@ -93,7 +93,7 @@ namespace RTSCoreFramework
             myEventHandler.EventPartySwitching += OnPartySwitch;
             //myEventHandler.EventCommandAttackEnemy += OnCmdAttackEnemy;
             //myEventHandler.EventCommandAttackEnemy += DisableWaypointRenderer;
-            //myEventHandler.OnAllyTakeDamage += SpawnBloodParticles;
+            myEventHandler.OnAllyAfterTakeDamage += OnHealthAfterTakeDamage;
             myEventHandler.OnHealthChanged += OnHealthUpdate;
             myEventHandler.OnActiveTimeChanged += OnActiveTimeBarUpdate;
             myEventHandler.InitializeAllyComponents += OnAllyInitComponents;
@@ -102,7 +102,7 @@ namespace RTSCoreFramework
             uiMaster.EventAnyUIToggle += HandleUIEnable;
         }
 
-        protected virtual void OnDisable()
+        void UnsubFromEvents()
         {
             myEventHandler.OnHoverOver -= OnCursEnter;
             myEventHandler.OnHoverLeave -= OnCursExit;
@@ -113,13 +113,25 @@ namespace RTSCoreFramework
             myEventHandler.EventPartySwitching -= OnPartySwitch;
             //myEventHandler.EventCommandAttackEnemy -= OnCmdAttackEnemy;
             //myEventHandler.EventCommandAttackEnemy -= DisableWaypointRenderer;
-            //myEventHandler.OnAllyTakeDamage -= SpawnBloodParticles;
+            myEventHandler.OnAllyAfterTakeDamage -= OnHealthAfterTakeDamage;
             myEventHandler.OnHealthChanged -= OnHealthUpdate;
             myEventHandler.OnActiveTimeChanged -= OnActiveTimeBarUpdate;
             myEventHandler.InitializeAllyComponents -= OnAllyInitComponents;
             gamemaster.GameOverEvent -= HandleGameOver;
             gamemaster.EventHoldingRightMouseDown -= HandleCameraMovement;
             uiMaster.EventAnyUIToggle -= HandleUIEnable;
+        }
+        #endregion
+
+        #region UnityMessages
+        protected virtual void OnEnable()
+        {
+            SubToEvents();
+        }
+
+        protected virtual void OnDisable()
+        {
+            UnsubFromEvents();
         }
         // Use this for initialization
         protected virtual void Start()
@@ -183,10 +195,10 @@ namespace RTSCoreFramework
             }
         }
 
-        protected virtual void SpawnBloodParticles(int amount, Vector3 position, Vector3 force, AllyMember _instigator, GameObject hitGameObject, Collider hitCollider)
+        protected virtual void OnHealthAfterTakeDamage(int amount, Vector3 position, Vector3 force, AllyMember _instigator, Collider hitCollider)
         {
-            if (BloodParticles == null) return;
-            GameObject.Instantiate(BloodParticles, position, Quaternion.identity);
+            //if (BloodParticles == null) return;
+            //GameObject.Instantiate(BloodParticles, position, Quaternion.identity);
         }
 
         protected virtual void SetupWaypointRenderer(Vector3 _point, bool _isCommandMove)
@@ -247,16 +259,17 @@ namespace RTSCoreFramework
 
         protected virtual void HandleDeath(Vector3 position, Vector3 force, GameObject attacker)
         {
-            DestroyOnDeath();
+            StartCoroutine(DestroyOnDeath());
         }
 
         protected virtual void HandleGameOver()
         {
-            DestroyOnDeath();
+            StartCoroutine(DestroyOnDeath());
         }
 
-        protected virtual void DestroyOnDeath()
+        protected virtual IEnumerator DestroyOnDeath()
         {
+            UnsubFromEvents();
             if (SelectionLight != null)
             {
                 SelectionLight.enabled = true;
@@ -277,6 +290,7 @@ namespace RTSCoreFramework
                 myActiveTimeBar.enabled = true;
                 Destroy(myActiveTimeBar);
             }
+            yield return new WaitForSeconds(1.5f);
             Destroy(this);
         }
 

@@ -151,6 +151,10 @@ namespace RTSCoreFramework
         [SerializeField]
         private LayerMask sightNoCurrentPlayerLayers;
         [SerializeField]
+        private LayerMask sightAndFriendLayers;
+        [SerializeField]
+        private LayerMask sightAndEnemyLayers;
+        [SerializeField]
         private LayerMask ignoreInvisibleLayersAndAllies;
 
         [Header("Single Layers for Easy Retrieval")]
@@ -158,6 +162,14 @@ namespace RTSCoreFramework
         private string singleAllyLayerName = "Ally";
         [SerializeField]
         private string singleCurrentPlayerLayerName = "CurrentPlayerAlly";
+        [SerializeField]
+        private string singleDeadAllyLayerName = "DeadAlly";
+        [SerializeField]
+        private string singleFriendLayerName = "Friend";
+        [SerializeField]
+        private string singleEnemyLayerName = "Enemy";
+        [SerializeField]
+        private string singleIgnoreRaycastLayerName = "Ignore Raycast";
 
         //Layer Getters
         public LayerMask AllyLayers { get { return allyLayers; } }
@@ -165,6 +177,8 @@ namespace RTSCoreFramework
         public LayerMask SightLayers { get { return sightLayers; } }
         public LayerMask SightNoCurrentPlayerLayers { get { return sightNoCurrentPlayerLayers; } }
         public LayerMask IgnoreInvisibleLayersAndAllies { get { return ignoreInvisibleLayersAndAllies; } }
+        public LayerMask SightAndFriendLayers { get { return sightAndFriendLayers; } }
+        public LayerMask SightAndEnemyLayers { get { return sightAndEnemyLayers; } }
 
         public LayerMask SingleAllyLayer
         {
@@ -174,6 +188,10 @@ namespace RTSCoreFramework
         {
             get { return LayerMask.NameToLayer(singleCurrentPlayerLayerName); }
         }
+        public LayerMask SingleDeadAllyLayer => LayerMask.NameToLayer(singleDeadAllyLayerName);
+        public LayerMask SingleFriendLayer => LayerMask.NameToLayer(singleFriendLayerName);
+        public LayerMask SingleEnemyLayer => LayerMask.NameToLayer(singleEnemyLayerName);
+        public LayerMask SingleIgnoreRaycastLayer => LayerMask.NameToLayer(singleIgnoreRaycastLayerName);
 
         //Tag Getters
         public string AllyTag { get { return "Ally"; } }
