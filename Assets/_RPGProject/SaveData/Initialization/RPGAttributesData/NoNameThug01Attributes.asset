@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0923ac4e38c741d48aabaf0534a26cf6, type: 3}
   deathVanishSeconds: 0
   animatorController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
-  animatorOverrideController: {fileID: 22100000, guid: b8322d86a9e9a2d469ef4504fba310a5,
+  animatorOverrideController: {fileID: 22100000, guid: eacc153bb3ea7434dad33373b67658e8,
     type: 2}
   characterAvatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
   animatorForwardCap: 1
