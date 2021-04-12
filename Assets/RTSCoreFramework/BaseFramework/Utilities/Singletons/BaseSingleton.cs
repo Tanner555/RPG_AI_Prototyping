@@ -15,7 +15,7 @@ namespace BaseFramework
     {
         private static T _thisInstance;
 
-        private static object _lock = new object();
+        private static object _lock;
 
         protected static bool bHasInstance = false;
         protected static bool bIsBeingDestroyed = false;
@@ -33,6 +33,9 @@ namespace BaseFramework
         {
             get
             {
+                if (_lock == null)
+                    _lock = new object();
+                
                 lock (_lock)
                 {
                     if (_thisInstance == null)
@@ -79,7 +82,7 @@ namespace BaseFramework
     {
         private static T _thisInstance;
 
-        private static object _lock = new object();
+        private static object _lock;
 
         protected static bool bHasInstance = false;
 
@@ -95,6 +98,9 @@ namespace BaseFramework
         {
             get
             {
+                if (_lock == null)
+                    _lock = new object();
+
                 lock (_lock)
                 {
                     if (_thisInstance == null)
