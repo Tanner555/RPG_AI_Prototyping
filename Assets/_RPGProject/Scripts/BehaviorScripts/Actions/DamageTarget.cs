@@ -14,18 +14,18 @@ namespace RPGPrototype
 		#endregion
 
 		#region Properties
-		AllyMember allyMember
+		AllyMemberRPG allyMember
 		{
 			get
 			{
 				if (_allyMember == null)
 				{
-					_allyMember = GetComponent<AllyMember>();
+					_allyMember = GetComponent<AllyMemberRPG>();
 				}
 				return _allyMember;
 			}
 		}
-		AllyMember _allyMember = null;
+		AllyMemberRPG _allyMember = null;
 
 		AIControllerRPG aiController
 		{
@@ -44,7 +44,7 @@ namespace RPGPrototype
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			int _damage = aiController.GetDamageRate();
+			int _damage = allyMember.GetDamageRate();
 			AllyMemberRPG _ally = CurrentTargettedEnemy.Value.GetComponent<AllyMemberRPG>();
 			_ally.AllyTakeDamage(_damage, allyMember);
 			return TaskStatus.Success;
