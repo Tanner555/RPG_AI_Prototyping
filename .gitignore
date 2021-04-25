@@ -74,8 +74,10 @@ Assets/Behavior Designer Movement.meta
 # UNode
 /Assets/uNode
 /Assets/uNode.meta
-uNodeData
+#uNodeData
 TempScript
+/Assets/uNode.Generated
+/Assets/uNode.Generated.meta
 
 # UAlive
 /Assets/UAlive
