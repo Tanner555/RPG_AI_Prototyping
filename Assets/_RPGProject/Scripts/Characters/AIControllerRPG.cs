@@ -84,6 +84,21 @@ namespace RPGPrototype
         #endregion
 
         #region Properties       
+        //UNode Props
+        MaxyGames.uNode.uNodeSpawner uNodeAllyTreeSpawner
+        {
+            get
+            {
+                if (_uNodeAllyTreeSpawner == null)
+                {
+                    _uNodeAllyTreeSpawner = GetComponent<MaxyGames.uNode.uNodeSpawner>();
+                }
+                return _uNodeAllyTreeSpawner;
+            }
+        }
+        MaxyGames.uNode.uNodeSpawner _uNodeAllyTreeSpawner = null;
+
+        //Behavior Designer Props
         BehaviorTree AllyBehaviorTree
         {
             get
@@ -97,6 +112,7 @@ namespace RPGPrototype
         }
         BehaviorTree _AllyBehaviorTree = null;
 
+        //BT Vars
         public string BBName_bIsAllyInCommand => "bIsAllyInCommand";
         public string BBName_bIsCurrentPlayer => "bIsCurrentPlayer";
         public string BBName_MyMoveDirection => "MyMoveDirection";
@@ -253,15 +269,30 @@ namespace RPGPrototype
             if (bUsingBehaviorTrees && _party == allyMember.partyManager)
             {
                 bool _isCurrentPlayer = _toSet == allyMember && _toSet.bIsInGeneralCommanderParty;
-                AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
-                AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _isCurrentPlayer);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bIsAllyInCommand, _toSet == allyMember);
+                    AllyBehaviorTree.SetVariableValue(BBName_bIsCurrentPlayer, _isCurrentPlayer);
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bIsAllyInCommand, _toSet == allyMember);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bIsCurrentPlayer, _isCurrentPlayer);
+                }
                 //Don't Enable Tactics If Current Player
                 //Otherwise, Load and Execute Tactics
                 ToggleTactics(_isCurrentPlayer == false);
                 if (_toSet.bIsInGeneralCommanderParty)
                 {
                     //NOT Command Moving If AllySwitch For All Members of Current Player's Party
-                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                    if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                    {
+                        AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                    }
+                    else if (MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                    {
+                        uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetCommandMove, false);
+                    }
                 }                
             }
         }
@@ -271,9 +302,18 @@ namespace RPGPrototype
             //base.HandleOnMoveAlly(_point);
             if (bUsingBehaviorTrees)
             {
-                AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, _point);
-                AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, true);
-                AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, _isCommandMove);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, _point);
+                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, true);
+                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, _isCommandMove);
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_MyNavDestination, _point);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetDestination, true);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetCommandMove, _isCommandMove);
+                }
                 if (_isCommandMove)
                 {
                     ResetTargetting();
@@ -286,15 +326,33 @@ namespace RPGPrototype
             base.HandleCommandAttackEnemy(enemy);
             if (bUsingBehaviorTrees)
             {
-                bool _isFreeMoving = (bool)AllyBehaviorTree.GetVariable(BBName_bIsFreeMoving).GetValue();
+                bool _isFreeMoving = false;
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    _isFreeMoving = (bool)AllyBehaviorTree.GetVariable(BBName_bIsFreeMoving).GetValue();
+                }
+                else if (MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    //uNodeAllyTreeSpawner.SetVariable
+                    _isFreeMoving = uNodeAllyTreeSpawner.GetVariable<bool>(BBName_bIsFreeMoving);
+                }
                 bool _isPerformingAbility = IsPerformingSpecialAbility();
                 //Shouldn't Be FreeMoving or Performing Special Ability
                 if (_isFreeMoving == false && _isPerformingAbility == false)
                 {
                     SetEnemyTarget(enemy);
-                    AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
-                    AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
-                    AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
+                    if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                    {
+                        AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                        AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
+                        AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
+                    }
+                    else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                    {
+                        uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetCommandMove, false);
+                        uNodeAllyTreeSpawner.SetVariable(BBName_bTryUseAbility, false);
+                        uNodeAllyTreeSpawner.SetVariable(BBName_AbilityToUse, null);
+                    }
                 }
             }
         }
@@ -307,8 +365,16 @@ namespace RPGPrototype
                 _index < 0 || _index > allyMember.GetNumberOfAbilities() - 1) return;
 
             var _config = allyMember.GetAbilityConfig(_index);
-            AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
-            AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
+                AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                uNodeAllyTreeSpawner.SetVariable(BBName_bTryUseAbility, true);
+                uNodeAllyTreeSpawner.SetVariable(BBName_AbilityToUse, _config);
+            }
         }
 
         //protected override void HandleStopTargetting()
@@ -325,7 +391,14 @@ namespace RPGPrototype
         {
             if (bUsingBehaviorTrees)
             {
-                AllyBehaviorTree.DisableBehavior();
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.DisableBehavior();
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.enabled = false;
+                }
             }
             StopAllCoroutines();
             CancelInvoke();
@@ -345,18 +418,39 @@ namespace RPGPrototype
             base.LoadAndExecuteAllyTactics();
             if (AllyTacticsList.Count > 0)
             {
-                AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, true);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, true);
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bEnableTactics, true);
+                }
             }
             else
             {
-                AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+                }
+                else if (MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bEnableTactics, false);
+                }
             }
         }
 
         protected override void UnLoadAndCancelTactics()
         {
             //Cancel Tactics From Running
-            AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bEnableTactics, false);
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                uNodeAllyTreeSpawner.SetVariable(BBName_bEnableTactics, false);
+            }
             //Important For Clearing TacticsList
             base.UnLoadAndCancelTactics();
         }
@@ -407,16 +501,40 @@ namespace RPGPrototype
         #region Helpers
         public override bool IsPerformingSpecialAbility()
         {
-            return (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                return (bool)AllyBehaviorTree.GetVariable(BBName_bIsPerformingAbility).GetValue();
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {                
+                return uNodeAllyTreeSpawner.GetVariable<bool>(BBName_bIsPerformingAbility);
+            }
+            return false;
         }
 
         public override bool IsTargettingEnemy(out Transform _currentTarget)
         {
             _currentTarget = null;
-            bool _isTargetting = (bool)AllyBehaviorTree.GetVariable(BBName_bTargetEnemy).GetValue();
+            bool _isTargetting = false;
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                _isTargetting = (bool)AllyBehaviorTree.GetVariable(BBName_bTargetEnemy).GetValue();
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                _isTargetting = uNodeAllyTreeSpawner.GetVariable<bool>(BBName_bTargetEnemy);
+            }
+
             if (_isTargetting)
             {
-                _currentTarget = (Transform)AllyBehaviorTree.GetVariable(BBName_CurrentTargettedEnemy).GetValue();
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    _currentTarget = (Transform)AllyBehaviorTree.GetVariable(BBName_CurrentTargettedEnemy).GetValue();
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    _currentTarget = uNodeAllyTreeSpawner.GetVariable<Transform>(BBName_CurrentTargettedEnemy);
+                }
             }
             return _isTargetting;
         }
@@ -426,15 +544,31 @@ namespace RPGPrototype
             AbilityConfig _config;
             if(IsPerformingSpecialAbility() == false && allyMember.CanUseAbility(_abilityType, out _config))
             {
-                AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
-                AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, true);
+                    AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, _config);
+                }
+                else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bTryUseAbility, true);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_AbilityToUse, _config);
+                }
             }
         }
 
         public override void SetEnemyTarget(AllyMember _target)
         {
-            AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, _target.transform);
-            AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, _target.transform);
+                AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, true);
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                uNodeAllyTreeSpawner.SetVariable(BBName_CurrentTargettedEnemy, _target.transform);
+                uNodeAllyTreeSpawner.SetVariable(BBName_bTargetEnemy, true);
+            }
         }
 
         /// <summary>
@@ -443,9 +577,18 @@ namespace RPGPrototype
         public override void FinishMoving()
         {
             //Override To Update BT
-            AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, false);
-            AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
-            AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, Vector3.zero);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bHasSetDestination, false);
+                AllyBehaviorTree.SetVariableValue(BBName_bHasSetCommandMove, false);
+                AllyBehaviorTree.SetVariableValue(BBName_MyNavDestination, Vector3.zero);
+            }
+            else if (MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetDestination, false);
+                uNodeAllyTreeSpawner.SetVariable(BBName_bHasSetCommandMove, false);
+                uNodeAllyTreeSpawner.SetVariable(BBName_MyNavDestination, Vector3.zero);
+            }
             if (IsNavMeshAgentEnabled())
             {
                 myNavAgent.SetDestination(transform.position);
@@ -455,17 +598,34 @@ namespace RPGPrototype
 
         public override void ResetTargetting()
         {
-            AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
-            AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.SetVariableValue(BBName_bTargetEnemy, false);
+                AllyBehaviorTree.SetVariableValue(BBName_CurrentTargettedEnemy, null);
+            }
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                uNodeAllyTreeSpawner.SetVariable(BBName_bTargetEnemy, false);
+                uNodeAllyTreeSpawner.SetVariable(BBName_CurrentTargettedEnemy, null);
+            }
         }
 
         public override void ResetSpecialAbilities()
         {
             if (IsPerformingSpecialAbility() == false)
             {
-                AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
-                AllyBehaviorTree.SetVariableValue(BBName_bIsPerformingAbility, false);
-                AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
+                if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+                {
+                    AllyBehaviorTree.SetVariableValue(BBName_bTryUseAbility, false);
+                    AllyBehaviorTree.SetVariableValue(BBName_bIsPerformingAbility, false);
+                    AllyBehaviorTree.SetVariableValue(BBName_AbilityToUse, null);
+                }
+                else if (MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+                {
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bTryUseAbility, false);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_bIsPerformingAbility, false);
+                    uNodeAllyTreeSpawner.SetVariable(BBName_AbilityToUse, null);
+                }
             }
         }
         #endregion
@@ -553,7 +713,31 @@ namespace RPGPrototype
         //Behavior Tree Init
         void InitializeUNodeTree(RTSAllyComponentSpecificFields _specific, AllyComponentsAllCharacterFieldsRPG _RPGallAllyComps, RPGAllySpecificCharacterAttributesObject _rpgCharAttr)
         {
-
+            if(_RPGallAllyComps.uNodePlayerTreeAsset != null)
+            {
+                var _spawner = gameObject.AddComponent<MaxyGames.uNode.uNodeSpawner>();
+                _spawner.target = _RPGallAllyComps.uNodePlayerTreeAsset;
+                _spawner.CustomSpawnerInitNoUnityMsgs();
+                //Assign Vars
+                //RPG Character Moving
+                _spawner.SetVariable(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
+                _spawner.SetVariable(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
+                _spawner.SetVariable(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
+                _spawner.SetVariable(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
+                _spawner.SetVariable(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
+                //Active Time Bar
+                _spawner.SetVariable(BBName_bUpdateActiveTimeBar, false);
+                _spawner.SetVariable(BBName_ActiveTimeBarRefillRate, 5);
+                //Abilities and Energy Bar
+                _spawner.SetVariable(BBName_EnergyRegenPointsPerSec, 10);
+                _spawner.SetVariable(BBName_bTryUseAbility, false);
+                _spawner.SetVariable(BBName_AbilityToUse, null);
+                _spawner.SetVariable(BBName_bIsPerformingAbility, false);
+            }
+            else
+            {
+                Debug.LogWarning("No UNode Tree Has Been Set, Cannot Init Tree");
+            }
         }
 
         void InitializeBehaviorDesignerTree(RTSAllyComponentSpecificFields _specific, AllyComponentsAllCharacterFieldsRPG _RPGallAllyComps, RPGAllySpecificCharacterAttributesObject _rpgCharAttr)
