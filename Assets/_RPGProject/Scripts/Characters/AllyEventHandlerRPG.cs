@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using RTSCoreFramework;
 using RPG.Characters;
+using RPGPrototype.Behaviors;
 #if RTSAStarPathfinding
 using Pathfinding;
 #endif
@@ -32,6 +33,12 @@ namespace RPGPrototype
         [Header("Behaviour Designer Settings")]
         public bool bUseBehaviourTrees = true;
         public ExternalBehaviorTree allAlliesDefaultBehaviourTree;
+        [Header("Behavior Framework To Use.")]
+        [SerializeField]
+        public BehaviourFrameworkChoice MyBehaviourChoice = BehaviourFrameworkChoice.BehaviorDesigner;
+        [Header("uNode Fields")]
+        [SerializeField]
+        public MaxyGames.uNode.uNodeClassComponent uNodePlayerTreeAsset;
         [FoldoutGroup("AStar PathFinding Settings")]
         [Header("AStar PathFinding Settings")]
         public bool bUseAStarPath = false;

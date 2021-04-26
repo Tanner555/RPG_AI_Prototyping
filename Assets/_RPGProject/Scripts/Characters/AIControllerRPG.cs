@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTSCoreFramework;
 using RPG.Characters;
+using RPGPrototype.Behaviors;
 using BehaviorDesigner.Runtime;
 #if RTSAStarPathfinding
 using Pathfinding;
@@ -25,6 +26,10 @@ namespace RPGPrototype
         int currHitLayer;
 
         int baseDamage = 10;
+
+        //Private Instance of Choice That'll Be Initialized
+        //From The RTSAllyComponentsAllCharacterFields Object
+        private BehaviourFrameworkChoice MyBehaviourChoice;
         #endregion
 
         #region ComponentsAndSingletons
@@ -225,50 +230,16 @@ namespace RPGPrototype
             myNavAgent.updatePosition = true;
             this.bUseAStarPath = _RPGallAllyComps.bUseAStarPath;
             //Behavior Tree Init
+            MyBehaviourChoice = _RPGallAllyComps.MyBehaviourChoice;
             bUsingBehaviorTrees = _RPGallAllyComps.bUseBehaviourTrees;
-            if(_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
             {
-                BehaviorTree _behaviourtree;
-                if(GetComponent<BehaviorTree>() == null)
-                {                    
-                    //If BehaviorTree Can't Be Found, Add One And Initialize It Manually
-                    _behaviourtree = gameObject.AddComponent<BehaviorTree>();
-                    _behaviourtree.StartWhenEnabled = false;
-		            _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
-                    _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
-                }
-                else
-                {
-                    //BehaviorTree Already Exists, Not Need To Manually Set it Up
-                    _behaviourtree = AllyBehaviorTree;
-                }
-                //RPG Character Moving
-                _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
-                _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
-                _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
-                _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
-                _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
-                //Active Time Bar
-                _behaviourtree.SetVariableValue(BBName_bUpdateActiveTimeBar, false);
-                _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
-                //Abilities and Energy Bar
-                _behaviourtree.SetVariableValue(BBName_EnergyRegenPointsPerSec, 10);
-                _behaviourtree.SetVariableValue(BBName_bTryUseAbility, false);
-                _behaviourtree.SetVariableValue(BBName_AbilityToUse, null);
-                _behaviourtree.SetVariableValue(BBName_bIsPerformingAbility, false);
-
-                if (_behaviourtree.StartWhenEnabled == false)
-                {
-                    //Only Manually Start Tree if It Doesn't Start On Enable
-                    StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
-                }                
+                InitializeBehaviorDesignerTree(_specific, _RPGallAllyComps, _rpgCharAttr);
             }
-        }
-
-        IEnumerator StartDefaultBehaviourTreeAfterDelay()
-        {
-            yield return new WaitForSeconds(0.2f);
-            AllyBehaviorTree.EnableBehavior();
+            else if(MyBehaviourChoice == BehaviourFrameworkChoice.UNode)
+            {
+                InitializeUNodeTree(_specific, _RPGallAllyComps, _rpgCharAttr);
+            }
         }
 
         void PutWeaponInHand(WeaponConfig _config)
@@ -579,6 +550,64 @@ namespace RPGPrototype
         #endregion
 
         #region Initialization
+        //Behavior Tree Init
+        void InitializeUNodeTree(RTSAllyComponentSpecificFields _specific, AllyComponentsAllCharacterFieldsRPG _RPGallAllyComps, RPGAllySpecificCharacterAttributesObject _rpgCharAttr)
+        {
+
+        }
+
+        void InitializeBehaviorDesignerTree(RTSAllyComponentSpecificFields _specific, AllyComponentsAllCharacterFieldsRPG _RPGallAllyComps, RPGAllySpecificCharacterAttributesObject _rpgCharAttr)
+        {
+            if (_RPGallAllyComps.bUseBehaviourTrees && _RPGallAllyComps.allAlliesDefaultBehaviourTree != null)
+            {
+                BehaviorTree _behaviourtree;
+                if (GetComponent<BehaviorTree>() == null)
+                {
+                    //If BehaviorTree Can't Be Found, Add One And Initialize It Manually
+                    _behaviourtree = gameObject.AddComponent<BehaviorTree>();
+                    _behaviourtree.StartWhenEnabled = false;
+                    _behaviourtree.ExternalBehavior = _RPGallAllyComps.allAlliesDefaultBehaviourTree;
+                    _behaviourtree.BehaviorName = $"{_specific.CharacterType.ToString()} Behavior";
+                }
+                else
+                {
+                    //BehaviorTree Already Exists, Not Need To Manually Set it Up
+                    _behaviourtree = AllyBehaviorTree;
+                }
+                //RPG Character Moving
+                _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
+                _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
+                _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
+                _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
+                _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
+                //Active Time Bar
+                _behaviourtree.SetVariableValue(BBName_bUpdateActiveTimeBar, false);
+                _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
+                //Abilities and Energy Bar
+                _behaviourtree.SetVariableValue(BBName_EnergyRegenPointsPerSec, 10);
+                _behaviourtree.SetVariableValue(BBName_bTryUseAbility, false);
+                _behaviourtree.SetVariableValue(BBName_AbilityToUse, null);
+                _behaviourtree.SetVariableValue(BBName_bIsPerformingAbility, false);
+
+                if (_behaviourtree.StartWhenEnabled == false)
+                {
+                    //Only Manually Start Tree if It Doesn't Start On Enable
+                    StartCoroutine(StartDefaultBehaviourTreeAfterDelay());
+                }
+            }
+        }
+
+        IEnumerator StartDefaultBehaviourTreeAfterDelay()
+        {
+            yield return new WaitForSeconds(0.2f);
+            if (MyBehaviourChoice == BehaviourFrameworkChoice.BehaviorDesigner)
+            {
+                AllyBehaviorTree.EnableBehavior();
+            }
+
+        }
+
+        //Init Events
         protected override void SubToEvents()
         {
             base.SubToEvents();
