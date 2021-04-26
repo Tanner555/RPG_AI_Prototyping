@@ -43,6 +43,9 @@ MonoBehaviour:
     bUseBehaviourTrees: 1
     allAlliesDefaultBehaviourTree: {fileID: 11400000, guid: c6ee4667eac7b1b40b071f21cf5eb693,
       type: 2}
+    MyBehaviourChoice: 0
+    uNodePlayerTreeAsset: {fileID: 5997917840764633907, guid: ce3a2a8321b5b354e972d445327dcf96,
+      type: 3}
     bUseAStarPath: 0
     aStar_traversableGraphs: RTS Graph
     aStar_Radius: 0.5

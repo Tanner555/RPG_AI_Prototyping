@@ -1,0 +1,1043 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &283054175369461973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8869580890717115233}
+  - component: {fileID: 6208774663516638609}
+  m_Layer: 0
+  m_Name: Node 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8869580890717115233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283054175369461973}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6208774663516638609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283054175369461973}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 639
+    y: 364
+    width: 117
+    height: 73
+  nodeExpanded: 1
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    target:
+      targetType: 32
+      _instanceData: 
+      odinInstanceData:
+        data: 
+        references: []
+        serializedType: 
+      odinTargetData:
+        data: 
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: UnityEngine.Debug
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: System.Void
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: Debug.Log
+      isStatic: 1
+      startTypeName: 
+      targetTypeName: 
+      autoConvertValue: 0
+      items: []
+      serializedItems:
+      - data: 
+        references: []
+        serializedType: 
+      - data: 022f0000000001290000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002b004900740065006d0044006100740061002c00200075004e006f00640065002e0043006f00720065000000000001010a00000070006100720061006d00650074006500720073002f0100000001260000004d00610078007900470061006d00650073002e0075004e006f00640065002e00540079007000650044006100740061005b005d002c00200075004e006f00640065002e0043006f007200650001000000060100000000000000022f0200000001240000004d00610078007900470061006d00650073002e0075004e006f00640065002e00540079007000650044006100740061002c00200075004e006f00640065002e0043006f0072006500020000002701040000006e0061006d006500010d000000530079007300740065006d002e004f0062006a006500630074002d010a0000007200650066006500720065006e006300650073002d010a00000070006100720061006d00650074006500720073000507052d0110000000670065006e00650072006900630041007200670075006d0065006e007400730005
+        references: []
+        serializedType: 
+      targetReference: []
+      instanceReference: []
+      typeReference: []
+      controlPoints: []
+    parameters:
+    - targetType: 2
+      _instanceData: 
+      odinInstanceData:
+        data: 
+        references: []
+        serializedType: 
+      odinTargetData:
+        data: 022f000000000117000000530079007300740065006d002e0053007400720069006e0067002c0020006d00730063006f0072006c006900620000000000280110000000480065006c006c006f002000460072006f006d00200055004e006f006400650005
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: System.String
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: 
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: 
+      isStatic: 0
+      startTypeName: 
+      targetTypeName: 
+      autoConvertValue: 0
+      items: []
+      serializedItems: []
+      targetReference: []
+      instanceReference: []
+      typeReference: []
+      controlPoints: []
+    initializer:
+      serializedType:
+        targetType: 0
+        _instanceData: 
+        odinInstanceData:
+          data: 
+          references: []
+          serializedType: 
+        odinTargetData:
+          data: 
+          references: []
+          serializedType: 
+        startSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        targetSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        _name: 
+        isStatic: 0
+        startTypeName: 
+        targetTypeName: 
+        autoConvertValue: 0
+        items: []
+        serializedItems: []
+        targetReference: []
+        instanceReference: []
+        typeReference: []
+        controlPoints: []
+      Type: 
+      _odinSerializedData: 
+      listReference: []
+      _serializedData: 
+--- !u!1 &3104379029686226273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5153428943126765218}
+  - component: {fileID: 6202463203930335562}
+  m_Layer: 0
+  m_Name: Sequence 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5153428943126765218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104379029686226273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6202463203930335562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104379029686226273}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351e753e1c79d3d4b9c2b139ef74bfb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 466
+    y: 205
+    width: 107
+    height: 73
+  nodeExpanded: 1
+  targetNodes:
+  - targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 3233141146953822667}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: -97429
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  - targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 6208774663516638609}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 323207
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+--- !u!1 &3898561198625244751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7400300776902882019}
+  - component: {fileID: 8930178019187553044}
+  m_Layer: 0
+  m_Name: Entry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7400300776902882019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3898561198625244751}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 481196654337798569}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8930178019187553044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3898561198625244751}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  nodeExpanded: 1
+  Action:
+    eventList: []
+    useLevelValidation: 0
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+--- !u!1 &4509289478615940818
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1068510890794835596}
+  m_Layer: 0
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1068510890794835596
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509289478615940818}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 481196654337798569}
+  - {fileID: 7906463945695732311}
+  - {fileID: 180600839923620149}
+  - {fileID: 5153428943126765218}
+  - {fileID: 3254848470817266382}
+  - {fileID: 8869580890717115233}
+  m_Father: {fileID: 795151600495548451}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4680213252741479831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7906463945695732311}
+  - component: {fileID: 6566773129907864616}
+  m_Layer: 0
+  m_Name: Update
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7906463945695732311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680213252741479831}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 788474049114615149}
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6566773129907864616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680213252741479831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827d96c3676c048489c7db611d9fc36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Update
+  startNode: {fileID: 1705812272651971738}
+  owner: {fileID: 5997917840764633907}
+  _guid: 
+  parameters: []
+  localVariable: []
+  summary: 
+  modifiers:
+    Public: 1
+    Private: 0
+    Protected: 0
+    Internal: 0
+    Static: 0
+    Unsafe: 0
+    Virtual: 0
+    Abstract: 0
+    Extern: 0
+    New: 0
+    Override: 0
+    Partial: 0
+    Sealed: 0
+    Async: 0
+  returnType:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Void
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: void
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  attributes: []
+  genericParameters: []
+--- !u!1 &4932435129783846753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3254848470817266382}
+  - component: {fileID: 3233141146953822667}
+  m_Layer: 0
+  m_Name: WaitForSecond 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3254848470817266382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932435129783846753}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3233141146953822667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932435129783846753}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3a0a7fd3d2d5b4c9cd904dc0acb00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 272
+    y: 346
+    width: 141
+    height: 73
+  nodeExpanded: 1
+  waitTime:
+    targetType: 2
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000803f05
+      references: []
+      serializedType: System.Object
+    startSerializedType:
+      serializedString: System.Single
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+--- !u!1 &5962316996780807964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795151600495548451}
+  - component: {fileID: 5997917840764633907}
+  m_Layer: 0
+  m_Name: PlayerAssetTreeUNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &795151600495548451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962316996780807964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1068510890794835596}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5997917840764633907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962316996780807964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbc12c02df04cf48842bbad022962c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  summary: 
+  graphData:
+    unityObjects: []
+    typeName: RPGPrototype.Behaviors.PlayerAssetTreeUNode
+    lastSaved: 0
+    lastCompiled: 0
+    isGeneratedWithDebugMode: 0
+    debug: 0
+    debugValueNode: 1
+    compileToScript: 0
+  _rootObject: {fileID: 4509289478615940818}
+  nodes:
+  - {fileID: 8930178019187553044}
+  - {fileID: 1705812272651971738}
+  - {fileID: 6202463203930335562}
+  - {fileID: 3233141146953822667}
+  - {fileID: 6208774663516638609}
+  icon: {fileID: 0}
+  namespace: RPGPrototype.Behaviors
+  usingNamespaces:
+  - UnityEngine
+  - System.Collections.Generic
+  - RPGPrototype
+  - RTSCoreFramework
+  - BaseFramework
+  - UnityEngine.AI
+  variables: []
+  functions:
+  - {fileID: 8751805101113355837}
+  - {fileID: 6566773129907864616}
+  properties: []
+  interfaces: []
+  events:
+  - {fileID: 1647812165637707517}
+--- !u!1 &6510065825769920961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 788474049114615149}
+  - component: {fileID: 1705812272651971738}
+  m_Layer: 0
+  m_Name: Entry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &788474049114615149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6510065825769920961}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7906463945695732311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705812272651971738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6510065825769920961}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  nodeExpanded: 1
+  Action:
+    eventList: []
+    useLevelValidation: 0
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+--- !u!1 &6919615189861638771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180600839923620149}
+  - component: {fileID: 1647812165637707517}
+  m_Layer: 0
+  m_Name: Event0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180600839923620149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6919615189861638771}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1647812165637707517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6919615189861638771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1251f59f846c11a4e9df0c60955fc573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 473
+    y: 95
+    width: 94
+    height: 77
+  nodeExpanded: 1
+  Name: Event0
+  nodes: []
+  targetNodes:
+  - targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 6202463203930335562}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 253190
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  eventType: 3
+  targetObjects: []
+  storeValue:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+--- !u!1 &7731094856796227546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481196654337798569}
+  - component: {fileID: 8751805101113355837}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &481196654337798569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731094856796227546}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7400300776902882019}
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8751805101113355837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731094856796227546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827d96c3676c048489c7db611d9fc36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Start
+  startNode: {fileID: 8930178019187553044}
+  owner: {fileID: 5997917840764633907}
+  _guid: 
+  parameters: []
+  localVariable: []
+  summary: 
+  modifiers:
+    Public: 1
+    Private: 0
+    Protected: 0
+    Internal: 0
+    Static: 0
+    Unsafe: 0
+    Virtual: 0
+    Abstract: 0
+    Extern: 0
+    New: 0
+    Override: 0
+    Partial: 0
+    Sealed: 0
+    Async: 0
+  returnType:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Void
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: void
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  attributes: []
+  genericParameters: []
