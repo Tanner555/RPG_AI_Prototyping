@@ -27,7 +27,7 @@ namespace RPGPrototype.Behaviors
         /// </summary>
         /// <param name="_spawner"></param>
         public static void CustomSpawnerInitNoUnityMsgs(this MaxyGames.uNode.uNodeSpawner _spawner)
-        {
+        {            
             //Allows Unity Msgs Code To Run Again
             _spawner.bIsInitCustomNoUnityMsgs = true;
             _spawner.Awake();
