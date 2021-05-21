@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using BaseFramework;
 using RTSCoreFramework;
 using RPG.Characters;
 
 namespace RPGPrototype
 {
-    public class RPGInputManager : InputManager
+    public class RPGInputManager : InputManager, MyRTSInputActions.IGameplayActions
     {
         #region Fields
+        //Private Input Actions Instance
+        protected MyRTSInputActions MyInputActions;
         //Handles Right Mouse Down Input
         [Header("Right Mouse Down Config")]
         public float RMHeldThreshold = 0.15f;
@@ -65,6 +68,11 @@ namespace RPGPrototype
         {
             get { return RPGGameMaster.thisInstance; }
         }
+
+        new public static RPGInputManager thisInstance
+        {
+            get { return InputManager.thisInstance as RPGInputManager; }
+        }
         #endregion
 
         #region Properties
@@ -72,6 +80,15 @@ namespace RPGPrototype
         {
             get { return RTSCamRaycaster.thisInstance; }
         }
+
+        //Movement Properties
+        public float HorizontalMovement { get; protected set; } = 0;
+        public float ForwardMovement { get; protected set; } = 0;
+        public float ScrollCameraAxis { get; protected set; } = 0;
+
+        //Mouse Setup - Left/Right Click
+        public bool bGetLeftMouseHeldDown { get; protected set; } = false;
+        public bool bGetRightMouseHeldDown { get; protected set; } = false;
 
         //Mouse Setup - Scrolling
         protected bool bScrollAxisIsPositive
@@ -81,42 +98,92 @@ namespace RPGPrototype
         #endregion
 
         #region UnityMessages
+        protected override void Start()
+        {
+            base.Start();
+            MyInputActions.Gameplay.SetCallbacks(this);
+        }
 
+        protected override void OnEnable()
+        {
+            MyInputActions = new MyRTSInputActions();
+            MyInputActions.Enable();
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            MyInputActions.Disable();
+            base.OnDisable();
+        }
         #endregion
 
-        #region InputSetup
-        protected override void InputSetup()
+        #region InputHandlers
+        public void OnLeftMouse(InputAction.CallbackContext context)
         {
-            base.InputSetup();
+            bGetLeftMouseHeldDown = context.canceled == false &&
+                (context.started || context.performed);
+        }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-                CallMenuToggle();
-            if (Input.GetKeyDown(KeyCode.B))
-                CallIGBPIToggle();
-            if (Input.GetKeyDown(KeyCode.L))
-                CallLuaEditorToggle();
+        public void OnRightMouse(InputAction.CallbackContext context)
+        {
+            bGetRightMouseHeldDown = context.canceled == false &&
+                (context.started || context.performed);
+        }
 
-            if (UiIsEnabled) return;
-            //All Input That Shouldn't Happen When 
-            //Ui is Enabled
-            if (Input.GetKeyDown(KeyCode.Keypad1))
-                CallPossessAllyAdd();
-            if (Input.GetKeyDown(KeyCode.Keypad3))
-                CallPossessAllySubtract();
-            if (Input.GetKeyDown(KeyCode.C))
-                CallCoverToggle();
-            if (Input.GetKeyDown(KeyCode.R))
-                CallTryReload();
-            if (Input.GetKeyDown(KeyCode.Space))
-                CallToggleIsInPauseControl();
-
-            foreach (int _key in NumberKeys)
+        public void OnNumberKeys(InputAction.CallbackContext context)
+        {
+            if (context.performed)
             {
-                if (Input.GetKeyDown(_key.ToString()))
+                int _parsedKey = -1;
+                if (int.TryParse(context.control.name, out _parsedKey))
                 {
-                    CallOnNumberKeyPress(_key);
+                    CallOnNumberKeyPress(_parsedKey);
                 }
             }
+        }
+
+        public void OnPauseGame(InputAction.CallbackContext context)
+        {
+            if (context.performed) CallMenuToggle();
+        }
+
+        public void OnIGBPIMenuToggle(InputAction.CallbackContext context)
+        {
+            if (context.performed) CallIGBPIToggle();
+        }
+
+        public void OnTogglePauseControlMode(InputAction.CallbackContext context)
+        {
+            if (context.performed && UiIsEnabled == false)
+                CallToggleIsInPauseControl();
+        }
+
+        public void OnHorizontalMovement(InputAction.CallbackContext context)
+        {
+            HorizontalMovement = context.ReadValue<float>();
+        }
+
+        public void OnForwardMovement(InputAction.CallbackContext context)
+        {
+            ForwardMovement = context.ReadValue<float>();
+        }
+
+        public void OnScrollCamera(InputAction.CallbackContext context)
+        {
+            ScrollCameraAxis = Mathf.Clamp(context.ReadValue<float>(), -1, 1);
+        }
+
+        public void OnPossessAllyAdd(InputAction.CallbackContext context)
+        {
+            if (context.performed && UiIsEnabled == false)
+                CallPossessAllyAdd();
+        }
+
+        public void OnPossessAllySubtract(InputAction.CallbackContext context)
+        {
+            if (context.performed && UiIsEnabled == false)
+                CallPossessAllySubtract();
         }
         #endregion
 
@@ -135,7 +202,7 @@ namespace RPGPrototype
         void LeftMouseDownSetup()
         {
             if (UiIsEnabled) return;
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (bGetLeftMouseHeldDown)
             {
                 if (isRMHeldDown) return;
                 if (isLMHeldDown == false)
@@ -180,7 +247,7 @@ namespace RPGPrototype
         void RightMouseDownSetup()
         {
             if (UiIsEnabled) return;
-            if (Input.GetKey(KeyCode.Mouse1))
+            if (bGetRightMouseHeldDown)
             {
                 if (isLMHeldDown) return;
                 if (isRMHeldDown == false)
@@ -224,8 +291,21 @@ namespace RPGPrototype
         void StopMouseScrollWheelSetup()
         {
             if (UiIsEnabled) return;
-            scrollInputAxisValue = Input.GetAxis(scrollInputName);
-            if (Mathf.Abs(scrollInputAxisValue) > 0.0f)
+            //scrollInputAxisValue = Input.GetAxis(scrollInputName);
+            //if (Mathf.Abs(scrollInputAxisValue) < 0.05f)
+            //{
+            //    //Not Using ScrollWheel, See if Holding '+,-' Keys
+            //    if (Input.GetKey(KeyCode.KeypadPlus))
+            //    {
+            //        scrollInputAxisValue = 1.0f;
+            //    }
+            //    else if (Input.GetKey(KeyCode.KeypadMinus))
+            //    {
+            //        scrollInputAxisValue = -1.0f;
+            //    }
+            //}
+            scrollInputAxisValue = ScrollCameraAxis;
+            if (Mathf.Abs(scrollInputAxisValue) > 0.05f)
             {
                 if (isLMHeldDown) return;
                 bScrollIsCurrentlyPositive = bScrollAxisIsPositive;
@@ -349,6 +429,40 @@ namespace RPGPrototype
         #endregion
 
         #region CommentedCode
+        //protected override void InputSetup()
+        //{
+        //    base.InputSetup();
+
+        //    if (Input.GetKeyDown(KeyCode.Escape))
+        //        CallMenuToggle();
+        //    if (Input.GetKeyDown(KeyCode.B))
+        //        CallIGBPIToggle();
+        //    if (Input.GetKeyDown(KeyCode.L))
+        //        CallLuaEditorToggle();
+
+        //    if (UiIsEnabled) return;
+        //    //All Input That Shouldn't Happen When 
+        //    //Ui is Enabled
+        //    if (Input.GetKeyDown(KeyCode.Keypad1))
+        //        CallPossessAllyAdd();
+        //    if (Input.GetKeyDown(KeyCode.Keypad3))
+        //        CallPossessAllySubtract();
+        //    if (Input.GetKeyDown(KeyCode.C))
+        //        CallCoverToggle();
+        //    if (Input.GetKeyDown(KeyCode.R))
+        //        CallTryReload();
+        //    if (Input.GetKeyDown(KeyCode.Space))
+        //        CallToggleIsInPauseControl();
+
+        //    foreach (int _key in NumberKeys)
+        //    {
+        //        if (Input.GetKeyDown(_key.ToString()))
+        //        {
+        //            CallOnNumberKeyPress(_key);
+        //        }
+        //    }
+        //}
+
         //void CallInventoryToggle() { uiMaster.CallEventInventoryUIToggle(); }
         //void CallSelectPrevWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToPrevItem(); }
         //void CallSelectNextWeapon() { gamemode.GeneralInCommand.AllyInCommand.allyEventHandler.CallOnSwitchToNextItem(); }

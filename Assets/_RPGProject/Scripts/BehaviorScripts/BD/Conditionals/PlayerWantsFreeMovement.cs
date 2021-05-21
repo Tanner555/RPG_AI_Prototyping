@@ -47,6 +47,8 @@ namespace RPGPrototype
 		}
 		AllyEventHandler _myEventhandler = null;
 
+		RPGInputManager myInputManager => RPGInputManager.thisInstance;
+
 		bool bIsAlive => allyMember != null && allyMember.IsAlive;
 
         Camera myCamera
@@ -82,8 +84,7 @@ namespace RPGPrototype
 				return TaskStatus.Failure;
 			}
 
-			myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
-            myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
+			CalculateMoveInputFromManager();
 			myDirection = Vector3.zero;
             myDirection.x = myHorizontalMovement;
             myDirection.z = myForwardMovement;
@@ -91,14 +92,6 @@ namespace RPGPrototype
 
 			if (myDirection.sqrMagnitude > 0.05f)
             {
-                //if (myEventHandler.bIsNavMoving)
-                //{
-                //    myEventHandler.CallEventFinishedMoving();
-                //}
-                //if (myEventHandler.bIsFreeMoving == false)
-                //{
-                //    myEventHandler.CallEventTogglebIsFreeMoving(true);
-                //}
 				//Also Calculate Move Direction Used For Movement Task
 				CalculateFreeMoveDirection();
 				bIsFreeMoving.Value = true;
@@ -106,10 +99,6 @@ namespace RPGPrototype
             }
             else
             {
-                //if (myEventHandler.bIsFreeMoving)
-                //{
-                //    myEventHandler.CallEventTogglebIsFreeMoving(false);
-                //}
 				ResetFreeMoveDirection();
 				bIsFreeMoving.Value = false;
                 return TaskStatus.Failure;
@@ -126,6 +115,18 @@ namespace RPGPrototype
 		#endregion
 
 		#region Helpers
+		void CalculateMoveInputFromManager()
+        {
+			myHorizontalMovement = myInputManager.HorizontalMovement;
+			myForwardMovement = myInputManager.ForwardMovement;
+		}
+
+		void CalculateMoveInputFromOLDCrossPlatformManager()
+        {
+			myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
+			myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
+		}
+
 		void ResetFreeMoveDirection()
 		{
 			MyMoveDirection.Value = Vector3.zero;
