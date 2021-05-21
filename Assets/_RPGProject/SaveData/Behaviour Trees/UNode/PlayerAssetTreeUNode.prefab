@@ -1,5 +1,92 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &105999924986177274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5895714143935058518}
+  - component: {fileID: 5515980489867252641}
+  m_Layer: 0
+  m_Name: Entry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5895714143935058518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105999924986177274}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7906463945695732311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5515980489867252641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105999924986177274}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  nodeExpanded: 1
+  Action:
+    eventList: []
+    useLevelValidation: 0
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
 --- !u!1 &236155237892493053
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,8 +115,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 12
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4232936699339837900
 MonoBehaviour:
@@ -113,8 +200,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 17
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9022959954223095819
 MonoBehaviour:
@@ -263,8 +350,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 19
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4119630898883924412
 MonoBehaviour:
@@ -418,6 +505,131 @@ MonoBehaviour:
     instanceReference: []
     typeReference: []
     controlPoints: []
+--- !u!1 &691983777778385602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9031000788215395705}
+  - component: {fileID: 91746952003282917}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9031000788215395705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691983777778385602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &91746952003282917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691983777778385602}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: -31.19999
+    y: 246.87003
+    width: 170
+    height: 100
+  nodeExpanded: 1
+  Name: 
+  kind: 0
+  type:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Object
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: object
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 4337628250386367485}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: -119845
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  linkedPort:
+    guid: 
+    owner: {fileID: 0}
 --- !u!1 &2219556342081083298
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,8 +658,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 6
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9207282434744551050
 MonoBehaviour:
@@ -535,93 +747,6 @@ MonoBehaviour:
     instanceReference: []
     typeReference: []
     controlPoints: []
---- !u!1 &3024826830526700920
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8742341617260128724}
-  - component: {fileID: 7209826089032247331}
-  m_Layer: 0
-  m_Name: Entry
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8742341617260128724
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3024826830526700920}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7906463945695732311}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7209826089032247331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3024826830526700920}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  nodeExpanded: 1
-  Action:
-    eventList: []
-    useLevelValidation: 0
-  onFinished:
-    targetType: 0
-    _instanceData: 
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    startTypeName: 
-    targetTypeName: 
-    autoConvertValue: 0
-    items: []
-    serializedItems: []
-    targetReference: []
-    instanceReference: []
-    typeReference: []
-    controlPoints: []
 --- !u!1 &3499704959251578582
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,8 +775,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 8
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7444221044363122664
 MonoBehaviour:
@@ -669,8 +794,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 828.3234
-    y: 691.9193
+    x: 799
+    y: 658
     width: 117
     height: 73
   nodeExpanded: 1
@@ -842,8 +967,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 10
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7090954063039025471
 MonoBehaviour:
@@ -861,10 +986,10 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 612.6502
-    y: 384.00003
-    width: 678
-    height: 445
+    x: 597
+    y: 375
+    width: 751
+    height: 511
   nodeExpanded: 1
   nodeColor: {r: 0.8388803, g: 0.52257806, b: 0.47196978, a: 1}
 --- !u!1 &4509289478615940818
@@ -898,24 +1023,7 @@ Transform:
   - {fileID: 7906463945695732311}
   - {fileID: 180600839923620149}
   - {fileID: 1635611660565439182}
-  - {fileID: 740269626299421780}
-  - {fileID: 6476745720897765440}
-  - {fileID: 1350483856455316955}
-  - {fileID: 8234306091226724823}
-  - {fileID: 6902242469639732875}
-  - {fileID: 9190083707064994686}
-  - {fileID: 6173466949362653446}
-  - {fileID: 5961480055416478042}
-  - {fileID: 8807290779574975689}
-  - {fileID: 5804764802050572622}
-  - {fileID: 2513484744580964370}
-  - {fileID: 7513284031164349370}
-  - {fileID: 255032274965024156}
-  - {fileID: 2945824404383935355}
-  - {fileID: 6432319222463302107}
-  - {fileID: 5425240781864724082}
-  - {fileID: 1790313440971302080}
-  - {fileID: 4769681437340896975}
+  - {fileID: 6293294503885040638}
   m_Father: {fileID: 795151600495548451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -947,7 +1055,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8742341617260128724}
+  - {fileID: 5895714143935058518}
   m_Father: {fileID: 1068510890794835596}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -964,7 +1072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Update
-  startNode: {fileID: 7209826089032247331}
+  startNode: {fileID: 5515980489867252641}
   owner: {fileID: 5997917840764633907}
   _guid: 
   parameters: []
@@ -1050,8 +1158,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 16
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &837707306338277003
 MonoBehaviour:
@@ -1206,8 +1314,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 9
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1121655230624684945
 MonoBehaviour:
@@ -1225,8 +1333,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 1070.4536
-    y: 692.4193
+    x: 1035.5145
+    y: 657.53174
     width: 141
     height: 73
   nodeExpanded: 1
@@ -1322,8 +1430,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 4
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4337628250386367485
 MonoBehaviour:
@@ -1407,8 +1515,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 5
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3440676075834302701
 MonoBehaviour:
@@ -1426,8 +1534,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 928
-    y: 463.74252
+    x: 893.0617
+    y: 433.64612
     width: 112
     height: 41
   nodeExpanded: 1
@@ -1522,8 +1630,9 @@ MonoBehaviour:
   _rootObject: {fileID: 4509289478615940818}
   nodes:
   - {fileID: 1705812272651971738}
-  - {fileID: 7209826089032247331}
+  - {fileID: 5515980489867252641}
   - {fileID: 2342374067655445087}
+  - {fileID: 6980483622853232211}
   - {fileID: 4337628250386367485}
   - {fileID: 3440676075834302701}
   - {fileID: 9207282434744551050}
@@ -1541,6 +1650,8 @@ MonoBehaviour:
   - {fileID: 4119630898883924412}
   - {fileID: 8237476159021700146}
   - {fileID: 5366268635748082283}
+  - {fileID: 91746952003282917}
+  - {fileID: 7628483545701885705}
   icon: {fileID: 0}
   namespace: RPGPrototype.Behaviors
   usingNamespaces:
@@ -1699,276 +1810,6 @@ MonoBehaviour:
       data: 022f00000000012b00000055006e0069007400790045006e00670069006e0065002e0056006500630074006f00720033002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065000000000020000000002000000000200000000005
       references: []
       serializedType: 
-    references: []
-    serializedData: 
-    summary: 
-    resetOnEnter: 1
-    attributes: []
-    modifier:
-      Public: 1
-      Private: 0
-      Protected: 0
-      Internal: 0
-      Static: 0
-      Event: 0
-      ReadOnly: 0
-      Const: 0
-  - Name: MyStationaryTurnSpeed
-    type:
-      targetType: 256
-      _instanceData: 
-      odinInstanceData:
-        data: 
-        references: []
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Single
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: 
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: float
-      isStatic: 1
-      startTypeName: 
-      targetTypeName: 
-      autoConvertValue: 0
-      items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
-      targetReference: []
-      instanceReference: []
-      typeReference: []
-      controlPoints: []
-    odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
-      references: []
-      serializedType: System.Object
-    references: []
-    serializedData: 
-    summary: 
-    resetOnEnter: 1
-    attributes: []
-    modifier:
-      Public: 1
-      Private: 0
-      Protected: 0
-      Internal: 0
-      Static: 0
-      Event: 0
-      ReadOnly: 0
-      Const: 0
-  - Name: MyMovingTurnSpeed
-    type:
-      targetType: 256
-      _instanceData: 
-      odinInstanceData:
-        data: 
-        references: []
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Single
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: 
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: float
-      isStatic: 1
-      startTypeName: 
-      targetTypeName: 
-      autoConvertValue: 0
-      items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
-      targetReference: []
-      instanceReference: []
-      typeReference: []
-      controlPoints: []
-    odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
-      references: []
-      serializedType: System.Object
-    references: []
-    serializedData: 
-    summary: 
-    resetOnEnter: 1
-    attributes: []
-    modifier:
-      Public: 1
-      Private: 0
-      Protected: 0
-      Internal: 0
-      Static: 0
-      Event: 0
-      ReadOnly: 0
-      Const: 0
-  - Name: MyMoveThreshold
-    type:
-      targetType: 256
-      _instanceData: 
-      odinInstanceData:
-        data: 
-        references: []
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Single
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: 
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: float
-      isStatic: 1
-      startTypeName: 
-      targetTypeName: 
-      autoConvertValue: 0
-      items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
-      targetReference: []
-      instanceReference: []
-      typeReference: []
-      controlPoints: []
-    odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
-      references: []
-      serializedType: System.Object
-    references: []
-    serializedData: 
-    summary: 
-    resetOnEnter: 1
-    attributes: []
-    modifier:
-      Public: 1
-      Private: 0
-      Protected: 0
-      Internal: 0
-      Static: 0
-      Event: 0
-      ReadOnly: 0
-      Const: 0
-  - Name: MyAnimatorForwardCap
-    type:
-      targetType: 256
-      _instanceData: 
-      odinInstanceData:
-        data: 
-        references: []
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Single
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: 
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: float
-      isStatic: 1
-      startTypeName: 
-      targetTypeName: 
-      autoConvertValue: 0
-      items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
-      targetReference: []
-      instanceReference: []
-      typeReference: []
-      controlPoints: []
-    odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
-      references: []
-      serializedType: System.Object
-    references: []
-    serializedData: 
-    summary: 
-    resetOnEnter: 1
-    attributes: []
-    modifier:
-      Public: 1
-      Private: 0
-      Protected: 0
-      Internal: 0
-      Static: 0
-      Event: 0
-      ReadOnly: 0
-      Const: 0
-  - Name: MyAnimationSpeedMultiplier
-    type:
-      targetType: 256
-      _instanceData: 
-      odinInstanceData:
-        data: 
-        references: []
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Single
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: 
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: float
-      isStatic: 1
-      startTypeName: 
-      targetTypeName: 
-      autoConvertValue: 0
-      items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
-      targetReference: []
-      instanceReference: []
-      typeReference: []
-      controlPoints: []
-    odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
-      references: []
-      serializedType: System.Object
     references: []
     serializedData: 
     summary: 
@@ -2720,8 +2561,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 20
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8237476159021700146
 MonoBehaviour:
@@ -3084,8 +2925,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 15
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8255646051975232784
 MonoBehaviour:
@@ -3231,7 +3072,7 @@ MonoBehaviour:
     odinInstanceData:
       data: 
       references:
-      - {fileID: 4337628250386367485}
+      - {fileID: 91746952003282917}
       serializedType: 
     odinTargetData:
       data: 
@@ -3247,7 +3088,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 608612
+    _name: -119845
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -3263,7 +3104,7 @@ MonoBehaviour:
     odinInstanceData:
       data: 
       references:
-      - {fileID: 3440676075834302701}
+      - {fileID: 7628483545701885705}
       serializedType: 
     odinTargetData:
       data: 
@@ -3279,7 +3120,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 727253
+    _name: -443046
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -3318,8 +3159,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 7
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8629775095809588501
 MonoBehaviour:
@@ -3337,8 +3178,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 930.9633
-    y: 539.91943
+    x: 895.52484
+    y: 505.52087
     width: 107
     height: 73
   nodeExpanded: 1
@@ -3435,8 +3276,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 14
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7623525915468309044
 MonoBehaviour:
@@ -3618,8 +3459,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 18
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3478492461238730285
 MonoBehaviour:
@@ -3871,8 +3712,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 21
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5366268635748082283
 MonoBehaviour:
@@ -4064,8 +3905,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 11
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &108360656237210958
 MonoBehaviour:
@@ -4149,8 +3990,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1068510890794835596}
-  m_RootOrder: 13
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1540928879345096559
 MonoBehaviour:
@@ -4277,3 +4118,207 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
       _serializedData: 
+--- !u!1 &8510015478441679558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9198910363394945204}
+  - component: {fileID: 7628483545701885705}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9198910363394945204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510015478441679558}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7628483545701885705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510015478441679558}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 928
+    y: 313.74252
+    width: 170
+    height: 100
+  nodeExpanded: 1
+  Name: 
+  kind: 0
+  type:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Object
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: object
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 3440676075834302701}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: -443046
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  linkedPort:
+    guid: 
+    owner: {fileID: 0}
+--- !u!1 &9192598305497663534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6293294503885040638}
+  - component: {fileID: 6980483622853232211}
+  m_Layer: 0
+  m_Name: Active Time Bar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6293294503885040638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192598305497663534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6173466949362653446}
+  - {fileID: 740269626299421780}
+  - {fileID: 6476745720897765440}
+  - {fileID: 1350483856455316955}
+  - {fileID: 8234306091226724823}
+  - {fileID: 6902242469639732875}
+  - {fileID: 9190083707064994686}
+  - {fileID: 5961480055416478042}
+  - {fileID: 8807290779574975689}
+  - {fileID: 5804764802050572622}
+  - {fileID: 2513484744580964370}
+  - {fileID: 7513284031164349370}
+  - {fileID: 255032274965024156}
+  - {fileID: 2945824404383935355}
+  - {fileID: 6432319222463302107}
+  - {fileID: 5425240781864724082}
+  - {fileID: 1790313440971302080}
+  - {fileID: 4769681437340896975}
+  - {fileID: 9031000788215395705}
+  - {fileID: 9198910363394945204}
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6980483622853232211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192598305497663534}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09fae82fdf80254cb81a2d271eb991a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 470.54752
+    y: 334.935
+    width: 119.00001
+    height: 41.000004
+  nodeExpanded: 1
+  variables: []
+  inputFlows:
+  - {fileID: 91746952003282917}
+  - {fileID: 7628483545701885705}
+  inputValues: []
+  outputFlows: []
+  outputValues: []

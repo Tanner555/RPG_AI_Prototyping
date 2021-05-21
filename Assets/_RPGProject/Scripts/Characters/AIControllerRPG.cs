@@ -115,12 +115,6 @@ namespace RPGPrototype
         //BT Vars
         public string BBName_bIsAllyInCommand => "bIsAllyInCommand";
         public string BBName_bIsCurrentPlayer => "bIsCurrentPlayer";
-        public string BBName_MyMoveDirection => "MyMoveDirection";
-        public string BBName_MyStationaryTurnSpeed => "MyStationaryTurnSpeed";
-        public string BBName_MyMovingTurnSpeed => "MyMovingTurnSpeed";
-        public string BBName_MyMoveThreshold => "MyMoveThreshold";
-        public string BBName_MyAnimatorForwardCap => "MyAnimatorForwardCap";
-        public string BBName_MyAnimationSpeedMultiplier => "MyAnimationSpeedMultiplier";
         public string BBName_MyNavDestination => "MyNavDestination";
         public string BBName_bHasSetDestination => "bHasSetDestination";
         public string BBName_bHasSetCommandMove => "bHasSetCommandMove";
@@ -719,12 +713,6 @@ namespace RPGPrototype
                 _spawner.target = _RPGallAllyComps.uNodePlayerTreeAsset;
                 _spawner.CustomSpawnerInitNoUnityMsgs();
                 //Assign Vars
-                //RPG Character Moving
-                _spawner.SetVariable(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
-                _spawner.SetVariable(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
-                _spawner.SetVariable(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
-                _spawner.SetVariable(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
-                _spawner.SetVariable(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
                 //Active Time Bar
                 _spawner.SetVariable(BBName_bUpdateActiveTimeBar, false);
                 _spawner.SetVariable(BBName_ActiveTimeBarRefillRate, 5);
@@ -758,12 +746,6 @@ namespace RPGPrototype
                     //BehaviorTree Already Exists, Not Need To Manually Set it Up
                     _behaviourtree = AllyBehaviorTree;
                 }
-                //RPG Character Moving
-                _behaviourtree.SetVariableValue(BBName_MyStationaryTurnSpeed, _rpgCharAttr.stationaryTurnSpeed);
-                _behaviourtree.SetVariableValue(BBName_MyMovingTurnSpeed, _rpgCharAttr.movingTurnSpeed);
-                _behaviourtree.SetVariableValue(BBName_MyMoveThreshold, _rpgCharAttr.moveThreshold);
-                _behaviourtree.SetVariableValue(BBName_MyAnimatorForwardCap, _rpgCharAttr.animatorForwardCap);
-                _behaviourtree.SetVariableValue(BBName_MyAnimationSpeedMultiplier, _rpgCharAttr.animationSpeedMultiplier);
                 //Active Time Bar
                 _behaviourtree.SetVariableValue(BBName_bUpdateActiveTimeBar, false);
                 _behaviourtree.SetVariableValue(BBName_ActiveTimeBarRefillRate, 5);
