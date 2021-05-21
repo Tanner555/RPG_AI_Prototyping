@@ -116,7 +116,18 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c89a0b2-ee6c-4785-b257-e8553890c5fb"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -127,7 +138,18 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""IGBPIMenuToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c37bf4a6-f48e-473a-9f92-9a245e4cb823"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""IGBPIMenuToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -138,7 +160,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/0"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -149,7 +171,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -160,7 +182,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -171,7 +193,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -182,7 +204,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -193,7 +215,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/5"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -204,7 +226,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/6"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -215,7 +237,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/7"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -226,7 +248,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/8"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -237,7 +259,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/9"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""NumberKeys"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -248,7 +270,18 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/numpad1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""PossessAllyAdd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb9822cb-017b-4e17-8018-1f0fe5b89591"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""PossessAllyAdd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -259,7 +292,18 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/numpad3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""PossessAllySubtract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a524583-80df-46b9-9437-2696bfcce016"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""PossessAllySubtract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -270,7 +314,18 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""TogglePauseControlMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23a18ce3-442a-4f6b-b11f-8f41db614b85"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""TogglePauseControlMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -292,7 +347,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""HorizontalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -303,7 +358,40 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""HorizontalMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""6da2db5e-4ad5-4e35-88ce-b2eb7c9ae676"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""HorizontalMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8fc2a773-6ddf-4cca-a63e-a1100ad67f7e"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HorizontalMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""3357c543-8c88-4455-95ee-88ffc9d5f0b1"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""HorizontalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -325,7 +413,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""ForwardMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -336,7 +424,40 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""ForwardMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""1dfb83ea-d195-4246-8183-1d187f7a5bc6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""ForwardMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fe68703f-3bf0-43cb-a9c5-05946e6ae0c9"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ForwardMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""fe87da0e-fc25-44ff-8470-f56db1f2761a"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""ForwardMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -347,7 +468,7 @@ namespace RPGPrototype
                     ""path"": ""*/{ScrollVertical}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""ScrollCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -369,7 +490,7 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/numpadMinus"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""ScrollCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -380,7 +501,40 @@ namespace RPGPrototype
                     ""path"": ""<Keyboard>/numpadPlus"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""ScrollCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""e417f0c3-2773-46ab-84e7-f874604f21bd"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""ScrollCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""727c24a3-d97d-40ba-852a-7721651d5f44"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ScrollCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b7dc7412-821c-468e-b8fd-6d71db507e00"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""ScrollCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -391,7 +545,7 @@ namespace RPGPrototype
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""Left Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -402,7 +556,7 @@ namespace RPGPrototype
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""Right Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -410,7 +564,35 @@ namespace RPGPrototype
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard And Mouse"",
+            ""bindingGroup"": ""Keyboard And Mouse"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
             // Gameplay
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
@@ -583,6 +765,24 @@ namespace RPGPrototype
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
+        private int m_KeyboardAndMouseSchemeIndex = -1;
+        public InputControlScheme KeyboardAndMouseScheme
+        {
+            get
+            {
+                if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard And Mouse");
+                return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
+            }
+        }
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
+        {
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
+        }
         public interface IGameplayActions
         {
             void OnPauseGame(InputAction.CallbackContext context);
