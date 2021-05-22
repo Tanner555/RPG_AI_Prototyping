@@ -83,7 +83,21 @@ namespace RPGPrototype
         //protected override bool AllCompsAreValid => myEventHandler && allyMember;
         #endregion
 
-        #region Properties       
+        #region Properties     
+        //Behavior Actions Instance
+        public override RTSBehaviorActions BehaviorActionsInstance
+        {
+            get
+            {
+                if (BehaviorActionsRPGInstance == null)
+                {
+                    BehaviorActionsRPGInstance = new RPGBehaviorActions(this.transform);
+                }
+                return BehaviorActionsRPGInstance;
+            }
+        }
+        public RPGBehaviorActions BehaviorActionsRPGInstance { get; protected set; }
+
         //UNode Props
         MaxyGames.uNode.uNodeSpawner uNodeAllyTreeSpawner
         {
