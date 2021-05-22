@@ -89,14 +89,14 @@ namespace RPGPrototype
         {
             get
             {
-                if (BehaviorActionsRPGInstance == null)
+                if (_privateBActionsRPGInstance == null)
                 {
-                    BehaviorActionsRPGInstance = new RPGBehaviorActions(this.transform);
+                    _privateBActionsRPGInstance = new RPGBehaviorActions(this.transform);
                 }
-                return BehaviorActionsRPGInstance;
+                return _privateBActionsRPGInstance;
             }
         }
-        public RPGBehaviorActions BehaviorActionsRPGInstance { get; protected set; }
+        private RTSBehaviorActions _privateBActionsRPGInstance = null;
 
         //UNode Props
         MaxyGames.uNode.uNodeSpawner uNodeAllyTreeSpawner

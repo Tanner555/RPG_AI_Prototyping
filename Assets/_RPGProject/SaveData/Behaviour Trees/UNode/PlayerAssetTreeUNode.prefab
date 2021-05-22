@@ -1,5 +1,130 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &40651691824495835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8428895712746553521}
+  - component: {fileID: 1138069633059010659}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8428895712746553521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40651691824495835}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6293294503885040638}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138069633059010659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40651691824495835}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 928
+    y: 313.74252
+    width: 170
+    height: 100
+  nodeExpanded: 1
+  Name: 
+  kind: 0
+  type:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Object
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: object
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 3440676075834302701}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: -443046
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  linkedPort:
+    guid: 
+    owner: {fileID: 0}
 --- !u!1 &236155237892493053
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,93 +977,6 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
       _serializedData: 
---- !u!1 &3953369666851709904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7382647030851180412}
-  - component: {fileID: 8874648305687139979}
-  m_Layer: 0
-  m_Name: Entry
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7382647030851180412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3953369666851709904}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7906463945695732311}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8874648305687139979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3953369666851709904}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  nodeExpanded: 1
-  Action:
-    eventList: []
-    useLevelValidation: 0
-  onFinished:
-    targetType: 0
-    _instanceData: 
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    startTypeName: 
-    targetTypeName: 
-    autoConvertValue: 0
-    items: []
-    serializedItems: []
-    targetReference: []
-    instanceReference: []
-    typeReference: []
-    controlPoints: []
 --- !u!1 &4005392457040985505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1093,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7382647030851180412}
+  - {fileID: 1230541216145523540}
   m_Father: {fileID: 1068510890794835596}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1072,7 +1110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Update
-  startNode: {fileID: 8874648305687139979}
+  startNode: {fileID: 886850094659256995}
   owner: {fileID: 5997917840764633907}
   _guid: 
   parameters: []
@@ -1130,6 +1168,93 @@ MonoBehaviour:
     controlPoints: []
   attributes: []
   genericParameters: []
+--- !u!1 &4736269685030320120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230541216145523540}
+  - component: {fileID: 886850094659256995}
+  m_Layer: 0
+  m_Name: Entry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1230541216145523540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736269685030320120}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7906463945695732311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &886850094659256995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736269685030320120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d045fee2acd3dbe47ac23d39c86fd454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  nodeExpanded: 1
+  Action:
+    eventList: []
+    useLevelValidation: 0
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
 --- !u!1 &4881466943782268980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,7 +1842,7 @@ MonoBehaviour:
   _rootObject: {fileID: 4509289478615940818}
   nodes:
   - {fileID: 527586297132114401}
-  - {fileID: 8874648305687139979}
+  - {fileID: 886850094659256995}
   - {fileID: 2342374067655445087}
   - {fileID: 6980483622853232211}
   - {fileID: 4337628250386367485}
@@ -1738,7 +1863,7 @@ MonoBehaviour:
   - {fileID: 8237476159021700146}
   - {fileID: 5366268635748082283}
   - {fileID: 91746952003282917}
-  - {fileID: 8695484024695221323}
+  - {fileID: 1138069633059010659}
   icon: {fileID: 0}
   namespace: RPGPrototype.Behaviors
   usingNamespaces:
@@ -3104,7 +3229,7 @@ MonoBehaviour:
     odinInstanceData:
       data: 
       references:
-      - {fileID: 8695484024695221323}
+      - {fileID: 1138069633059010659}
       serializedType: 
     odinTargetData:
       data: 
@@ -4119,131 +4244,6 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
       _serializedData: 
---- !u!1 &8644589755819452659
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 260891111822496921}
-  - component: {fileID: 8695484024695221323}
-  m_Layer: 0
-  m_Name: 
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &260891111822496921
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8644589755819452659}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6293294503885040638}
-  m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8695484024695221323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8644589755819452659}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 928
-    y: 313.74252
-    width: 170
-    height: 100
-  nodeExpanded: 1
-  Name: 
-  kind: 0
-  type:
-    targetType: 256
-    _instanceData: 
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: System.Object
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: object
-    isStatic: 1
-    startTypeName: 
-    targetTypeName: 
-    autoConvertValue: 0
-    items: []
-    serializedItems:
-    - data: 
-      references: []
-      serializedType: 
-    targetReference: []
-    instanceReference: []
-    typeReference: []
-    controlPoints: []
-  target:
-    targetType: 524288
-    _instanceData: 
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 3440676075834302701}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: -443046
-    isStatic: 0
-    startTypeName: 
-    targetTypeName: 
-    autoConvertValue: 0
-    items: []
-    serializedItems: []
-    targetReference: []
-    instanceReference: []
-    typeReference: []
-    controlPoints: []
-  linkedPort:
-    guid: 
-    owner: {fileID: 0}
 --- !u!1 &9192598305497663534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4291,7 +4291,7 @@ Transform:
   - {fileID: 1790313440971302080}
   - {fileID: 4769681437340896975}
   - {fileID: 9031000788215395705}
-  - {fileID: 260891111822496921}
+  - {fileID: 8428895712746553521}
   m_Father: {fileID: 1068510890794835596}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4319,7 +4319,7 @@ MonoBehaviour:
   variables: []
   inputFlows:
   - {fileID: 91746952003282917}
-  - {fileID: 8695484024695221323}
+  - {fileID: 1138069633059010659}
   inputValues: []
   outputFlows: []
   outputValues: []
