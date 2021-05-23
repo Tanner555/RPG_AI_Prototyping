@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BaseFramework;
+using UnityEngine.AI;
 
 namespace RTSCoreFramework
 {
@@ -59,6 +60,19 @@ namespace RTSCoreFramework
             }
         }
         IAllyMovable _allyMovable = null;
+
+        protected NavMeshAgent navMeshAgent
+        {
+            get
+            {
+                if (_navMeshAgent == null)
+                {
+                    _navMeshAgent = transform.GetComponent<NavMeshAgent>();
+                }
+                return _navMeshAgent;
+            }
+        }
+        NavMeshAgent _navMeshAgent = null;
         #endregion
 
         #region PropertyReferences
@@ -162,6 +176,55 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region ResetCharacterNavMovement
+        /// <summary>
+        /// Resets The Provided Character Navigation Movement BlackBoard Variables and NavMeshAgent Dest. Optional OnlyResetIfHasSetDestination Checkbox Will Only Reset Variables If Destination Has Been Set.
+        /// </summary>
+        public bool ResetCharacterNavMovement(Vector3 MyNavDestination, bool bHasSetDestination, bool bHasSetCommandMove,
+            ref System.Action<Vector3, bool, bool> SetterAction, bool OnlyResetIfHasSetDestination = false)
+        {
+            bool _success = ResetCharacterNavMovement(ref MyNavDestination, ref bHasSetDestination, ref bHasSetCommandMove, OnlyResetIfHasSetDestination);
+            if (SetterAction != null)
+            {
+                SetterAction(MyNavDestination, bHasSetDestination, bHasSetCommandMove);
+            }
+            return _success;
+        }
+
+        /// <summary>
+        /// Resets The Provided Character Navigation Movement BlackBoard Variables and NavMeshAgent Dest. Optional OnlyResetIfHasSetDestination Checkbox Will Only Reset Variables If Destination Has Been Set.
+        /// </summary>
+        public bool ResetCharacterNavMovement(ref Vector3 MyNavDestination, ref bool bHasSetDestination, 
+            ref bool bHasSetCommandMove, bool OnlyResetIfHasSetDestination = false)
+        {
+            if (OnlyResetIfHasSetDestination)
+            {
+                //Only Reset if Destination has been set.
+                if (bHasSetDestination)
+                {
+                    ResetCharacterNavMovement_Helper(ref MyNavDestination, ref bHasSetDestination, ref bHasSetCommandMove);
+                }
+            }
+            else
+            {
+                ResetCharacterNavMovement_Helper(ref MyNavDestination, ref bHasSetDestination, ref bHasSetCommandMove);
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Helper For Action: ResetCharacterNavMovement.  
+        /// </summary>
+        public void ResetCharacterNavMovement_Helper(ref Vector3 MyNavDestination, ref bool bHasSetDestination, ref bool bHasSetCommandMove)
+        {
+            MyNavDestination = Vector3.zero;
+            bHasSetDestination = false;
+            bHasSetCommandMove = false;
+            navMeshAgent.SetDestination(transform.position);
+            navMeshAgent.velocity = Vector3.zero;
+        }
+        #endregion
+
         #region SetNavDestFromTargetPos
         /// <summary>
         /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
@@ -170,7 +233,7 @@ namespace RTSCoreFramework
             ref System.Action<Vector3, bool, Transform> SetterAction)
         {
             bool _success = SetNavDestFromTargetPos(ref MyNavDestination, ref bHasSetDestination, ref CurrentTargettedEnemy);
-            if(SetterAction != null)
+            if (SetterAction != null)
             {
                 SetterAction(MyNavDestination, bHasSetDestination, CurrentTargettedEnemy);
             }
@@ -180,7 +243,7 @@ namespace RTSCoreFramework
         /// <summary>
         /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
         /// </summary>
-        public bool SetNavDestFromTargetPos(Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy, 
+        public bool SetNavDestFromTargetPos(Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy,
             out (Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy) allRefs)
         {
             bool _success = SetNavDestFromTargetPos(ref MyNavDestination, ref bHasSetDestination, ref CurrentTargettedEnemy);
@@ -198,6 +261,7 @@ namespace RTSCoreFramework
             return true;
         }
         #endregion
+
 
         #endregion
     }
