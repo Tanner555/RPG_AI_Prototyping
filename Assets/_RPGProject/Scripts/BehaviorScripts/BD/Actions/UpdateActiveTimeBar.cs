@@ -14,49 +14,26 @@ namespace RPGPrototype
 		public SharedInt ActiveTimeBarRefillRate;
 		#endregion
 
-		#region Properties
-		int AllyActiveTimeBar
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				return allyMember.AllyActiveTimeBar;
-			}
-			set
-			{
-				allyMember.AllyActiveTimeBar = value;
-			}
-		}
-
-		int AllyMaxActiveTimeBar
-		{
-			get
-			{
-				return allyMember.AllyMaxActiveTimeBar;
-			}
-		}
-
-		AllyMember allyMember
-		{
-			get
-			{
-				if (_allyMember == null)
+				if (_behaviorActions == null)
 				{
-					_allyMember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allyMember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allyMember = null;
+		RPGBehaviorActions _behaviorActions = null;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			if (bUpdateActiveTimeBar.Value && AllyActiveTimeBar < AllyMaxActiveTimeBar)
-			{
-				AllyActiveTimeBar = Mathf.Min(AllyActiveTimeBar + ActiveTimeBarRefillRate.Value, AllyMaxActiveTimeBar);
-			}
-			return TaskStatus.Success;
+			return behaviorActions.UpdateActiveTimeBar(bUpdateActiveTimeBar.Value,
+				ActiveTimeBarRefillRate.Value) ? TaskStatus.Success : TaskStatus.Failure;
 		}
 		#endregion
 	}

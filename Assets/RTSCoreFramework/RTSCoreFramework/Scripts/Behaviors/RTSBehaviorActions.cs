@@ -9,7 +9,7 @@ namespace RTSCoreFramework
     {
         #region EssentialComponents
         public Transform transform { get; protected set; }
-        AllyMember allyMember
+        protected AllyMember allyMember
         {
             get
             {
@@ -22,7 +22,7 @@ namespace RTSCoreFramework
         }
         AllyMember _allymember = null;
 
-        AllyAIController aiController
+        protected AllyAIController aiController
         {
             get
             {
@@ -35,7 +35,7 @@ namespace RTSCoreFramework
         }
         AllyAIController _aiController = null;
 
-        AllyEventHandler myEventHandler
+        protected AllyEventHandler myEventHandler
         {
             get
             {
@@ -47,7 +47,7 @@ namespace RTSCoreFramework
             }
         }
         AllyEventHandler _myEventhandler = null;
-        IAllyMovable allyMovable
+        protected IAllyMovable allyMovable
         {
             get
             {
@@ -63,7 +63,7 @@ namespace RTSCoreFramework
 
         #region PropertyReferences
         protected InputManager myInputManager => InputManager.thisInstance;
-        Camera myCamera
+        protected Camera myCamera
         {
             get
             {
@@ -74,7 +74,7 @@ namespace RTSCoreFramework
             }
         }
         Camera _myCamera = null;
-        Vector3 CamForward
+        protected Vector3 CamForward
         {
             get
             {
@@ -83,8 +83,30 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region OtherProperties
+        protected int AllyActiveTimeBar
+        {
+            get
+            {
+                return allyMember.AllyActiveTimeBar;
+            }
+            set
+            {
+                allyMember.AllyActiveTimeBar = value;
+            }
+        }
+        #endregion
+
         #region Getters
-        bool bIsAlive => allyMember != null && allyMember.IsAlive;
+        protected bool bIsAlive => allyMember != null && allyMember.IsAlive;
+
+        protected int AllyMaxActiveTimeBar
+        {
+            get
+            {
+                return allyMember.AllyMaxActiveTimeBar;
+            }
+        }
         #endregion
 
         #region Initialization
@@ -105,7 +127,59 @@ namespace RTSCoreFramework
 
         #region Actions
 
+        #region DepleteActiveTimeBar
+        /// <summary>
+        /// Empties The Active Time Bar. OnlyDepleteIfAboveMinimum Checkbox Will Only Deplete Time Bar if Amount is Greater Than 0.
+        /// </summary>
+        public bool DepleteActiveTimeBar(bool OnlyDepleteIfAboveMinimum = false)
+        {
+            if (OnlyDepleteIfAboveMinimum)
+            {
+                if (allyMember.AllyActiveTimeBar > allyMember.AllyMinActiveTimeBar)
+                {
+                    allyMember.DepleteActiveTimeBar();
+                }
+            }
+            else
+            {
+                allyMember.DepleteActiveTimeBar();
+            }
+            return true;
+        }
+        #endregion
+
+        #region UpdateActiveTimeBar
+        /// <summary>
+        /// Updates Active Time Bar if bUpdateActiveTimeBar is Set. ActiveTimeBarRefillRate Determines How Much the Bar is Filled On Each Update.
+        /// </summary>
+        public bool UpdateActiveTimeBar(bool bUpdateActiveTimeBar, int ActiveTimeBarRefillRate)
+        {
+            if (bUpdateActiveTimeBar && AllyActiveTimeBar < AllyMaxActiveTimeBar)
+            {
+                AllyActiveTimeBar = Mathf.Min(AllyActiveTimeBar + ActiveTimeBarRefillRate, AllyMaxActiveTimeBar);
+            }
+            return true;
+        }
+        #endregion
+
         #region SetNavDestFromTargetPos
+        /// <summary>
+        /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
+        /// </summary>
+        public bool SetNavDestFromTargetPos(Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy,
+            ref System.Action<Vector3, bool, Transform> SetterAction)
+        {
+            bool _success = SetNavDestFromTargetPos(ref MyNavDestination, ref bHasSetDestination, ref CurrentTargettedEnemy);
+            if(SetterAction != null)
+            {
+                SetterAction(MyNavDestination, bHasSetDestination, CurrentTargettedEnemy);
+            }
+            return _success;
+        }
+
+        /// <summary>
+        /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
+        /// </summary>
         public bool SetNavDestFromTargetPos(Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy, 
             out (Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy) allRefs)
         {
@@ -114,6 +188,9 @@ namespace RTSCoreFramework
             return _success;
         }
 
+        /// <summary>
+        /// Sets Nav Destination To Target Position.
+        /// </summary>
         public bool SetNavDestFromTargetPos(ref Vector3 MyNavDestination, ref bool bHasSetDestination, ref Transform CurrentTargettedEnemy)
         {
             MyNavDestination = CurrentTargettedEnemy.position;
@@ -121,7 +198,6 @@ namespace RTSCoreFramework
             return true;
         }
         #endregion
-
 
         #endregion
     }

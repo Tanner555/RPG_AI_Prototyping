@@ -18,9 +18,10 @@ namespace RPGPrototype.Behaviors
         public override RPGBehaviorActions GetValue(object graph)
         {
             if (_behaviorActions == null)
+            {
                 _behaviorActions = myTransform.GetComponent<AIControllerRPG>()
                     .BehaviorActionsInstance as RPGBehaviorActions;
-
+            }
             return _behaviorActions;
         }
     }

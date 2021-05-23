@@ -5,7 +5,7 @@ using RTSCoreFramework;
 
 namespace RPGPrototype {
 	[TaskCategory("RPGPrototype/AllyMember")]
-    [TaskDescription("Resets The Provided Character Navigation Movement BlackBoard Variables and Nav")]
+    [TaskDescription("Sets Nav Destination To Target Position.")]
 	public class SetNavDestFromTargetPos : Action
 	{
 		#region Shared
@@ -14,12 +14,40 @@ namespace RPGPrototype {
 		public SharedTransform CurrentTargettedEnemy;
 		#endregion
 
-		#region Overrides
-		public override TaskStatus OnUpdate()
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
+        {
+            get
+            {
+                if (_behaviorActions == null)
+                {
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
+			}
+        }
+		RPGBehaviorActions _behaviorActions = null;
+
+		System.Action<Vector3, bool, Transform> SetterAction;
+        #endregion
+
+        #region Overrides
+        public override void OnStart()
+        {
+            SetterAction = (MyNavDestination, bHasSetDestination, CurrentTargettedEnemy) =>
+			{
+				this.MyNavDestination.Value = MyNavDestination;
+				this.bHasSetDestination.Value = bHasSetDestination;
+				this.CurrentTargettedEnemy.Value = CurrentTargettedEnemy;
+			};
+		}
+
+        public override TaskStatus OnUpdate()
 		{
-			MyNavDestination.Value = CurrentTargettedEnemy.Value.position;
-			bHasSetDestination.Value = true;
-			return TaskStatus.Success;
+			return behaviorActions.SetNavDestFromTargetPos
+				(MyNavDestination.Value, bHasSetDestination.Value,
+				CurrentTargettedEnemy.Value, ref SetterAction) ?
+				TaskStatus.Success : TaskStatus.Failure;
 		}
 		#endregion
 
