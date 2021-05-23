@@ -126,6 +126,11 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region PrivateFields
+        private LineRenderer waypointRenderer;
+        private NavMeshPath myNavPath = null;
+        #endregion
+
         #region Initialization
         public RTSBehaviorActions(Transform transform)
         {
@@ -294,6 +299,53 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region UpdateWaypointRenderer
+        public bool UpdateWaypointRenderer(ref Material waypointMaterial,
+            ref Color waypointStartColor, ref Color waypointEndColor,
+            float waypointStartWidth = 0.05f, float waypointEndWidth = 0.05f)
+        {
+            if (waypointRenderer != null && waypointRenderer.enabled == false)
+            {
+                //Enable Line Renderer if Comp Not Null and Isn't Enabled.
+                waypointRenderer.enabled = true;
+            }
+            else if (waypointRenderer == null)
+            {
+                //Add Line Renderer To This GameObject
+                waypointRenderer = this.gameObject.AddComponent<LineRenderer>();
+                if (waypointMaterial != null)
+                {
+                    waypointRenderer.material = waypointMaterial;
+                }
+                waypointRenderer.startWidth = waypointStartWidth;
+                waypointRenderer.endWidth = waypointEndWidth;
+                waypointRenderer.startColor = waypointStartColor;
+                waypointRenderer.endColor = waypointEndColor;
+            }
+            //Get All Corners From NavMeshAgent Path
+            myNavPath = navMeshAgent.path;
+            waypointRenderer.positionCount = myNavPath.corners.Length;
+            //Iterate All Path Corners, Setting The Line Render Positions
+            for (int i = 0; i < myNavPath.corners.Length; i++)
+            {
+                waypointRenderer.SetPosition(i, myNavPath.corners[i]);
+            }
+            //Task Successful
+            return true;
+        }
+        #endregion
+
+        #region ResetWaypointRenderer
+        public bool ResetWaypointRenderer()
+        {
+            if (waypointRenderer != null)
+            {
+                waypointRenderer.enabled = false;
+            }
+            return true;
+        }
+        #endregion
+
         #region SetNavDestFromTargetPos
         /// <summary>
         /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
@@ -330,7 +382,6 @@ namespace RTSCoreFramework
             return true;
         }
         #endregion
-
 
         #endregion
     }

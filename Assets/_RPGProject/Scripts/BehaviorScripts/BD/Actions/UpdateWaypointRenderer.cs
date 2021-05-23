@@ -16,96 +16,41 @@ namespace RPGPrototype
         public SharedFloat waypointEndWidth = 0.05f;
         public SharedColor waypointStartColor = Color.yellow;
         public SharedColor waypointEndColor = Color.yellow;
-
 		#endregion
 
-		#region Fields
-		protected LineRenderer waypointRenderer;
-        private NavMeshPath myNavPath = null;
-		#endregion
-
-		#region Properties
-		protected AllyMember allyMember
+        #region BehaviorActions
+        RPGBehaviorActions behaviorActions
         {
             get
             {
-                if (_thisAlly == null)
-                    _thisAlly = GetComponent<AllyMember>();
-
-                return _thisAlly;
+                if (_behaviorActions == null)
+                {
+                    _behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+                }
+                return _behaviorActions;
             }
         }
-		private AllyMember _thisAlly = null;
+        RPGBehaviorActions _behaviorActions = null;
 
-		protected AllyEventHandler myEventHandler
-        {
-            get
-            {
-                if(_myEventHandler == null)
-                    _myEventHandler = GetComponent<AllyEventHandler>();
+        Material waypointMaterial_Cached;
+        Color waypointStartColor_Cached;
+        Color waypointEndColor_Cached;
+        #endregion
 
-                return _myEventHandler;
-            }
-        }
-        private AllyEventHandler _myEventHandler = null;
-
-		protected NavMeshAgent myNavMesh
-        {
-            get
-            {
-                if (_myNavMesh == null)
-                    _myNavMesh = GetComponent<NavMeshAgent>();
-
-                return _myNavMesh;
-            }
-        }
-        NavMeshAgent _myNavMesh = null;
-		#endregion
-
-		#region Overrides
-		public override void OnStart()
+        #region Overrides
+        public override void OnStart()
 		{
-		    if(myNavMesh == null)
-            {
-                Debug.LogError("No Nav Mesh Found On Agent");
-                OnEnd();
-            }
+            waypointMaterial_Cached = waypointMaterial.Value;
+            waypointStartColor_Cached = waypointStartColor.Value;
+            waypointEndColor_Cached = waypointEndColor.Value;
         }
 
 		public override TaskStatus OnUpdate()
 		{
-            UpdateWaypointRendererMain();
-            return TaskStatus.Success;
-		}
-		#endregion
-
-		#region Helpers
-        protected void UpdateWaypointRendererMain()
-        {
-            if (waypointRenderer != null && waypointRenderer.enabled == false)
-            {
-                waypointRenderer.enabled = true;
-            }
-            else if (waypointRenderer == null)
-            {
-                waypointRenderer = this.gameObject.AddComponent<LineRenderer>();
-                if (waypointMaterial != null && waypointMaterial.Value != null)
-                    waypointRenderer.material = waypointMaterial.Value;
-
-                waypointRenderer.startWidth = waypointStartWidth.Value;
-                waypointRenderer.endWidth = waypointEndWidth.Value;
-                waypointRenderer.startColor = waypointStartColor.Value;
-                waypointRenderer.endColor = waypointEndColor.Value;
-            }
-
-            myNavPath = myNavMesh.path;
-
-            waypointRenderer.positionCount = myNavPath.corners.Length;
-
-            for (int i = 0; i < myNavPath.corners.Length; i++)
-            {
-                waypointRenderer.SetPosition(i, myNavPath.corners[i]);
-            }
+            return behaviorActions.UpdateWaypointRenderer(ref waypointMaterial_Cached,
+                ref waypointStartColor_Cached, ref waypointEndColor_Cached,
+                waypointStartWidth.Value, waypointEndWidth.Value) ?
+                TaskStatus.Success : TaskStatus.Failure;
         }
 		#endregion
 	}
