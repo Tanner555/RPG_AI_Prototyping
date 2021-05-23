@@ -10,6 +10,9 @@ namespace RTSCoreFramework
     {
         #region EssentialComponents
         public Transform transform { get; protected set; }
+
+        public GameObject gameObject { get; protected set; }
+
         protected AllyMember allyMember
         {
             get
@@ -126,7 +129,8 @@ namespace RTSCoreFramework
         #region Initialization
         public RTSBehaviorActions(Transform transform)
         {
-            this.transform = transform;            
+            this.transform = transform;
+            this.gameObject = transform.gameObject;
         }
 
         protected RTSBehaviorActions()
@@ -225,11 +229,76 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region MoveDirFromNavDestination
+        /// <summary>
+        /// Provides Move Direction From Navigation Destination.
+        /// </summary>
+        public bool MoveDirFromNavDestination(ref Vector3 MyMoveDirection,
+            ref Vector3 MyNavDestination, ref bool bFinishedMoving,
+            ref System.Action<Vector3, Vector3, bool> SetterAction)
+        {
+            bool _success = MoveDirFromNavDestination(ref MyMoveDirection, ref MyNavDestination, ref bFinishedMoving);
+            if (SetterAction != null)
+            {
+                SetterAction(MyMoveDirection, MyNavDestination, bFinishedMoving);
+            }
+            return _success;
+        }
+
+        /// <summary>
+        /// Provides Move Direction From Navigation Destination.
+        /// </summary>
+        public bool MoveDirFromNavDestination(ref Vector3 MyMoveDirection, 
+            ref Vector3 MyNavDestination, ref bool bFinishedMoving)
+        {
+            //By Default, Will Keep Moving Until in a Finished State
+            bFinishedMoving = false;
+
+            if (navMeshAgent == null) Debug.LogError(gameObject.name + "navmesh is null");
+            if (!navMeshAgent.isOnNavMesh) Debug.LogError(gameObject.name + " uh oh this guy is not on the navmesh");
+            if (navMeshAgent == null || !navMeshAgent.isOnNavMesh)
+            {
+                //Stop Moving and Finish Task
+                bFinishedMoving = true;
+                return false;
+            }
+
+            if (navMeshAgent.destination != MyNavDestination) navMeshAgent.SetDestination(MyNavDestination);
+
+            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+            {
+                navMeshAgent.updateRotation = true;
+                MyMoveDirection = navMeshAgent.desiredVelocity;
+                //Haven't Finished Moving Yet, Returning Success Temporarily
+                return true;
+            }
+            else if (Vector3.Distance(transform.position, navMeshAgent.destination) > navMeshAgent.stoppingDistance + 0.1f)
+            {
+                //Fix Stopping Distance Issue, Which Causes Character to Stop Before Reaching Destination
+                //string _msg = "Temporarily Ignoring Stopping Distance Issue." +
+                //    $"Remaining Distance: {navMeshAgent.remainingDistance}" +
+                //    $"Stopping Distance: {navMeshAgent.stoppingDistance}" +
+                //    $"Distance To Destination: {Vector3.Distance(transform.position, navMeshAgent.destination)}";
+                //Debug.Log(_msg);
+                navMeshAgent.updateRotation = true;
+                MyMoveDirection = Vector3.zero;
+                //Haven't Finished Moving Yet, Returning Success Temporarily
+                return true;
+            }
+            else
+            {
+                //Finished Moving, Stop Running This Task
+                bFinishedMoving = true;
+                return true;
+            }
+        }
+        #endregion
+
         #region SetNavDestFromTargetPos
         /// <summary>
         /// Resets The Provided Character Navigation Movement BlackBoard Variables and Nav
         /// </summary>
-        public bool SetNavDestFromTargetPos(Vector3 MyNavDestination, bool bHasSetDestination, Transform CurrentTargettedEnemy,
+        public bool SetNavDestFromTargetPos(ref Vector3 MyNavDestination, ref bool bHasSetDestination, ref Transform CurrentTargettedEnemy,
             ref System.Action<Vector3, bool, Transform> SetterAction)
         {
             bool _success = SetNavDestFromTargetPos(ref MyNavDestination, ref bHasSetDestination, ref CurrentTargettedEnemy);

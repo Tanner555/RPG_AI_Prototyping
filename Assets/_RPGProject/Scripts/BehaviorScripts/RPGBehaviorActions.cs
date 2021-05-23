@@ -16,6 +16,7 @@ namespace RPGPrototype
         public RPGBehaviorActions(Transform transform)
         {
             this.transform = transform;
+            this.gameObject = transform.gameObject;
         }
 
         protected RPGBehaviorActions()
