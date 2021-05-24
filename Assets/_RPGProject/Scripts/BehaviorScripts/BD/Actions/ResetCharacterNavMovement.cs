@@ -31,33 +31,34 @@ namespace RPGPrototype
         }
         RPGBehaviorActions _behaviorActions = null;
 
-        System.Action<Vector3, bool, bool> SetterAction;
+        Vector3 MyNavDestination_Cached;
+        bool bHasSetDestination_Cached;
+        bool bHasSetCommandMove_Cached;
         #endregion
 
         #region Overrides
-        public override void OnStart()
-        {
-            SetterAction = (MyNavDestination, bHasSetDestination, bHasSetCommandMove) =>
-            {
-                this.MyNavDestination.Value = MyNavDestination;
-                this.bHasSetDestination.Value = bHasSetDestination;
-                this.bHasSetCommandMove.Value = bHasSetCommandMove;
-            };
-        }
-
         public override TaskStatus OnUpdate()
 		{
-            return behaviorActions.ResetCharacterNavMovement(MyNavDestination.Value, 
-                bHasSetDestination.Value, bHasSetCommandMove.Value, 
-                ref SetterAction, OnlyResetIfHasSetDestination.Value) ?
+            MyNavDestination_Cached = MyNavDestination.Value;
+            bHasSetDestination_Cached = bHasSetDestination.Value;
+            bHasSetCommandMove_Cached = bHasSetCommandMove.Value;
+            var _taskStatus = behaviorActions.ResetCharacterNavMovement(ref MyNavDestination_Cached,
+                ref bHasSetDestination_Cached, ref bHasSetCommandMove_Cached, 
+                OnlyResetIfHasSetDestination.Value) ?
                 TaskStatus.Success : TaskStatus.Failure;
+            MyNavDestination.Value = MyNavDestination_Cached;
+            bHasSetDestination.Value = bHasSetDestination_Cached;
+            bHasSetCommandMove.Value = bHasSetCommandMove_Cached;
+            return _taskStatus;
         }
 
 		public override void OnReset()
 		{
-            behaviorActions.ResetCharacterNavMovement(MyNavDestination.Value,
-                bHasSetDestination.Value, bHasSetCommandMove.Value,
-                ref SetterAction, false);
+            MyNavDestination_Cached = MyNavDestination.Value;
+            bHasSetDestination_Cached = bHasSetDestination.Value;
+            bHasSetCommandMove_Cached = bHasSetCommandMove.Value;
+            behaviorActions.ResetCharacterNavMovement(ref MyNavDestination_Cached,
+                            ref bHasSetDestination_Cached, ref bHasSetCommandMove_Cached, false);
         }
 		#endregion
 	} 

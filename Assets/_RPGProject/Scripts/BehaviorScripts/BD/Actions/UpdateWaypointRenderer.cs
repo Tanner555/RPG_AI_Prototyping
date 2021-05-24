@@ -38,19 +38,19 @@ namespace RPGPrototype
         #endregion
 
         #region Overrides
-        public override void OnStart()
+		public override TaskStatus OnUpdate()
 		{
             waypointMaterial_Cached = waypointMaterial.Value;
             waypointStartColor_Cached = waypointStartColor.Value;
             waypointEndColor_Cached = waypointEndColor.Value;
-        }
-
-		public override TaskStatus OnUpdate()
-		{
-            return behaviorActions.UpdateWaypointRenderer(ref waypointMaterial_Cached,
+            var _taskStatus = behaviorActions.UpdateWaypointRenderer(ref waypointMaterial_Cached,
                 ref waypointStartColor_Cached, ref waypointEndColor_Cached,
                 waypointStartWidth.Value, waypointEndWidth.Value) ?
                 TaskStatus.Success : TaskStatus.Failure;
+            waypointMaterial.Value = waypointMaterial_Cached;
+            waypointStartColor.Value = waypointStartColor_Cached;
+            waypointEndColor.Value = waypointEndColor_Cached;
+            return _taskStatus;
         }
 		#endregion
 	}

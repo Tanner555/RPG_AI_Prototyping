@@ -30,29 +30,21 @@ namespace RPGPrototype
 		}
 		RPGBehaviorActions _behaviorActions = null;
 
-		System.Action<Vector3, bool> SetterAction;
-
 		Vector3 MyMoveDirection_Cached;
 		bool bIsFreeMoving_Cached;
 		#endregion
 
 		#region Overrides
-		public override void OnStart()
-		{
-			SetterAction = (MyMoveDirection, bIsFreeMoving) =>
-			{
-				this.MyMoveDirection.Value = MyMoveDirection;
-				this.bIsFreeMoving.Value = bIsFreeMoving;
-			};
-		}
-
 		public override TaskStatus OnUpdate()
 		{
 			MyMoveDirection_Cached = MyMoveDirection.Value;
 			bIsFreeMoving_Cached = bIsFreeMoving.Value;
-			return behaviorActions.PlayerWantsFreeMovement(ref MyMoveDirection_Cached,
-				ref bIsFreeMoving_Cached, ref SetterAction, bUseNewInputSystem.Value) ?
+			var _taskStatus = behaviorActions.PlayerWantsFreeMovement(ref MyMoveDirection_Cached,
+				ref bIsFreeMoving_Cached, bUseNewInputSystem.Value) ?
 				TaskStatus.Success : TaskStatus.Failure;
+			MyMoveDirection.Value = MyMoveDirection_Cached;
+			bIsFreeMoving.Value = bIsFreeMoving_Cached;
+			return _taskStatus;
 		}
 		#endregion
 	}

@@ -28,34 +28,25 @@ namespace RPGPrototype {
         }
 		RPGBehaviorActions _behaviorActions = null;
 
-		System.Action<Vector3, bool, Transform> SetterAction;
-
 		Vector3 MyNavDestination_Cached;
 		bool bHasSetDestination_Cached;
 		Transform CurrentTargettedEnemy_Cached;
 		#endregion
 
 		#region Overrides
-		public override void OnStart()
-        {
-            SetterAction = (MyNavDestination, bHasSetDestination, CurrentTargettedEnemy) =>
-			{
-				this.MyNavDestination.Value = MyNavDestination;
-				this.bHasSetDestination.Value = bHasSetDestination;
-				this.CurrentTargettedEnemy.Value = CurrentTargettedEnemy;
-			};
-		}
-
         public override TaskStatus OnUpdate()
 		{
 			MyNavDestination_Cached = MyNavDestination.Value;
 			bHasSetDestination_Cached = bHasSetDestination.Value;
 			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
-
-			return behaviorActions.SetNavDestFromTargetPos
+			var _taskStatus = behaviorActions.SetNavDestFromTargetPos
 				(ref MyNavDestination_Cached, ref bHasSetDestination_Cached,
-				ref CurrentTargettedEnemy_Cached, ref SetterAction) ?
+				ref CurrentTargettedEnemy_Cached) ?
 				TaskStatus.Success : TaskStatus.Failure;
+			MyNavDestination.Value = MyNavDestination_Cached;
+			bHasSetDestination.Value = bHasSetDestination_Cached;
+			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
+			return _taskStatus;
 		}
 		#endregion
 

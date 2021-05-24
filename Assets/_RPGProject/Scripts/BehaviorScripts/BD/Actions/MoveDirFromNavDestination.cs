@@ -29,36 +29,24 @@ namespace RPGPrototype {
 		}
 		RPGBehaviorActions _behaviorActions = null;
 
-		System.Action<Vector3, Vector3, bool> SetterAction;
-
 		Vector3 MyMoveDirection_Cached;
 		Vector3 MyNavDestination_Cached;
 		bool bFinishedMoving_Cached;
 		#endregion
 
 		#region Overrides
-		public override void OnStart()
-		{
-            SetterAction = (MyMoveDirection, MyNavDestination, bFinishedMoving) =>
-            {
-                this.MyMoveDirection.Value = MyMoveDirection;
-                this.MyNavDestination.Value = MyNavDestination;
-                this.bFinishedMoving.Value = bFinishedMoving;
-            };
-        }
-
 		public override TaskStatus OnUpdate()
 		{
 			MyMoveDirection_Cached = MyMoveDirection.Value;
 			MyNavDestination_Cached = MyNavDestination.Value;
 			bFinishedMoving_Cached = bFinishedMoving.Value;
 			var _taskStatus = behaviorActions.MoveDirFromNavDestination(ref MyMoveDirection_Cached,
-				ref MyNavDestination_Cached, ref bFinishedMoving_Cached, ref SetterAction) ?
+				ref MyNavDestination_Cached, ref bFinishedMoving_Cached) ?
 				TaskStatus.Success : TaskStatus.Failure;
-			//this.MyMoveDirection.Value = MyMoveDirection_Cached;
-			//this.MyNavDestination.Value = MyNavDestination_Cached;
-			//this.bFinishedMoving.Value = bFinishedMoving_Cached;
-			return _taskStatus;
+            MyMoveDirection.Value = MyMoveDirection_Cached;
+            MyNavDestination.Value = MyNavDestination_Cached;
+            bFinishedMoving.Value = bFinishedMoving_Cached;
+            return _taskStatus;
 		}
 		#endregion
 
