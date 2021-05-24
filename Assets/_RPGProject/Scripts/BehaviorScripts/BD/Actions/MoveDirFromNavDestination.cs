@@ -39,22 +39,26 @@ namespace RPGPrototype {
 		#region Overrides
 		public override void OnStart()
 		{
-			SetterAction = (MyMoveDirection, MyNavDestination, bFinishedMoving) =>
-			{
-				this.MyMoveDirection.Value = MyMoveDirection;
-				this.MyNavDestination.Value = MyNavDestination;
-				this.bFinishedMoving.Value = bFinishedMoving;
-			};
-		}
+            SetterAction = (MyMoveDirection, MyNavDestination, bFinishedMoving) =>
+            {
+                this.MyMoveDirection.Value = MyMoveDirection;
+                this.MyNavDestination.Value = MyNavDestination;
+                this.bFinishedMoving.Value = bFinishedMoving;
+            };
+        }
 
 		public override TaskStatus OnUpdate()
 		{
 			MyMoveDirection_Cached = MyMoveDirection.Value;
 			MyNavDestination_Cached = MyNavDestination.Value;
 			bFinishedMoving_Cached = bFinishedMoving.Value;
-			return behaviorActions.MoveDirFromNavDestination(ref MyMoveDirection_Cached,
+			var _taskStatus = behaviorActions.MoveDirFromNavDestination(ref MyMoveDirection_Cached,
 				ref MyNavDestination_Cached, ref bFinishedMoving_Cached, ref SetterAction) ?
 				TaskStatus.Success : TaskStatus.Failure;
+			//this.MyMoveDirection.Value = MyMoveDirection_Cached;
+			//this.MyNavDestination.Value = MyNavDestination_Cached;
+			//this.bFinishedMoving.Value = bFinishedMoving_Cached;
+			return _taskStatus;
 		}
 		#endregion
 

@@ -13,139 +13,46 @@ namespace RPGPrototype
 		#region Shared
 		public SharedVector3 MyMoveDirection;
 		public SharedBool bIsFreeMoving;
+		public SharedBool bUseNewInputSystem = true;
 		#endregion
 
-		#region Fields
-		private float myHorizontalMovement, myForwardMovement = 0.0f;
-		Vector3 myDirection = Vector3.zero;
-		#endregion
-
-		#region Properties
-		AllyMember allyMember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if(_allymember == null)
+				if (_behaviorActions == null)
 				{
-					_allymember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allymember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allymember = null;
+		RPGBehaviorActions _behaviorActions = null;
 
-		AllyEventHandler myEventHandler
-		{
-			get
-			{
-				if(_myEventhandler == null)
-				{
-					_myEventhandler = GetComponent<AllyEventHandler>();
-				}
-				return _myEventhandler;
-			}
-		}
-		AllyEventHandler _myEventhandler = null;
+		System.Action<Vector3, bool> SetterAction;
 
-		RPGInputManager myInputManager => RPGInputManager.thisInstance;
-
-		bool bIsAlive => allyMember != null && allyMember.IsAlive;
-
-        Camera myCamera
-        {
-            get
-            {
-                if (_myCamera == null)
-                    _myCamera = Camera.main;
-
-                return _myCamera;
-            }
-        }
-        Camera _myCamera = null;
-
-		Vector3 CamForward
-        {
-            get
-            {
-                return Vector3.Scale(myCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
-            }
-        }
+		Vector3 MyMoveDirection_Cached;
+		bool bIsFreeMoving_Cached;
 		#endregion
 
 		#region Overrides
+		public override void OnStart()
+		{
+			SetterAction = (MyMoveDirection, bIsFreeMoving) =>
+			{
+				this.MyMoveDirection.Value = MyMoveDirection;
+				this.bIsFreeMoving.Value = bIsFreeMoving;
+			};
+		}
+
 		public override TaskStatus OnUpdate()
 		{
-			if (bIsAlive == false ||
-                allyMember == null ||
-                allyMember.bIsCurrentPlayer == false)
-			{
-				ResetFreeMoveDirection();
-				bIsFreeMoving.Value = false;
-				return TaskStatus.Failure;
-			}
-
-			CalculateMoveInputFromManager();
-			myDirection = Vector3.zero;
-            myDirection.x = myHorizontalMovement;
-            myDirection.z = myForwardMovement;
-            myDirection.y = 0;
-
-			if (myDirection.sqrMagnitude > 0.05f)
-            {
-				//Also Calculate Move Direction Used For Movement Task
-				CalculateFreeMoveDirection();
-				bIsFreeMoving.Value = true;
-                return TaskStatus.Success;
-            }
-            else
-            {
-				ResetFreeMoveDirection();
-				bIsFreeMoving.Value = false;
-                return TaskStatus.Failure;
-            }
-
-		}
-
-		public override void OnConditionalAbort()
-		{
-			Debug.Log($"Conditional Abort on {transform.name}");
-			//myEventHandler.CallEventTogglebIsFreeMoving(false);
-			//myEventHandler.CallEventFinishedMoving();
-		}
-		#endregion
-
-		#region Helpers
-		void CalculateMoveInputFromManager()
-        {
-			myHorizontalMovement = myInputManager.HorizontalMovement;
-			myForwardMovement = myInputManager.ForwardMovement;
-		}
-
-		void CalculateMoveInputFromOLDCrossPlatformManager()
-        {
-			myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
-			myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
-		}
-
-		void ResetFreeMoveDirection()
-		{
-			MyMoveDirection.Value = Vector3.zero;
-		}
-
-		void CalculateFreeMoveDirection()
-		{
-			// X = Horizontal Z = Forward
-            // calculate move direction to pass to character
-            if (myCamera != null)
-            {
-                // calculate camera relative direction to move:
-                MyMoveDirection.Value = myDirection.z * CamForward + myDirection.x * myCamera.transform.right;
-            }
-            else
-            {
-                // we use world-relative directions in the case of no main camera
-                MyMoveDirection.Value = myDirection.z * Vector3.forward + myDirection.x * Vector3.right;
-            }
+			MyMoveDirection_Cached = MyMoveDirection.Value;
+			bIsFreeMoving_Cached = bIsFreeMoving.Value;
+			return behaviorActions.PlayerWantsFreeMovement(ref MyMoveDirection_Cached,
+				ref bIsFreeMoving_Cached, ref SetterAction, bUseNewInputSystem.Value) ?
+				TaskStatus.Success : TaskStatus.Failure;
 		}
 		#endregion
 	}

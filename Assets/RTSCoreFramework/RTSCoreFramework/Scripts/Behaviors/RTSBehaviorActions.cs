@@ -126,9 +126,13 @@ namespace RTSCoreFramework
         }
         #endregion
 
-        #region PrivateFields
-        private LineRenderer waypointRenderer;
-        private NavMeshPath myNavPath = null;
+        #region Fields
+        //Update Waypoint Renderer
+        protected LineRenderer waypointRenderer;
+        protected NavMeshPath myNavPath = null;
+        //PlayerWantsFreeMovement
+        protected float myHorizontalMovement, myForwardMovement = 0.0f;
+        protected Vector3 myDirection = Vector3.zero;
         #endregion
 
         #region Initialization
@@ -145,6 +149,90 @@ namespace RTSCoreFramework
         #endregion
 
         #region Conditions
+        #region PlayerWantsFreeMovement
+        public bool PlayerWantsFreeMovement(ref Vector3 MyMoveDirection, ref bool bIsFreeMoving,
+            ref System.Action<Vector3, bool> SetterAction, bool bUseNewInputSystem = true)
+        {
+            bool _success = PlayerWantsFreeMovement(ref MyMoveDirection, ref bIsFreeMoving, bUseNewInputSystem);
+            if (SetterAction != null)
+            {
+                SetterAction(MyMoveDirection, bIsFreeMoving);
+            }
+            return _success;
+        }
+
+        public bool PlayerWantsFreeMovement(ref Vector3 MyMoveDirection, ref bool bIsFreeMoving, 
+            bool bUseNewInputSystem = true)
+        {
+            if (bIsAlive == false ||
+                allyMember == null ||
+                allyMember.bIsCurrentPlayer == false)
+            {
+                ResetFreeMoveDirection(ref MyMoveDirection);
+                bIsFreeMoving = false;
+                return false;
+            }
+
+            if (bUseNewInputSystem)
+            {
+                CalculateMoveInputFromManager();
+            }
+            else
+            {
+                CalculateMoveInputFromOLDCrossPlatformManager();
+            }
+            myDirection = Vector3.zero;
+            myDirection.x = myHorizontalMovement;
+            myDirection.z = myForwardMovement;
+            myDirection.y = 0;
+
+            if (myDirection.sqrMagnitude > 0.05f)
+            {
+                //Also Calculate Move Direction Used For Movement Task
+                CalculateFreeMoveDirection(ref MyMoveDirection);
+                bIsFreeMoving = true;
+                return true;
+            }
+            else
+            {
+                ResetFreeMoveDirection(ref MyMoveDirection);
+                bIsFreeMoving = false;
+                return false;
+            }
+        }
+
+        protected virtual void CalculateMoveInputFromManager()
+        {
+
+        }
+
+        protected virtual void CalculateMoveInputFromOLDCrossPlatformManager()
+        {
+
+        }
+
+        protected void ResetFreeMoveDirection(ref Vector3 MyMoveDirection)
+        {
+            MyMoveDirection = Vector3.zero;
+        }
+
+        protected void CalculateFreeMoveDirection(ref Vector3 MyMoveDirection)
+        {
+            // X = Horizontal Z = Forward
+            // calculate move direction to pass to character
+            if (myCamera != null)
+            {
+                // calculate camera relative direction to move:
+                MyMoveDirection = myDirection.z * CamForward + myDirection.x * myCamera.transform.right;
+            }
+            else
+            {
+                // we use world-relative directions in the case of no main camera
+                MyMoveDirection = myDirection.z * Vector3.forward + myDirection.x * Vector3.right;
+            }
+        }
+        #endregion
+
 
         #endregion
 
@@ -300,6 +388,9 @@ namespace RTSCoreFramework
         #endregion
 
         #region UpdateWaypointRenderer
+        /// <summary>
+        /// Updates Waypoint When Command Navigation Moving.
+        /// </summary>
         public bool UpdateWaypointRenderer(ref Material waypointMaterial,
             ref Color waypointStartColor, ref Color waypointEndColor,
             float waypointStartWidth = 0.05f, float waypointEndWidth = 0.05f)
@@ -336,6 +427,9 @@ namespace RTSCoreFramework
         #endregion
 
         #region ResetWaypointRenderer
+        /// <summary>
+        /// Disables Waypoint Renderer If It Exists and Is Enabled.
+        /// </summary>
         public bool ResetWaypointRenderer()
         {
             if (waypointRenderer != null)
