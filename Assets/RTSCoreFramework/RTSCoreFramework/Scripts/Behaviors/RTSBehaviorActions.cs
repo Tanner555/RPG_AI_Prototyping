@@ -403,6 +403,21 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region MoveRPGCharacter
+        /// <summary>
+        /// Moves RPG Character From A Given Direction Using The Animator.
+        /// </summary>
+        public bool MoveRPGCharacter(ref Vector3 MyMoveDirection, ref bool bIsFreeMoving)
+        {
+            if (allyMovable != null)
+            {
+                allyMovable.MoveAlly(MyMoveDirection, bIsFreeMoving);
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
         #region SetNavDestFromTargetPos
         /// <summary>
         /// Sets Nav Destination To Target Position.
