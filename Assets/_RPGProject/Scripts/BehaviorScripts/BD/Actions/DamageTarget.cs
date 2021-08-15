@@ -13,6 +13,23 @@ namespace RPGPrototype
 		public SharedTransform CurrentTargettedEnemy;
 		#endregion
 
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
+		{
+			get
+			{
+				if (_behaviorActions == null)
+				{
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
+			}
+		}
+		RPGBehaviorActions _behaviorActions = null;
+
+		Transform CurrentTargettedEnemy_Cached;
+		#endregion
+
 		#region Properties
 		AllyMemberRPG allyMember
 		{
@@ -44,10 +61,11 @@ namespace RPGPrototype
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			int _damage = allyMember.GetDamageRate();
-			AllyMemberRPG _ally = CurrentTargettedEnemy.Value.GetComponent<AllyMemberRPG>();
-			_ally.AllyTakeDamage(_damage, allyMember);
-			return TaskStatus.Success;
+			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
+			var _taskStatus = behaviorActions.DamageTarget(ref CurrentTargettedEnemy_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
+			return _taskStatus;
 		}
 		#endregion
 	}

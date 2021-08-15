@@ -430,6 +430,19 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region DamageTarget
+        /// <summary>
+        /// Damages The Ally Target. Doesn't Use Any Animations.
+        /// </summary>
+        public bool DamageTarget(ref Transform CurrentTargettedEnemy)
+        {
+            int _damage = allyMember.GetDamageRate();
+            AllyMember _ally = CurrentTargettedEnemy.GetComponent<AllyMember>();
+            _ally.AllyTakeDamage(_damage, allyMember);
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }
