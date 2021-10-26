@@ -443,6 +443,21 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region TryAttackTarget
+        /// <summary>
+        /// Attempts To Use Weapon And Attack Enemy. 
+        /// Bind HalfWeaponAttackRate Variable For Wait Node.
+        /// Currently Doesn't Apply Damage To Target. 
+        /// Use DamageTarget Task To Apply Damage.
+        /// </summary>
+        public bool TryAttackTarget(ref float HalfWeaponAttackRate, ref Transform CurrentTargettedEnemy)
+        {
+            HalfWeaponAttackRate = (aiController.GetAttackRate()) / 2;
+            myEventHandler.CallOnTryUseWeapon(CurrentTargettedEnemy);
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }

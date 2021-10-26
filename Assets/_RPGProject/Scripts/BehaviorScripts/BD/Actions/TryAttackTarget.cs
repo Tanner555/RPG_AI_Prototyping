@@ -11,56 +11,39 @@ namespace RPGPrototype
 	{
 		#region Shared
 		public SharedFloat HalfWeaponAttackRate;
-		public SharedTransform CurrentTargettedEnemy;		
+		public SharedTransform CurrentTargettedEnemy;
 		#endregion
 
-		#region Properties
-		AllyMember allyMember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if (_allyMember == null)
+				if (_behaviorActions == null)
 				{
-					_allyMember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allyMember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allyMember = null;
+		RPGBehaviorActions _behaviorActions = null;
 
-		AIControllerRPG aiController
-		{
-			get
-			{
-				if (_aiController == null)
-				{
-					_aiController = (AIControllerRPG)allyMember.aiController;
-				}
-				return _aiController;
-			}
-		}
-		AIControllerRPG _aiController = null;
-
-		AllyEventHandler myEventHandler
-		{
-			get
-			{
-				if (_myEventhandler == null)
-				{
-					_myEventhandler = GetComponent<AllyEventHandler>();
-				}
-				return _myEventhandler;
-			}
-		}
-		AllyEventHandler _myEventhandler = null;
+		float HalfWeaponAttackRate_Cached;
+		Transform CurrentTargettedEnemy_Cached;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			HalfWeaponAttackRate.Value = (aiController.GetAttackRate()) / 2;
-			myEventHandler.CallOnTryUseWeapon(CurrentTargettedEnemy.Value);
-			return TaskStatus.Success;
+			HalfWeaponAttackRate_Cached = HalfWeaponAttackRate.Value;
+			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
+			var _taskStatus = behaviorActions.TryAttackTarget(
+				ref HalfWeaponAttackRate_Cached, 
+				ref CurrentTargettedEnemy_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			HalfWeaponAttackRate.Value = HalfWeaponAttackRate_Cached;
+			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
+			return _taskStatus;
 		}
 		#endregion
 
