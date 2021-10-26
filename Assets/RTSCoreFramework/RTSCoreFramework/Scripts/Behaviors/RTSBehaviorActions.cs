@@ -468,6 +468,37 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region ResetHasTargetAndTransform
+        /// <summary>
+        /// Resets bTargetEnemy and CurrentTargettedEnemy If Character Is Free Moving. 
+        /// AlsoResetsIfUsingAbility Checkbox Will Also Reset Target if Using Ability.
+        /// </summary>
+        public bool ResetHasTargetAndTransform(ref bool bIsFreeMoving,
+            ref bool bTargetEnemy, ref Transform CurrentTargettedEnemy, 
+            ref bool AlsoResetsIfUsingAbility, ref bool bTryUseAbility)
+        {
+            if (AlsoResetsIfUsingAbility)
+            {
+                //Also Reset If Using Ability
+                if (bIsFreeMoving || bTryUseAbility)
+                {
+                    bTargetEnemy = false;
+                    CurrentTargettedEnemy = null;
+                }
+            }
+            else
+            {
+                //Normal FreeMoving Check
+                if (bIsFreeMoving)
+                {
+                    bTargetEnemy = false;
+                    CurrentTargettedEnemy = null;
+                }
+            }
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }
