@@ -225,6 +225,16 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region IsAllyTargetInRange
+        /// <summary>
+        /// Checks If Target is In Range Using RPG Weapon Attack Range.
+        /// </summary>
+        public virtual bool IsAllyTargetInRange(ref Transform CurrentTargettedEnemy)
+        {
+            Debug.Log("IsAllyTargetInRange Should Be Implemented In RPG Behavior Actions.");
+            return false;
+        }
+        #endregion
 
         #endregion
 

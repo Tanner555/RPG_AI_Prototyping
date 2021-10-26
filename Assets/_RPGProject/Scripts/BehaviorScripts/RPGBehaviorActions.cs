@@ -11,6 +11,7 @@ namespace RPGPrototype
     {
         #region OverrideAndHideProperties
         protected new RPGInputManager myInputManager => InputManager.thisInstance as RPGInputManager;
+        protected new AIControllerRPG aiController => base.aiController as AIControllerRPG;
         #endregion
 
         #region Conditions
@@ -26,6 +27,29 @@ namespace RPGPrototype
         {
             myHorizontalMovement = CrossPlatformInputManager.GetAxis("Horizontal");
             myForwardMovement = CrossPlatformInputManager.GetAxis("Vertical");
+        }
+        #endregion
+
+        #region IsAllyTargetInRange
+        /// <summary>
+        /// Checks If Target is In Range Using RPG Weapon Attack Range.
+        /// </summary>
+        public override bool IsAllyTargetInRange(ref Transform CurrentTargettedEnemy)
+        {
+            if (aiController.myRPGWeapon == null)
+            {
+                Debug.LogWarning("myRPGWeapon is NULL, couldn't update target in range task");
+                return false;
+            }
+            float distanceToTarget = (CurrentTargettedEnemy.position - transform.position).magnitude;
+            if (distanceToTarget <= aiController.myRPGWeapon.GetMaxAttackRange())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 
