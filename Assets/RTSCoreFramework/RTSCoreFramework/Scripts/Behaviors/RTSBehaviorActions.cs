@@ -236,6 +236,68 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region IsAllyTargetValid
+        /// <summary>
+        /// Simple Valid Target Check using bTargetEnemy and CurrentTargettedEnemy. 
+        /// CheckAllyAndResetTargetIfFail Checkbox Will Check Ally (Not NULL and isAlive) 
+        /// And Reset Target if Fails
+        /// </summary>
+        public bool IsAllyTargetValid(ref bool bTargetEnemy, ref Transform CurrentTargettedEnemy, bool CheckAllyAndResetTargetIfFail = false)
+        {
+            //Updates _CurrentTargettedEnemyAlly Var Instead of Using A Property
+            IsAllyTargetValid_UpdateCurrTarget(ref CurrentTargettedEnemy);
+
+            if (CheckAllyAndResetTargetIfFail)
+            {
+                //Ally Check and Reset If Failed
+                if (bTargetEnemy && CurrentTargettedEnemy != null &&
+                    _IsAllyTargetValid_CurrTarget != null && _IsAllyTargetValid_CurrTarget.IsAlive)
+                {
+                    return true;
+                }
+                else
+                {
+                    bTargetEnemy = false;
+                    CurrentTargettedEnemy = null;
+                    IsAllyTargetValid_ResetCurrTarget();
+                    return false;
+                }
+            }
+            else
+            {
+                //Simple Validity Check, No Reset
+                if (bTargetEnemy && CurrentTargettedEnemy != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        //Helpers
+        private void IsAllyTargetValid_UpdateCurrTarget(ref Transform currentTargetTransform)
+        {
+            //Don't Retrieve AllyMember if TargetTransform Doesn't Exist
+            if (currentTargetTransform == null) return;
+            //If TargetAllyComp is NULL or TargetAllyComp is a Reference of another Ally (Switched Target)
+            if (_IsAllyTargetValid_CurrTarget == null ||
+                _IsAllyTargetValid_CurrTarget.transform != currentTargetTransform)
+            {
+                _IsAllyTargetValid_CurrTarget = currentTargetTransform.GetComponent<AllyMember>();
+            }
+        }
+
+        private void IsAllyTargetValid_ResetCurrTarget()
+        {
+            _IsAllyTargetValid_CurrTarget = null;
+        }
+
+        private AllyMember _IsAllyTargetValid_CurrTarget = null;
+        #endregion
+
         #endregion
 
         #region Actions
