@@ -149,6 +149,18 @@ namespace RTSCoreFramework
         #endregion
 
         #region Conditions
+
+        #region IsActiveTimeBarFull
+        /// <summary>
+        /// Returns True if The Active Time Bar Is Full.
+        /// Will Return False if AllyMember doesn't exist.
+        /// </summary>
+        public bool IsActiveTimeBarFull()
+        {
+            return allyMember != null && allyMember.ActiveTimeBarIsFull();
+        }
+        #endregion
+
         #region PlayerWantsFreeMovement
         /// <summary>
         /// Returns Success if Owner is Current Player and Movement Input Has Been Received
