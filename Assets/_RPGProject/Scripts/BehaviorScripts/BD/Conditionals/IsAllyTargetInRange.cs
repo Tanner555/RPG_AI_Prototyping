@@ -12,38 +12,32 @@ namespace RPGPrototype {
 		public SharedTransform CurrentTargettedEnemy;
 		#endregion
 
-		#region Properties
-		AIControllerRPG aiController
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if(_aiController == null)
+				if (_behaviorActions == null)
 				{
-					_aiController = GetComponent<AIControllerRPG>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _aiController;
+				return _behaviorActions;
 			}
 		}
-		AIControllerRPG _aiController = null;
+		RPGBehaviorActions _behaviorActions = null;
+
+		Transform CurrentTargettedEnemy_Cached;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			if (aiController.myRPGWeapon == null)
-			{
-				Debug.LogWarning("myRPGWeapon is NULL, couldn't update target in range task");
-				return TaskStatus.Failure;
-			}
-            float distanceToTarget = (CurrentTargettedEnemy.Value.transform.position - transform.position).magnitude;
-			if(distanceToTarget <= aiController.myRPGWeapon.GetMaxAttackRange())
-			{
-				return TaskStatus.Success;
-			}
-			else
-			{
-				return TaskStatus.Failure;
-			}
+			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
+			var _taskStatus = behaviorActions.IsAllyTargetInRange(
+				ref CurrentTargettedEnemy_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
+			return _taskStatus;
 		}
 		#endregion
 	} 

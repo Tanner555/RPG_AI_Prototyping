@@ -15,61 +15,41 @@ namespace RPGPrototype {
 		public SharedBool CheckAllyAndResetTargetIfFail = false;
 		#endregion
 
-		#region Properties
-		AllyMember CurrentTargettedEnemyAlly
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				//Don't Retrieve AllyMember if TargetTransform Doesn't Exist
-				if(CurrentTargettedEnemy.Value == null) return null;
-				//If TargetAllyComp is NULL or TargetAllyComp is a Reference of another Ally (Switched Target)
-				if (_CurrentTargettedEnemyAlly == null || 
-					_CurrentTargettedEnemyAlly.transform != CurrentTargettedEnemy.Value)
+				if (_behaviorActions == null)
 				{
-					_CurrentTargettedEnemyAlly = CurrentTargettedEnemy.Value.GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _CurrentTargettedEnemyAlly;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _CurrentTargettedEnemyAlly = null;
+		RPGBehaviorActions _behaviorActions = null;
+
+		bool bTargetEnemy_Cached;
+		Transform CurrentTargettedEnemy_Cached;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			if (CheckAllyAndResetTargetIfFail.Value)
-			{
-				//Ally Check and Reset If Failed
-				if(bTargetEnemy.Value && CurrentTargettedEnemy.Value != null &&
-					CurrentTargettedEnemyAlly != null && CurrentTargettedEnemyAlly.IsAlive)
-				{
-					return TaskStatus.Success;
-				}
-				else
-				{
-					bTargetEnemy.Value = false;
-					CurrentTargettedEnemy.Value = null;
-					_CurrentTargettedEnemyAlly = null;
-					return TaskStatus.Failure;
-				}	
-			}
-			else
-			{
-				//Simple Validity Check, No Reset
-				if(bTargetEnemy.Value && CurrentTargettedEnemy.Value != null)
-				{
-					return TaskStatus.Success;
-				}
-				else
-				{
-					return TaskStatus.Failure;
-				}	
-			}		
+			bTargetEnemy_Cached = bTargetEnemy.Value;
+			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
+			var _taskStatus = behaviorActions.IsAllyTargetValid(
+				ref bTargetEnemy_Cached, ref CurrentTargettedEnemy_Cached,
+				CheckAllyAndResetTargetIfFail.Value) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			bTargetEnemy.Value = bTargetEnemy_Cached;
+			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
+			return _taskStatus;
 		}
 
 		public override void OnReset()
 		{
-			_CurrentTargettedEnemyAlly = null;
+			//_CurrentTargettedEnemyAlly = null;
 		}
 		#endregion
 	}

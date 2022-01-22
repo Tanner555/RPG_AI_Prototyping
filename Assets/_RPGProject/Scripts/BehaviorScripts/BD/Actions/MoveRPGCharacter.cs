@@ -12,116 +12,38 @@ namespace RPGPrototype
 		#region Shared
 		public SharedVector3 MyMoveDirection;
 		public SharedBool bIsFreeMoving;
-
-		public SharedFloat stationaryTurnSpeed;
-		public SharedFloat movingTurnSpeed;
-		public SharedFloat moveThreshold;
-
-		public SharedFloat animatorForwardCap;
-		public SharedFloat animationSpeedMultiplier;
-
 		#endregion
 
-		#region Fields
-		private float turnAmount, forwardAmount, turnSpeed;
-		private Vector3 localMove;
-		#endregion
-
-		#region Properties
-		AllyMember allyMember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if(_allymember == null)
+				if (_behaviorActions == null)
 				{
-					_allymember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allymember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allymember = null;
+		RPGBehaviorActions _behaviorActions = null;
 
-		AllyEventHandler myEventHandler
-		{
-			get
-			{
-				if(_myEventhandler == null)
-				{
-					_myEventhandler = GetComponent<AllyEventHandler>();
-				}
-				return _myEventhandler;
-			}
-		}
-		AllyEventHandler _myEventhandler = null;
-
-		Animator myAnimator
-		{
-			get
-			{
-				if(_myAnimator == null)
-				{
-					_myAnimator = GetComponent<Animator>();
-				}
-				return _myAnimator;
-			}
-		}
-		Animator _myAnimator = null;
-		float speedMultiplier
-        {
-            get
-            {
-                return bIsFreeMoving.Value ?
-                    1.2f * _baseSpeedMultiplier :
-                    1.0f * _baseSpeedMultiplier;
-            }
-        }
-		float _baseSpeedMultiplier = 1.0f;
+		Vector3 MyMoveDirection_Cached;
+		bool bIsFreeMoving_Cached;
 		#endregion
 
 		#region Overrides
-		public override void OnStart()
-		{
-		
-		}
-
 		public override TaskStatus OnUpdate()
 		{
-			SetForwardAndTurn(MyMoveDirection.Value);
-            ApplyExtraTurnRotation();
-            UpdateAnimator();
-			return TaskStatus.Success;
+			MyMoveDirection_Cached = MyMoveDirection.Value;
+			bIsFreeMoving_Cached = bIsFreeMoving.Value;
+			var _taskStatus = behaviorActions.MoveRPGCharacter
+				(ref MyMoveDirection_Cached, ref bIsFreeMoving_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			MyMoveDirection.Value = MyMoveDirection_Cached;
+			bIsFreeMoving.Value = bIsFreeMoving_Cached;
+			return _taskStatus;
 		}
-		#endregion
-
-		#region Helpers
-		void SetForwardAndTurn(Vector3 movement)
-        {
-            // convert the world relative moveInput vector into a local-relative
-            // turn amount and forward amount required to head in the desired direction
-            if (movement.magnitude > moveThreshold.Value)
-            {
-                movement.Normalize();
-            }
-            localMove = transform.InverseTransformDirection(movement);
-            //CheckGroundStatus();
-            //localMove = Vector3.ProjectOnPlane(localMove, m_GroundNormal);
-            turnAmount = Mathf.Atan2(localMove.x, localMove.z);
-            forwardAmount = localMove.z;
-        }
-
-		void ApplyExtraTurnRotation()
-        {
-            // help the character turn faster (this is in addition to root rotation in the animation)
-            turnSpeed = Mathf.Lerp(stationaryTurnSpeed.Value, movingTurnSpeed.Value, forwardAmount);
-            transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
-        }
-
-		void UpdateAnimator()
-        {
-            myAnimator.SetFloat("Forward", forwardAmount * animatorForwardCap.Value, 0.1f, Time.deltaTime);
-            myAnimator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
-            myAnimator.speed = animationSpeedMultiplier.Value * speedMultiplier;
-        }
 		#endregion
 	}
 }

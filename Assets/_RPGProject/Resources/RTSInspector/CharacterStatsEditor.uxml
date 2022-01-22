@@ -1,7 +1,12 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="/Assets/_RPGProject/Resources/RTSStyles/CharacterStatsEditor.uss" />
     <ui:VisualElement class="container">
-        <Style path="Assets/TacticalPrototyping/Resources/RTSStyles/CharacterStatsEditor.uss" />
         <ui:Label name="display" text="Display" />
         <ui:Slider name="mySlider" binding-path="height" low-value="0" high-value="100" />
+    </ui:VisualElement>
+    <ui:VisualElement name="VisualElement2" style="height: 190px;">
+        <ui:GroupBox style="flex-direction: column; height: auto;">
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="ButtonPlayGame" style="-unity-font-style: bold; font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: middle-center; background-color: rgb(0, 22, 128);" />
+        </ui:GroupBox>
     </ui:VisualElement>
 </ui:UXML>

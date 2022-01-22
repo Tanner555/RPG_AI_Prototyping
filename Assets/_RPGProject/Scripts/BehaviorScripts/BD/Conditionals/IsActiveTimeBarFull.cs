@@ -9,32 +9,27 @@ namespace RPGPrototype
 	[TaskDescription("Returns True if The Active Time Bar Is Full. Will Return False if AllyMember doesn't exist.")]
 	public class IsActiveTimeBarFull : Conditional
 	{
-		#region Properties
-		AllyMember allyMember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if(_allyMember == null)
+				if (_behaviorActions == null)
 				{
-					_allyMember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allyMember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allyMember = null;
+		RPGBehaviorActions _behaviorActions = null;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			if (allyMember != null && allyMember.ActiveTimeBarIsFull())
-			{
-				return TaskStatus.Success;
-			}
-			else
-			{
-				return TaskStatus.Failure;
-			}
+			var _taskStatus = behaviorActions.IsActiveTimeBarFull() ?
+				TaskStatus.Success : TaskStatus.Failure;
+			return _taskStatus;
 		}
 		#endregion
 	}

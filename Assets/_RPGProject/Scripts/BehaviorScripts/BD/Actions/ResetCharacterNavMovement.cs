@@ -17,108 +17,49 @@ namespace RPGPrototype
         public SharedBool OnlyResetIfHasSetDestination = false;
         #endregion
 
-        #region Properties
-        NavMeshAgent navMeshAgent
-		{
-			get
-			{
-				if(_navMeshAgent == null)
-				{
-					_navMeshAgent = GetComponent<NavMeshAgent>();
-				}
-				return _navMeshAgent;
-			}
-		}
-		NavMeshAgent _navMeshAgent = null;
-
-        AllyMember allyMember
+        #region BehaviorActions
+        RPGBehaviorActions behaviorActions
         {
             get
             {
-                if (_allymember == null)
+                if (_behaviorActions == null)
                 {
-                    _allymember = GetComponent<AllyMember>();
+                    _behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
                 }
-                return _allymember;
+                return _behaviorActions;
             }
         }
-        AllyMember _allymember = null;
+        RPGBehaviorActions _behaviorActions = null;
 
-        AIControllerRPG aiController
-        {
-            get
-            {
-                if (_aiController == null)
-                {
-                    _aiController = (AIControllerRPG)allyMember.aiController;
-                }
-                return _aiController;
-            }
-        }
-        AIControllerRPG _aiController = null;
-
-        AllyEventHandler myEventHandler
-        {
-            get
-            {
-                if (_myEventhandler == null)
-                {
-                    _myEventhandler = GetComponent<AllyEventHandler>();
-                }
-                return _myEventhandler;
-            }
-        }
-        AllyEventHandler _myEventhandler = null;
-
-        BehaviorTree AllyBehaviorTree
-        {
-            get
-            {
-                if (_AllyBehaviorTree == null)
-                {
-                    _AllyBehaviorTree = GetComponent<BehaviorTree>();
-                }
-                return _AllyBehaviorTree;
-            }
-        }
-        BehaviorTree _AllyBehaviorTree = null;
+        Vector3 MyNavDestination_Cached;
+        bool bHasSetDestination_Cached;
+        bool bHasSetCommandMove_Cached;
         #endregion
 
         #region Overrides
-		public override TaskStatus OnUpdate()
+        public override TaskStatus OnUpdate()
 		{
-            if (OnlyResetIfHasSetDestination.Value)
-            {
-                //Only Reset if Destination has been set.
-                if (bHasSetDestination.Value)
-                {
-                    MyNavDestination.Value = Vector3.zero;
-                    bHasSetDestination.Value = false;
-                    bHasSetCommandMove.Value = false;
-                    navMeshAgent.SetDestination(transform.position);
-                    navMeshAgent.velocity = Vector3.zero;
-                }
-            }
-            else
-            {
-                MyNavDestination.Value = Vector3.zero;
-                bHasSetDestination.Value = false;
-                bHasSetCommandMove.Value = false;
-                navMeshAgent.SetDestination(transform.position);
-                navMeshAgent.velocity = Vector3.zero;              
-            }
-            return TaskStatus.Success;
+            MyNavDestination_Cached = MyNavDestination.Value;
+            bHasSetDestination_Cached = bHasSetDestination.Value;
+            bHasSetCommandMove_Cached = bHasSetCommandMove.Value;
+            var _taskStatus = behaviorActions.ResetCharacterNavMovement(ref MyNavDestination_Cached,
+                ref bHasSetDestination_Cached, ref bHasSetCommandMove_Cached, 
+                OnlyResetIfHasSetDestination.Value) ?
+                TaskStatus.Success : TaskStatus.Failure;
+            MyNavDestination.Value = MyNavDestination_Cached;
+            bHasSetDestination.Value = bHasSetDestination_Cached;
+            bHasSetCommandMove.Value = bHasSetCommandMove_Cached;
+            return _taskStatus;
         }
 
 		public override void OnReset()
 		{
-			MyNavDestination.Value = Vector3.zero;
-			bHasSetDestination.Value = false;
-			bHasSetCommandMove.Value = false;
-            navMeshAgent.SetDestination(transform.position);
-            navMeshAgent.velocity = Vector3.zero;
-		}
+            MyNavDestination_Cached = MyNavDestination.Value;
+            bHasSetDestination_Cached = bHasSetDestination.Value;
+            bHasSetCommandMove_Cached = bHasSetCommandMove.Value;
+            behaviorActions.ResetCharacterNavMovement(ref MyNavDestination_Cached,
+                            ref bHasSetDestination_Cached, ref bHasSetCommandMove_Cached, false);
+        }
 		#endregion
-
 	} 
 }

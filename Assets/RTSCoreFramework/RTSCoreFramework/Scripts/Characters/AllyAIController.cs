@@ -156,6 +156,19 @@ namespace RTSCoreFramework
         #endregion
 
         #region Properties
+        public virtual RTSBehaviorActions BehaviorActionsInstance
+        {
+            get
+            {
+                if(_privateBActionsInstance == null)
+                {
+                    _privateBActionsInstance = new RTSBehaviorActions(this.transform);
+                }
+                return _privateBActionsInstance;
+            }
+        }
+        private RTSBehaviorActions _privateBActionsInstance;
+
         protected RTSGameMaster gamemaster
         {
             get { return RTSGameMaster.thisInstance; }

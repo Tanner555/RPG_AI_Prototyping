@@ -10,7 +10,7 @@ using Pathfinding;
 namespace RPGPrototype
 {
     [SelectionBase]
-    public class RPGCharacter : MonoBehaviour
+    public class RPGCharacter : MonoBehaviour, IAllyMovable
     {
         #region Fields
         //Init Field
@@ -46,6 +46,11 @@ namespace RPGPrototype
         float forwardAmount;
         bool isAlive = true;
 
+        private float turnSpeed;
+        private Vector3 localMove;
+        float speedMultiplier = 1.0f;
+        float _baseSpeedMultiplier = 1.0f;
+
         // cached references for readability
         Animator animator;
 
@@ -53,6 +58,14 @@ namespace RPGPrototype
         #endregion
 
         #region Properties
+        //Non-UCC RPG Accessor Properties
+        public float MyStationaryTurnSpeed { get; protected set; }
+        public float MyMovingTurnSpeed { get; protected set; }
+        public float MyMoveThreshold { get; protected set; }
+        public float MyAnimatorForwardCap { get; protected set; }
+        public float MyAnimationSpeedMultiplier { get; protected set; }
+
+        //Component Getters
         AllyEventHandlerRPG eventHandler
         {
             get
@@ -149,6 +162,23 @@ namespace RPGPrototype
         }
         #endregion
 
+        #region Implementers
+        public void MoveAlly(Vector3 Direction, bool isFreeMoving)
+        {
+            speedMultiplier = isFreeMoving ?
+                1.2f * _baseSpeedMultiplier :
+                1.0f * _baseSpeedMultiplier;
+            SetForwardAndTurn(Direction);
+            ApplyExtraTurnRotation();
+            UpdateAnimator();
+        }
+
+        public void StopAllyMovement()
+        {
+            
+        }
+        #endregion
+
         #region Handlers
         private void OnInitializeAllyComponents(RTSAllyComponentSpecificFields _specificComps, RTSAllyComponentsAllCharacterFields _allAllyComps)
         {
@@ -169,6 +199,13 @@ namespace RPGPrototype
                 this.colliderRadius = _rpgCharAttr.colliderRadius;
                 this.colliderHeight = _rpgCharAttr.colliderHeight;
                 this.moveSpeedMultiplier = _rpgCharAttr.moveSpeedMultiplier;
+
+                //RPG Character Moving
+                this.MyStationaryTurnSpeed = _rpgCharAttr.stationaryTurnSpeed;
+                this.MyMovingTurnSpeed = _rpgCharAttr.movingTurnSpeed;
+                this.MyMoveThreshold = _rpgCharAttr.moveThreshold;
+                this.MyAnimatorForwardCap = _rpgCharAttr.animatorForwardCap;
+                this.MyAnimationSpeedMultiplier = _rpgCharAttr.animationSpeedMultiplier;
             }
 
             AddRequiredComponents();
@@ -202,6 +239,37 @@ namespace RPGPrototype
         public AnimatorOverrideController GetOverrideController()
         {
             return animatorOverrideController;
+        }
+        #endregion
+
+        #region Moving
+        void SetForwardAndTurn(Vector3 movement)
+        {
+            // convert the world relative moveInput vector into a local-relative
+            // turn amount and forward amount required to head in the desired direction
+            if (movement.magnitude > MyMoveThreshold)
+            {
+                movement.Normalize();
+            }
+            localMove = transform.InverseTransformDirection(movement);
+            //CheckGroundStatus();
+            //localMove = Vector3.ProjectOnPlane(localMove, m_GroundNormal);
+            turnAmount = Mathf.Atan2(localMove.x, localMove.z);
+            forwardAmount = localMove.z;
+        }
+
+        void ApplyExtraTurnRotation()
+        {
+            // help the character turn faster (this is in addition to root rotation in the animation)
+            turnSpeed = Mathf.Lerp(MyStationaryTurnSpeed, MyMovingTurnSpeed, forwardAmount);
+            transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
+        }
+
+        void UpdateAnimator()
+        {
+            animator.SetFloat("Forward", forwardAmount * MyAnimatorForwardCap, 0.1f, Time.deltaTime);
+            animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
+            animator.speed = MyAnimationSpeedMultiplier * speedMultiplier;
         }
         #endregion
     }

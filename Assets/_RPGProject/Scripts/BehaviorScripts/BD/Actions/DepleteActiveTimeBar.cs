@@ -13,36 +13,26 @@ namespace RPGPrototype
 		public SharedBool OnlyDepleteIfAboveMinimum = false;
 		#endregion
 
-		#region Properties
-		AllyMember allyMember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if (_allyMember == null)
+				if (_behaviorActions == null)
 				{
-					_allyMember = GetComponent<AllyMember>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _allyMember;
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allyMember = null;
+		RPGBehaviorActions _behaviorActions = null;
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
-		{			
-			if (OnlyDepleteIfAboveMinimum.Value)
-			{
-				if (allyMember.AllyActiveTimeBar > allyMember.AllyMinActiveTimeBar)
-				{
-					allyMember.DepleteActiveTimeBar();
-				}
-			}
-			else
-			{
-				allyMember.DepleteActiveTimeBar();
-			}
-			return TaskStatus.Success;
+		{
+			return behaviorActions.DepleteActiveTimeBar(OnlyDepleteIfAboveMinimum.Value) ?
+				TaskStatus.Success : TaskStatus.Failure;
 		}
 		#endregion
 	}

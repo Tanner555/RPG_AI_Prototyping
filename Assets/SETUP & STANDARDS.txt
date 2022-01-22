@@ -1,3 +1,8 @@
+# Importing Odin Inspector
+After Importing, go into Odin Preferences and enable "Editor Only Mode".
+In Preferences, go to "Editor Types" Tab, expand the "Plugin Types" checkbox,
+and uncheck all plugins that could interfere w/Odin, such as MaxyGames (UNode).
+
 # Setup and Standards Doc
 The purpose of this short doc is to get us all on the same page regarding
 a few important things such as world scale, layers, prefab setups, etc.
