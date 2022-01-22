@@ -33,7 +33,7 @@ namespace RPGPrototype {
 		bool bIsFreeMoving_Cached;
 		bool bTargetEnemy_Cached;
 		Transform CurrentTargettedEnemy_Cached;
-		bool AlsoResetsIfUsingAbility_Cached;
+		//bool AlsoResetsIfUsingAbility_Cached;
 		bool bTryUseAbility_Cached;
 		#endregion
 
@@ -43,17 +43,17 @@ namespace RPGPrototype {
 			bIsFreeMoving_Cached = bIsFreeMoving.Value;
 			bTargetEnemy_Cached = bTargetEnemy.Value;
 			CurrentTargettedEnemy_Cached = CurrentTargettedEnemy.Value;
-			AlsoResetsIfUsingAbility_Cached = AlsoResetsIfUsingAbility.Value;
+			//AlsoResetsIfUsingAbility_Cached = AlsoResetsIfUsingAbility.Value;
 			bTryUseAbility_Cached = bTryUseAbility.Value;
 			var _taskStatus = behaviorActions.ResetHasTargetAndTransform(
 				ref bIsFreeMoving_Cached, ref bTargetEnemy_Cached, 
-				ref CurrentTargettedEnemy_Cached, ref AlsoResetsIfUsingAbility_Cached, 
+				ref CurrentTargettedEnemy_Cached, AlsoResetsIfUsingAbility.Value, 
 				ref bTryUseAbility_Cached) ?
 				TaskStatus.Success : TaskStatus.Failure;
 			bIsFreeMoving.Value = bIsFreeMoving_Cached;
 			bTargetEnemy.Value = bTargetEnemy_Cached;
 			CurrentTargettedEnemy.Value = CurrentTargettedEnemy_Cached;
-			AlsoResetsIfUsingAbility.Value = AlsoResetsIfUsingAbility_Cached;
+			//AlsoResetsIfUsingAbility.Value = AlsoResetsIfUsingAbility_Cached;
 			bTryUseAbility.Value = bTryUseAbility_Cached;
 			return _taskStatus;
 		}

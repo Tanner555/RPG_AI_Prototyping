@@ -549,7 +549,7 @@ namespace RTSCoreFramework
         /// </summary>
         public bool ResetHasTargetAndTransform(ref bool bIsFreeMoving,
             ref bool bTargetEnemy, ref Transform CurrentTargettedEnemy, 
-            ref bool AlsoResetsIfUsingAbility, ref bool bTryUseAbility)
+            bool AlsoResetsIfUsingAbility, ref bool bTryUseAbility)
         {
             if (AlsoResetsIfUsingAbility)
             {
