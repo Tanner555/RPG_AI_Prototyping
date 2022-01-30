@@ -105,7 +105,7 @@ namespace RPGPrototype
             {
                 if (_uNodeAllyTreeSpawner == null)
                 {
-                    _uNodeAllyTreeSpawner = GetComponent<MaxyGames.uNode.uNodeSpawner>();
+                    _uNodeAllyTreeSpawner = GetComponentInChildren<MaxyGames.uNode.uNodeSpawner>();
                 }
                 return _uNodeAllyTreeSpawner;
             }
@@ -721,11 +721,12 @@ namespace RPGPrototype
         //Behavior Tree Init
         void InitializeUNodeTree(RTSAllyComponentSpecificFields _specific, AllyComponentsAllCharacterFieldsRPG _RPGallAllyComps, RPGAllySpecificCharacterAttributesObject _rpgCharAttr)
         {
-            if(_RPGallAllyComps.uNodePlayerTreeAsset != null)
-            {
-                var _spawner = gameObject.AddComponent<MaxyGames.uNode.uNodeSpawner>();
-                _spawner.target = _RPGallAllyComps.uNodePlayerTreeAsset;
-                _spawner.CustomSpawnerInitNoUnityMsgs();
+            if(_RPGallAllyComps.uNodeGraphSpawnerPrefab != null)
+            {              
+                var _spawner = GameObject.Instantiate
+                    (_RPGallAllyComps.uNodeGraphSpawnerPrefab, transform)
+                    .GetComponent<MaxyGames.uNode.uNodeSpawner>();
+                _spawner.transform.name = $"{_specific.CharacterType.ToString()} Behavior";
                 //Assign Vars
                 //Active Time Bar
                 _spawner.SetVariable(BBName_bUpdateActiveTimeBar, false);

@@ -20,6 +20,8 @@ namespace RPGPrototype.Behaviors
 
     public static class MyBehaviorFrameworkExtensions
     {
+
+        #region Unused Code
         /// <summary>
         /// Call this Method To Init Spawner Because Unity Msgs Have Been Decorated
         /// With bIsInitCustomNoUnityMsgs Boolean To Prevent Starting Before
@@ -31,13 +33,15 @@ namespace RPGPrototype.Behaviors
         /// Set These Methods To Public
         /// </summary>
         /// <param name="_spawner"></param>
-        public static void CustomSpawnerInitNoUnityMsgs(this MaxyGames.uNode.uNodeSpawner _spawner)
-        {
-            //Allows Unity Msgs Code To Run Again
-            _spawner.bIsInitCustomNoUnityMsgs = true;
-            _spawner.Awake();
-            _spawner.OnEnable();
-            _spawner.Start();
-        }
+        //public static void CustomSpawnerInitNoUnityMsgs(this MaxyGames.uNode.uNodeSpawner _spawner)
+        //{
+        //    //Allows Unity Msgs Code To Run Again
+        //    _spawner.bIsInitCustomNoUnityMsgs = true;
+        //    _spawner.Awake();
+        //    _spawner.OnEnable();
+        //    _spawner.Start();
+        //}
+        #endregion
+
     }
 }

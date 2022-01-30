@@ -46,6 +46,8 @@ MonoBehaviour:
     MyBehaviourChoice: 1
     uNodePlayerTreeAsset: {fileID: 5997917840764633907, guid: ce3a2a8321b5b354e972d445327dcf96,
       type: 3}
+    uNodeGraphSpawnerPrefab: {fileID: 6670512112424777476, guid: 61872f022f13963469706a8c71b8b603,
+      type: 3}
     bUseAStarPath: 0
     aStar_traversableGraphs: RTS Graph
     aStar_Radius: 0.5

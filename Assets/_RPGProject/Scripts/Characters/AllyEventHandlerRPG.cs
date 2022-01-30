@@ -38,7 +38,7 @@ namespace RPGPrototype
         public BehaviourFrameworkChoice MyBehaviourChoice = BehaviourFrameworkChoice.BehaviorDesigner;
         [Header("uNode Fields")]
         [SerializeField]
-        public MaxyGames.uNode.uNodeClassComponent uNodePlayerTreeAsset;
+        public GameObject uNodeGraphSpawnerPrefab;
         [FoldoutGroup("AStar PathFinding Settings")]
         [Header("AStar PathFinding Settings")]
         public bool bUseAStarPath = false;
