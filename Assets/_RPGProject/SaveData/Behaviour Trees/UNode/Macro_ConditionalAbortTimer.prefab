@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6679814744167749084}
   - component: {fileID: 7174399043413801069}
   m_Layer: 0
-  m_Name: ConditionalAbortTimer
+  m_Name: Macro_ConditionalAbortTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     isGeneratedWithDebugMode: 0
     debug: 0
     debugValueNode: 1
-    fileName: ConditionalAbortTimer
+    fileName: Macro_ConditionalAbortTimer
     compileToScript: 1
   _rootObject: {fileID: 3638302704464236179}
   nodes:
