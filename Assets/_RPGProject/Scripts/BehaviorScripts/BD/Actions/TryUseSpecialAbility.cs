@@ -28,8 +28,8 @@ namespace RPGPrototype
 		}
 		RPGBehaviorActions _behaviorActions = null;
 
-		public UnityEngine.Object AbilityToUse_Cached;
-		public float AbilityAnimationTime_Cached;
+		private UnityEngine.Object AbilityToUse_Cached;
+		private float AbilityAnimationTime_Cached;
 
 		#endregion
 

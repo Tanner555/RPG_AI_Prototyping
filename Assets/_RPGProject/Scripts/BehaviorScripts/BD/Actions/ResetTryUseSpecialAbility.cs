@@ -29,9 +29,9 @@ namespace RPGPrototype
 		}
 		RPGBehaviorActions _behaviorActions = null;
 
-		public bool bTryUseAbility_Cached;
-		public bool bIsPerformingAbility_Cached;
-		public UnityEngine.Object AbilityToUse_Cached;
+		private bool bTryUseAbility_Cached;
+		private bool bIsPerformingAbility_Cached;
+		private UnityEngine.Object AbilityToUse_Cached;
 		#endregion
 
 		#region Overrides
