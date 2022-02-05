@@ -588,6 +588,19 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region TryUseSpecialAbility
+        /// <summary>
+        /// Try Using The Ability In The Ability To Use Slot. 
+        /// Retrieves Ability Animation Time From Ability Config.
+        /// </summary>
+        public bool TryUseSpecialAbility(ref UnityEngine.Object AbilityToUse, ref float AbilityAnimationTime)
+        {
+            AbilityAnimationTime = ((AbilityConfig)AbilityToUse).GetAbilityAnimationTime();
+            myEventHandler.CallOnTryPerformSpecialAbility(AbilityToUse.GetType());
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }

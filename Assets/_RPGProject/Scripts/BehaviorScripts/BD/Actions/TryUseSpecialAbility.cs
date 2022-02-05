@@ -14,27 +14,36 @@ namespace RPGPrototype
 		public SharedFloat AbilityAnimationTime;
 		#endregion
 
-		#region Properties
-		AllyEventHandler myEventHandler
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if (_myEventhandler == null)
+				if (_behaviorActions == null)
 				{
-					_myEventhandler = GetComponent<AllyEventHandler>();
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
 				}
-				return _myEventhandler;
+				return _behaviorActions;
 			}
 		}
-		AllyEventHandler _myEventhandler = null;
+		RPGBehaviorActions _behaviorActions = null;
+
+		public UnityEngine.Object AbilityToUse_Cached;
+		public float AbilityAnimationTime_Cached;
+
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			AbilityAnimationTime.Value = ((AbilityConfig)AbilityToUse.Value).GetAbilityAnimationTime();
-			myEventHandler.CallOnTryPerformSpecialAbility(AbilityToUse.Value.GetType());
-			return TaskStatus.Success;
+			AbilityToUse_Cached = AbilityToUse.Value;
+			AbilityAnimationTime_Cached = AbilityAnimationTime.Value;
+			var _taskStatus = behaviorActions.TryUseSpecialAbility
+				(ref AbilityToUse_Cached, ref AbilityAnimationTime_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			AbilityToUse.Value = AbilityToUse_Cached;
+			AbilityAnimationTime.Value = AbilityAnimationTime_Cached;
+			return _taskStatus;
 		}
 		#endregion
 	}
