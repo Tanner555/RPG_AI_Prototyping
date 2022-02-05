@@ -13,25 +13,29 @@ namespace RPGPrototype
 		public SharedInt EnergyRegenPointsPerSec;
 		#endregion
 
-		#region Properties
-		protected AllyMember allymember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if (_allymember == null)
-					_allymember = GetComponent<AllyMember>();
-
-				return _allymember;
+				if (_behaviorActions == null)
+				{
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allymember = null;
+		RPGBehaviorActions _behaviorActions = null;
+
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			allymember.AllyRegainStamina(EnergyRegenPointsPerSec.Value);
-			return TaskStatus.Success;
+			var _taskStatus = behaviorActions.AddEnergyPoints
+				(EnergyRegenPointsPerSec.Value) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			return _taskStatus;
 		}
 		#endregion
 	}

@@ -627,6 +627,17 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region AddEnergyPoints
+        /// <summary>
+        /// Adds Energy Points To The Ally On Every Tick.
+        /// </summary>
+        public bool AddEnergyPoints(int EnergyRegenPointsPerSec)
+        {
+            allyMember.AllyRegainStamina(EnergyRegenPointsPerSec);
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }
