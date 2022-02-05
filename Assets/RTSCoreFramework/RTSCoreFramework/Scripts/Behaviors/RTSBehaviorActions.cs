@@ -601,6 +601,32 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region StopSpecialAbilityAnimation
+        /// <summary>
+        /// Stop The Ability Animation From Ability To Use.
+        /// </summary>
+        public bool StopSpecialAbilityAnimation(UnityEngine.Object AbilityToUse)
+        {
+            var _behavior = allyMember.GetAbilityBehavior(AbilityToUse.GetType());
+            _behavior.StopAbilityAnimation();
+            return true;
+        }
+        #endregion
+
+        #region ResetTryUseSpecialAbility
+        /// <summary>
+        /// Resets Try Use Ability and Ability To Use Variables.
+        /// </summary>        
+        public bool ResetTryUseSpecialAbility(ref bool bTryUseAbility, 
+            ref bool bIsPerformingAbility, ref UnityEngine.Object AbilityToUse)
+        {
+            bTryUseAbility = false;
+            bIsPerformingAbility = false;
+            AbilityToUse = null;
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }

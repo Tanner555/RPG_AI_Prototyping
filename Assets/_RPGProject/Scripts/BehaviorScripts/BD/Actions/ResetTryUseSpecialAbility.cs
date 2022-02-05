@@ -15,13 +15,39 @@ namespace RPGPrototype
 		public SharedObject AbilityToUse;
 		#endregion
 
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
+		{
+			get
+			{
+				if (_behaviorActions == null)
+				{
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
+			}
+		}
+		RPGBehaviorActions _behaviorActions = null;
+
+		public bool bTryUseAbility_Cached;
+		public bool bIsPerformingAbility_Cached;
+		public UnityEngine.Object AbilityToUse_Cached;
+		#endregion
+
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			bTryUseAbility.Value = false;
-			bIsPerformingAbility.Value = false;
-			AbilityToUse.Value = null;
-			return TaskStatus.Success;
+			bTryUseAbility_Cached = bTryUseAbility.Value;
+			bIsPerformingAbility_Cached = bIsPerformingAbility.Value;
+			AbilityToUse_Cached = AbilityToUse.Value;
+			var _taskStatus = behaviorActions.ResetTryUseSpecialAbility
+				(ref bTryUseAbility_Cached, ref bIsPerformingAbility_Cached, 
+				ref AbilityToUse_Cached) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			bTryUseAbility.Value = bTryUseAbility_Cached;
+			bIsPerformingAbility.Value = bIsPerformingAbility_Cached;
+			AbilityToUse.Value = AbilityToUse_Cached;
+			return _taskStatus;
 		}
 		#endregion
 
