@@ -1051,6 +1051,200 @@ MonoBehaviour:
   linkedPort:
     guid: 
     owner: {fileID: 0}
+--- !u!1 &446816429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446816430}
+  - component: {fileID: 446816431}
+  m_Layer: 0
+  m_Name: Node 23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &446816430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446816429}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468236510401645403}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &446816431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446816429}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 6.2231402
+    y: -81.251
+    width: 293
+    height: 97
+  nodeExpanded: 1
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    target:
+      targetType: 32
+      _instanceData: 
+      odinInstanceData:
+        data: 022f0000000001200000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002c00200075004e006f00640065002e0043006f0072006500000000001d010a0000007400610072006700650074005400790070006500000002000000000027010d0000005f0069006e007300740061006e0063006500440061007400610001000000000101100000006f00640069006e0049006e007300740061006e006300650044006100740061002f0100000001280000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061002c00200075004e006f00640065002e0043006f00720065000100000001010400000064006100740061002f020000000117000000530079007300740065006d002e0042007900740065005b005d002c0020006d00730063006f0072006c0069006200020000000800000000010000000501010a0000007200650066006500720065006e006300650073002f030000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b0055006e0069007400790045006e00670069006e0065002e004f0062006a006500630074002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200030000000601000000000000000c0000000007052d010e000000730065007200690061006c0069007a00650064005400790070006500052d010e0000006f00640069006e00540061007200670065007400440061007400610001011300000073007400610072007400530065007200690061006c0069007a006500640054007900700065002f04000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e00530065007200690061006c0069007a006500640054007900700065002c00200075004e006f00640065002e0043006f007200650004000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700011f000000520050004700500072006f0074006f0074007900700065002e005200500047004200650068006100760069006f00720041006300740069006f006e00730001010f000000730065007200690061006c0069007a006500640042007900740065007300300200000005000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052d0114000000740061007200670065007400530065007200690061006c0069007a006500640054007900700065002701050000005f006e0061006d00650001060000002d00350031003700310038002b0108000000690073005300740061007400690063000027010d0000007300740061007200740054007900700065004e0061006d00650001000000002d010e00000074006100720067006500740054007900700065004e0061006d0065002b01100000006100750074006f0043006f006e007600650072007400560061006c0075006500002d01050000006900740065006d0073002d010f000000730065007200690061006c0069007a00650064004900740065006d00730001010f0000007400610072006700650074005200650066006500720065006e0063006500300300000006000000060000000000000000070501011100000069006e007300740061006e00630065005200650066006500720065006e0063006500300300000007000000060000000000000000070501010d00000074007900700065005200650066006500720065006e006300650030030000000800000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e007400730005
+        references:
+        - {fileID: 8393062070517006048}
+        serializedType: 
+      odinTargetData:
+        data: 
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: RTSCoreFramework.RTSBehaviorActions
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: System.Boolean
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: RTSBehaviorActions.AddEnergyPoints
+      isStatic: 0
+      startTypeName: 
+      targetTypeName: 
+      autoConvertValue: 0
+      items: []
+      serializedItems:
+      - data: 
+        references: []
+        serializedType: 
+      - data: 022f0000000001290000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002b004900740065006d0044006100740061002c00200075004e006f00640065002e0043006f00720065000000000001010a00000070006100720061006d00650074006500720073002f0100000001260000004d00610078007900470061006d00650073002e0075004e006f00640065002e00540079007000650044006100740061005b005d002c00200075004e006f00640065002e0043006f007200650001000000060100000000000000022f0200000001240000004d00610078007900470061006d00650073002e0075004e006f00640065002e00540079007000650044006100740061002c00200075004e006f00640065002e0043006f0072006500020000002701040000006e0061006d006500010c000000530079007300740065006d002e0049006e007400330032002d010a0000007200650066006500720065006e006300650073002d010a00000070006100720061006d00650074006500720073000507052d0110000000670065006e00650072006900630041007200670075006d0065006e007400730005
+        references: []
+        serializedType: 
+      targetReference: []
+      instanceReference: []
+      typeReference: []
+      controlPoints: []
+    parameters:
+    - targetType: 512
+      _instanceData: 
+      odinInstanceData:
+        data: 
+        references:
+        - {fileID: 5997917840764633907}
+        serializedType: 
+      odinTargetData:
+        data: 
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: UnityEngine.MonoBehaviour
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: System.Int32
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: EnergyRegenPointsPerSec
+      isStatic: 0
+      startTypeName: 
+      targetTypeName: 
+      autoConvertValue: 0
+      items: []
+      serializedItems: []
+      targetReference: []
+      instanceReference: []
+      typeReference: []
+      controlPoints: []
+    initializer:
+      serializedType:
+        targetType: 0
+        _instanceData: 
+        odinInstanceData:
+          data: 
+          references: []
+          serializedType: 
+        odinTargetData:
+          data: 
+          references: []
+          serializedType: 
+        startSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        targetSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        _name: 
+        isStatic: 0
+        startTypeName: 
+        targetTypeName: 
+        autoConvertValue: 0
+        items: []
+        serializedItems: []
+        targetReference: []
+        instanceReference: []
+        typeReference: []
+        controlPoints: []
+      Type: 
+      _odinSerializedData: 
+      listReference: []
+      _serializedData: 
 --- !u!1 &483689522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,6 +1873,131 @@ MonoBehaviour:
     instanceReference: []
     typeReference: []
     controlPoints: []
+--- !u!1 &944488434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944488435}
+  - component: {fileID: 944488436}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944488435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944488434}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468236510401645403}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &944488436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944488434}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 132
+    y: -209
+    width: 40
+    height: 41
+  nodeExpanded: 1
+  Name: 
+  kind: 0
+  type:
+    targetType: 256
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: System.Object
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: object
+    isStatic: 1
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems:
+    - data: 
+      references: []
+      serializedType: 
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 5802680017438507104}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 865738
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  linkedPort:
+    guid: 
+    owner: {fileID: 0}
 --- !u!1 &1016587382
 GameObject:
   m_ObjectHideFlags: 0
@@ -13553,6 +13872,7 @@ Transform:
   - {fileID: 4956669906855262371}
   - {fileID: 8254640778988933512}
   - {fileID: 162005983737667700}
+  - {fileID: 468236510401645403}
   m_Father: {fileID: 795151600495548451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19263,6 +19583,11 @@ MonoBehaviour:
   - {fileID: 241328903243581444}
   - {fileID: 3540635681330791895}
   - {fileID: 3062454253118131491}
+  - {fileID: 6381202954815652724}
+  - {fileID: 5802680017438507104}
+  - {fileID: 8393062070517006048}
+  - {fileID: 446816431}
+  - {fileID: 944488436}
   icon: {fileID: 0}
   namespace: RPGPrototype.Behaviors
   usingNamespaces:
@@ -20040,7 +20365,7 @@ MonoBehaviour:
         references: []
         serializedType: 
       startSerializedType:
-        serializedString: System.Single
+        serializedString: System.Int32
         serializedBytes: 
         references: []
         isNativeType: 1
@@ -20049,22 +20374,19 @@ MonoBehaviour:
         serializedBytes: 
         references: []
         isNativeType: 1
-      _name: float
+      _name: int
       isStatic: 1
       startTypeName: 
       targetTypeName: 
       autoConvertValue: 0
       items: []
-      serializedItems:
-      - data: 
-        references: []
-        serializedType: 
+      serializedItems: []
       targetReference: []
       instanceReference: []
       typeReference: []
       controlPoints: []
     odinSerializedData:
-      data: 022f000000000117000000530079007300740065006d002e00530069006e0067006c0065002c0020006d00730063006f0072006c006900620000000000200000000005
+      data: 022f000000000116000000530079007300740065006d002e0049006e007400330032002c0020006d00730063006f0072006c006900620000000000180000000005
       references: []
       serializedType: System.Object
     references: []
@@ -22709,6 +23031,91 @@ MonoBehaviour:
     height: 1378
   nodeExpanded: 1
   nodeColor: {r: 0, g: 1, b: 1, a: 1}
+--- !u!1 &6678839790291489034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7970438097947119977}
+  - component: {fileID: 5802680017438507104}
+  m_Layer: 0
+  m_Name: Succeeder 21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7970438097947119977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678839790291489034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468236510401645403}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5802680017438507104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678839790291489034}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b32d47992fa63154cb143074945d6ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 97.22313
+    y: -140.25098
+    width: 111.99999
+    height: 40.999996
+  nodeExpanded: 1
+  targetNode:
+    targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 446816431}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 286584
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
 --- !u!1 &6687409307649620694
 GameObject:
   m_ObjectHideFlags: 0
@@ -27036,9 +27443,9 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 478.99747
-    y: -352.29007
-    width: 228
+    x: 451
+    y: -352
+    width: 256
     height: 73
   nodeExpanded: 1
   nextNode:
@@ -27079,6 +27486,38 @@ MonoBehaviour:
     odinInstanceData:
       data: 
       references:
+      - {fileID: 944488436}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 865738
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  - targetType: 524288
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references:
       - {fileID: 3540635681330791895}
       serializedType: 
     odinTargetData:
@@ -27095,7 +27534,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 329815
+    _name: -778770
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27127,7 +27566,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 857839
+    _name: -697008
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27159,7 +27598,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 191572
+    _name: 59146
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27191,7 +27630,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 637416
+    _name: -37872
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27223,7 +27662,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: -685433
+    _name: 539348
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27255,7 +27694,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: -941817
+    _name: -12091
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -27287,7 +27726,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: -916037
+    _name: 248450
     isStatic: 0
     startTypeName: 
     targetTypeName: 
@@ -28651,6 +29090,165 @@ MonoBehaviour:
     instanceReference: []
     typeReference: []
     controlPoints: []
+--- !u!1 &7764353239811746218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853975011564999076}
+  - component: {fileID: 8393062070517006048}
+  m_Layer: 0
+  m_Name: GetBehaviorActions 22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853975011564999076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764353239811746218}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468236510401645403}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8393062070517006048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764353239811746218}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: -202.77686
+    y: -110.25099
+    width: 172
+    height: 73
+  nodeExpanded: 1
+  onFinished:
+    targetType: 0
+    _instanceData: 
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    startTypeName: 
+    targetTypeName: 
+    autoConvertValue: 0
+    items: []
+    serializedItems: []
+    targetReference: []
+    instanceReference: []
+    typeReference: []
+    controlPoints: []
+  target:
+    target:
+      targetType: 2048
+      _instanceData: 
+      odinInstanceData:
+        data: 
+        references:
+        - {fileID: 5997917840764633907}
+        serializedType: 
+      odinTargetData:
+        data: 
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: UnityEngine.MonoBehaviour
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: RPGPrototype.RPGBehaviorActions
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: GetBehaviorActions
+      isStatic: 0
+      startTypeName: 
+      targetTypeName: 
+      autoConvertValue: 0
+      items: []
+      serializedItems:
+      - data: 
+        references: []
+        serializedType: 
+      targetReference: []
+      instanceReference: []
+      typeReference: []
+      controlPoints: []
+    parameters: []
+    initializer:
+      serializedType:
+        targetType: 0
+        _instanceData: 
+        odinInstanceData:
+          data: 
+          references: []
+          serializedType: 
+        odinTargetData:
+          data: 
+          references: []
+          serializedType: 
+        startSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        targetSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        _name: 
+        isStatic: 0
+        startTypeName: 
+        targetTypeName: 
+        autoConvertValue: 0
+        items: []
+        serializedItems: []
+        targetReference: []
+        instanceReference: []
+        typeReference: []
+        controlPoints: []
+      Type: 
+      _odinSerializedData: 
+      listReference: []
+      _serializedData: 
 --- !u!1 &7782493789606822370
 GameObject:
   m_ObjectHideFlags: 0
@@ -30750,6 +31348,68 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
       _serializedData: 
+--- !u!1 &8937290645635226638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 468236510401645403}
+  - component: {fileID: 6381202954815652724}
+  m_Layer: 0
+  m_Name: Add Energy Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &468236510401645403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937290645635226638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7970438097947119977}
+  - {fileID: 853975011564999076}
+  - {fileID: 446816430}
+  - {fileID: 944488435}
+  m_Father: {fileID: 1068510890794835596}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6381202954815652724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937290645635226638}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09fae82fdf80254cb81a2d271eb991a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 206.51004
+    y: -105.38749
+    width: 137
+    height: 41.000004
+  nodeExpanded: 1
+  variables: []
+  inputFlows:
+  - {fileID: 944488436}
+  inputValues: []
+  outputFlows: []
+  outputValues: []
 --- !u!1 &9046213374415184298
 GameObject:
   m_ObjectHideFlags: 0
