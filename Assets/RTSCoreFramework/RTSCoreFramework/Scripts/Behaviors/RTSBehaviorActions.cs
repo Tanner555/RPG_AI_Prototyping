@@ -310,6 +310,21 @@ namespace RTSCoreFramework
         private AllyMember _IsAllyTargetValid_CurrTarget = null;
         #endregion
 
+        #region CanUseSpecialAbility
+        /// <summary>
+        /// Checks If Ability Can Be Used.
+        /// </summary>
+        public bool CanUseSpecialAbility(UnityEngine.Object AbilityToUse)
+        {
+            if(AbilityToUse == null)
+            {
+                Debug.LogError("Cannot Check Special Ability That Is Null, Returning False.");
+                return false;
+            }
+            return allyMember.CanUseAbility(AbilityToUse.GetType());
+        }
+        #endregion
+
         #endregion
 
         #region Actions

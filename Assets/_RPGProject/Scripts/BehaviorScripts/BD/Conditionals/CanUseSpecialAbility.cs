@@ -13,31 +13,28 @@ namespace RPGPrototype
 		public SharedObject AbilityToUse;
 		#endregion
 
-		#region Properties
-		protected AllyMember allymember
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
 		{
 			get
 			{
-				if (_allymember == null)
-					_allymember = GetComponent<AllyMember>();
-
-				return _allymember;
+				if (_behaviorActions == null)
+				{
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
 			}
 		}
-		AllyMember _allymember = null;
+		RPGBehaviorActions _behaviorActions = null;
+
 		#endregion
 
 		#region Overrides
 		public override TaskStatus OnUpdate()
 		{
-			if (allymember.CanUseAbility(AbilityToUse.Value.GetType()))
-			{
-				return TaskStatus.Success;
-			}
-			else
-			{
-				return TaskStatus.Failure;
-			}
+			var _taskStatus = behaviorActions.CanUseSpecialAbility(AbilityToUse.Value) ?
+				TaskStatus.Success : TaskStatus.Failure;
+			return _taskStatus;
 		}
 		#endregion
 	}
