@@ -3895,10 +3895,10 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: -752.7
-    y: 2087.7
-    width: 209
-    height: 147
+    x: -776
+    y: 2079
+    width: 210
+    height: 171
   nodeExpanded: 1
   Validation:
     eventList:
@@ -4627,115 +4627,6 @@ MonoBehaviour:
     serializedItems: []
     targetReference: []
     controlPoints: []
---- !u!1 &1709890998
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1709891000}
-  - component: {fileID: 1709890999}
-  m_Layer: 0
-  m_Name: Instance
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1709891000
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709890998}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1709890999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709890998}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bba59b072cc98f439190e49320c0fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 431
-    y: 460
-    width: 95
-    height: 61
-  nodeExpanded: 1
-  Name: 
-  kind: 2
-  type:
-    targetType: 256
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: RPGPrototype.RPGBehaviorActions
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: RPGBehaviorActions
-    isStatic: 1
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  target:
-    targetType: 131072
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 3912197100642493232}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: RPGPrototype.RPGBehaviorActions
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: -138507
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints:
-    - point: {x: 0, y: 0}
-  linkedPort:
-    guid: 
-    owner: {fileID: 0}
 --- !u!1 &1807946504
 GameObject:
   m_ObjectHideFlags: 0
@@ -7245,7 +7136,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4874822410232401946
 MonoBehaviour:
@@ -7263,9 +7154,9 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: -446.63443
-    y: 715.1599
-    width: 378
+    x: -449.6449
+    y: 778.48
+    width: 378.00003
     height: 169
   nodeExpanded: 1
   onFinished:
@@ -9024,12 +8915,11 @@ Transform:
   - {fileID: 7178360849319065762}
   - {fileID: 5342542263994362732}
   - {fileID: 6272820036226088104}
-  - {fileID: 6691658312175394147}
   - {fileID: 1743545993326000448}
-  - {fileID: 2061687851263471522}
   - {fileID: 8270462558068165293}
   - {fileID: 7808055165992508819}
-  - {fileID: 1709891000}
+  - {fileID: 5590647630866564500}
+  - {fileID: 8535520267138072777}
   m_Father: {fileID: 325795972443072020}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9049,16 +8939,15 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 83.79484
-    y: 172.25027
-    width: 271
-    height: 73
+    x: 74.74248
+    y: 183.90248
+    width: 296
+    height: 41.000004
   nodeExpanded: 1
   variables: []
   inputFlows:
   - {fileID: 7808055165992508818}
-  inputValues:
-  - {fileID: 1709890999}
+  inputValues: []
   outputFlows: []
   outputValues: []
 --- !u!1 &1566123387411493807
@@ -9090,7 +8979,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4270712998470367595
 MonoBehaviour:
@@ -9108,9 +8997,9 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 551.3576
-    y: 461.97583
-    width: 378.00003
+    x: 556.10004
+    y: 470.40005
+    width: 378.00006
     height: 169
   nodeExpanded: 1
   onFinished:
@@ -9142,9 +9031,9 @@ MonoBehaviour:
     target:
       targetType: 32
       odinInstanceData:
-        data: 022f0000000001200000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002c00200075004e006f00640065002e0043006f0072006500000000001d010a0000007400610072006700650074005400790070006500000002000000000027010d0000005f0069006e007300740061006e0063006500440061007400610001000000000101100000006f00640069006e0049006e007300740061006e006300650044006100740061002f0100000001280000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061002c00200075004e006f00640065002e0043006f00720065000100000001010400000064006100740061002f020000000117000000530079007300740065006d002e0042007900740065005b005d002c0020006d00730063006f0072006c0069006200020000000800000000010000000501010a0000007200650066006500720065006e006300650073002f030000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b0055006e0069007400790045006e00670069006e0065002e004f0062006a006500630074002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200030000000601000000000000000c0000000007052d010e000000730065007200690061006c0069007a00650064005400790070006500052d010e0000006f00640069006e00540061007200670065007400440061007400610001011300000073007400610072007400530065007200690061006c0069007a006500640054007900700065002f04000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e00530065007200690061006c0069007a006500640054007900700065002c00200075004e006f00640065002e0043006f007200650004000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700011f000000520050004700500072006f0074006f0074007900700065002e005200500047004200650068006100760069006f00720041006300740069006f006e00730001010f000000730065007200690061006c0069007a006500640042007900740065007300300200000005000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e006100740069007600650054007900700065000105010114000000740061007200670065007400530065007200690061006c0069007a006500640054007900700065003004000000060000002d0110000000730065007200690061006c0069007a006500640053007400720069006e0067002d010f000000730065007200690061006c0069007a0065006400420079007400650073002d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052701050000005f006e0061006d00650001070000002d003100330038003500300037002b0108000000690073005300740061007400690063000027010d0000007300740061007200740054007900700065004e0061006d006500010000000027010e00000074006100720067006500740054007900700065004e0061006d00650001000000002b01100000006100750074006f0043006f006e007600650072007400560061006c0075006500002d01050000006900740065006d00730001010f000000730065007200690061006c0069007a00650064004900740065006d0073002f05000000012a0000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061005b005d002c00200075004e006f00640065002e0043006f007200650007000000060000000000000000070501010f0000007400610072006700650074005200650066006500720065006e0063006500300300000008000000060000000000000000070501011100000069006e007300740061006e00630065005200650066006500720065006e0063006500300300000009000000060000000000000000070501010d00000074007900700065005200650066006500720065006e006300650030030000000a00000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e007400730005
+        data: 022f0000000001200000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002c00200075004e006f00640065002e0043006f0072006500000000001d010a000000740061007200670065007400540079007000650000000200000000000101100000006f00640069006e0049006e007300740061006e006300650044006100740061002f0100000001280000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061002c00200075004e006f00640065002e0043006f00720065000100000001010400000064006100740061002f020000000117000000530079007300740065006d002e0042007900740065005b005d002c0020006d00730063006f0072006c0069006200020000000800000000010000000501010a0000007200650066006500720065006e006300650073002f030000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b0055006e0069007400790045006e00670069006e0065002e004f0062006a006500630074002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200030000000601000000000000000c0000000007052d010e000000730065007200690061006c0069007a00650064005400790070006500052d010e0000006f00640069006e00540061007200670065007400440061007400610001011300000073007400610072007400530065007200690061006c0069007a006500640054007900700065002f04000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e00530065007200690061006c0069007a006500640054007900700065002c00200075004e006f00640065002e0043006f007200650004000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700011f000000520050004700500072006f0074006f0074007900700065002e005200500047004200650068006100760069006f00720041006300740069006f006e00730001010f000000730065007200690061006c0069007a006500640042007900740065007300300200000005000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052d0114000000740061007200670065007400530065007200690061006c0069007a006500640054007900700065002701050000005f006e0061006d00650001060000003800310037003200310036002b0108000000690073005300740061007400690063000001010f000000730065007200690061006c0069007a00650064004900740065006d0073002f05000000012a0000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061005b005d002c00200075004e006f00640065002e0043006f007200650006000000060000000000000000070501010f0000007400610072006700650074005200650066006500720065006e0063006500300300000007000000060000000000000000070501010d00000063006f006e00740072006f006c0050006f0069006e00740073002f06000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e0043006f006e00740072006f006c0050006f0069006e0074005b005d002c00200075004e006f00640065002e0043006f007200650008000000060100000000000000022f0700000001280000004d00610078007900470061006d00650073002e0075004e006f00640065002e0043006f006e00740072006f006c0050006f0069006e0074002c00200075004e006f00640065002e0043006f00720065000900000003010500000070006f0069006e0074002f08000000012b00000055006e0069007400790045006e00670069006e0065002e0056006500630074006f00720032002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c006500200000000020000000000505070505
         references:
-        - {fileID: 1709890999}
+        - {fileID: 5352418925528119228}
         serializedType: 
       odinTargetData:
         data: 
@@ -11127,141 +11016,6 @@ MonoBehaviour:
     serializedItems: []
     targetReference: []
     controlPoints: []
---- !u!1 &2265230883537163558
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6691658312175394147}
-  - component: {fileID: 952374676780704797}
-  m_Layer: 0
-  m_Name: bHasSetCommandMove 20
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6691658312175394147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2265230883537163558}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &952374676780704797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2265230883537163558}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 456.64795
-    y: 392.38824
-    width: 246.99998
-    height: 29
-  nodeExpanded: 1
-  onFinished:
-    targetType: 0
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  target:
-    target:
-      targetType: 512
-      odinInstanceData:
-        data: 
-        references:
-        - {fileID: 5997917840764633907}
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Boolean
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: System.Boolean
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: bHasSetCommandMove
-      isStatic: 0
-      serializedItems: []
-      targetReference: []
-      controlPoints: []
-    parameters: []
-    initializer:
-      serializedType:
-        targetType: 0
-        odinInstanceData:
-          data: 
-          references: []
-          serializedType: 
-        odinTargetData:
-          data: 
-          references: []
-          serializedType: 
-        startSerializedType:
-          serializedString: 
-          serializedBytes: 
-          references: []
-          isNativeType: 1
-        targetSerializedType:
-          serializedString: 
-          serializedBytes: 
-          references: []
-          isNativeType: 1
-        _name: 
-        isStatic: 0
-        serializedItems: []
-        targetReference: []
-        controlPoints: []
-      Type: 
-      _odinSerializedData: 
-      listReference: []
-    owner: {fileID: 0}
 --- !u!1 &2295251997878945046
 GameObject:
   m_ObjectHideFlags: 0
@@ -12102,6 +11856,144 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
     owner: {fileID: 0}
+--- !u!1 &2686157830325178395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5590647630866564500}
+  - component: {fileID: 5352418925528119228}
+  m_Layer: 0
+  m_Name: GetBehaviorActions 11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5590647630866564500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686157830325178395}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4517921010927213134}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5352418925528119228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686157830325178395}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 368.85004
+    y: 348.80002
+    width: 172.00003
+    height: 73.00001
+  nodeExpanded: 1
+  onFinished:
+    targetType: 0
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
+  target:
+    target:
+      targetType: 2048
+      odinInstanceData:
+        data: 
+        references:
+        - {fileID: 5997917840764633907}
+        serializedType: 
+      odinTargetData:
+        data: 
+        references: []
+        serializedType: 
+      startSerializedType:
+        serializedString: UnityEngine.MonoBehaviour
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      targetSerializedType:
+        serializedString: RPGPrototype.RPGBehaviorActions
+        serializedBytes: 
+        references: []
+        isNativeType: 1
+      _name: GetBehaviorActions
+      isStatic: 0
+      serializedItems:
+      - data: 
+        references: []
+        serializedType: 
+      targetReference: []
+      controlPoints: []
+    parameters: []
+    initializer:
+      serializedType:
+        targetType: 0
+        odinInstanceData:
+          data: 
+          references: []
+          serializedType: 
+        odinTargetData:
+          data: 
+          references: []
+          serializedType: 
+        startSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        targetSerializedType:
+          serializedString: 
+          serializedBytes: 
+          references: []
+          isNativeType: 1
+        _name: 
+        isStatic: 0
+        serializedItems: []
+        targetReference: []
+        controlPoints: []
+      Type: 
+      _odinSerializedData: 
+      listReference: []
+    owner: {fileID: 0}
 --- !u!1 &2728241269489564058
 GameObject:
   m_ObjectHideFlags: 0
@@ -12719,7 +12611,7 @@ MonoBehaviour:
     odinInstanceData:
       data: 
       references:
-      - {fileID: 3784588184129083053}
+      - {fileID: 1313543948012320978}
       serializedType: 
     odinTargetData:
       data: 
@@ -12735,7 +12627,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: -480618
+    _name: 907447
     isStatic: 0
     serializedItems: []
     targetReference: []
@@ -14403,8 +14295,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 873.4554
-    y: 362.20087
+    x: 942.8051
+    y: 365.52087
     width: 543
     height: 61
   nodeExpanded: 1
@@ -15040,8 +14932,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 768.6225
-    y: 160.35745
+    x: 767.4791
+    y: 160
     width: 141
     height: 84
   nodeExpanded: 1
@@ -16387,7 +16279,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4613917834472575559
 MonoBehaviour:
@@ -16899,13 +16791,12 @@ Transform:
   - {fileID: 1734896921195674744}
   - {fileID: 6297099186197930604}
   - {fileID: 5614527717957927716}
-  - {fileID: 171686377318699272}
-  - {fileID: 2235980921982006142}
   - {fileID: 2970627285716771660}
   - {fileID: 743137221344168326}
   - {fileID: 4613917834472575558}
   - {fileID: 4625836691692569277}
   - {fileID: 8860112664928696473}
+  - {fileID: 3970142969000125989}
   m_Father: {fileID: 1068510890794835596}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20063,6 +19954,144 @@ MonoBehaviour:
   inputValues: []
   outputFlows: []
   outputValues: []
+--- !u!1 &5629572467071532769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3970142969000125989}
+  - component: {fileID: 1313543948012320978}
+  m_Layer: 0
+  m_Name: IsFinishedMoving?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3970142969000125989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5629572467071532769}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4198053667534932085}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1313543948012320978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5629572467071532769}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57aea54190670ef43ba04f07ab3ec27d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: -328.9501
+    y: 637.4501
+    width: 230.00002
+    height: 91.000015
+  nodeExpanded: 1
+  Validation:
+    eventList:
+    - eventType: 0
+      levelValidation: 0
+      expanded: 0
+      typeName: MaxyGames.Events.EqualityCompare
+      odinSerializedData: 022f00000000012c0000004d00610078007900470061006d00650073002e004500760065006e00740073002e0045007100750061006c0069007400790043006f006d0070006100720065002c00200075004e006f00640065002e0043006f007200650000000000030105000000730074006100740065002f010000000137000000530079007300740065006d002e004e0075006c006c00610062006c006500600031005b005b00530079007300740065006d002e0042006f006f006c00650061006e002c0020006d00730063006f0072006c00690062005d005d002c0020006d00730063006f0072006c00690062002e051d010c0000006f00700065007200610074006f007200540079007000650000000000000000000101060000007400610072006700650074002f0200000001280000004d00610078007900470061006d00650073002e004d0075006c007400690070007500720070006f00730065004d0065006d006200650072002c00200075004e006f00640065002e0043006f0072006500010000000101060000007400610072006700650074002f0300000001200000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002c00200075004e006f00640065002e0043006f0072006500020000001d010a000000740061007200670065007400540079007000650000020000000000000101100000006f00640069006e0049006e007300740061006e006300650044006100740061002f0400000001280000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061002c00200075004e006f00640065002e0043006f00720065000300000001010400000064006100740061002f050000000117000000530079007300740065006d002e0042007900740065005b005d002c0020006d00730063006f0072006c0069006200040000000800000000010000000501010a0000007200650066006500720065006e006300650073002f060000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b0055006e0069007400790045006e00670069006e0065002e004f0062006a006500630074002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200050000000601000000000000000c0000000007052d010e000000730065007200690061006c0069007a00650064005400790070006500052d010e0000006f00640069006e00540061007200670065007400440061007400610001011300000073007400610072007400530065007200690061006c0069007a006500640054007900700065002f07000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e00530065007200690061006c0069007a006500640054007900700065002c00200075004e006f00640065002e0043006f007200650006000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700011900000055006e0069007400790045006e00670069006e0065002e004d006f006e006f004200650068006100760069006f007500720001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000007000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e006100740069007600650054007900700065000105010114000000740061007200670065007400530065007200690061006c0069007a00650064005400790070006500300700000008000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700010e000000530079007300740065006d002e0042006f006f006c00650061006e0001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000009000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052701050000005f006e0061006d0065000111000000620049007300460069006e00690073006800650064004d006f00760069006e0067002b0108000000690073005300740061007400690063000001010f000000730065007200690061006c0069007a00650064004900740065006d0073002f08000000012a0000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061005b005d002c00200075004e006f00640065002e0043006f00720065000a000000060000000000000000070501010f0000007400610072006700650074005200650066006500720065006e006300650030060000000b00000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e00740073000501010a00000070006100720061006d00650074006500720073002f0900000001220000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061005b005d002c00200075004e006f00640065002e0043006f00720065000c00000006000000000000000007052d010b00000069006e0069007400690061006c0069007a00650072002d01050000006f0077006e006500720005010105000000760061006c007500650030030000000d0000001d010a000000740061007200670065007400540079007000650002000000000000002d01100000006f00640069006e0049006e007300740061006e0063006500440061007400610001010e0000006f00640069006e00540061007200670065007400440061007400610030040000000e000000010104000000640061007400610030050000000f000000084200000001000000022f000000000118000000530079007300740065006d002e0042006f006f006c00650061006e002c0020006d00730063006f0072006c0069006200000000002c01050501010a0000007200650066006500720065006e00630065007300300600000010000000060000000000000000070527010e000000730065007200690061006c0069007a00650064005400790070006500010d000000530079007300740065006d002e004f0062006a006500630074000501011300000073007400610072007400530065007200690061006c0069007a00650064005400790070006500300700000011000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700010e000000530079007300740065006d002e0042006f006f006c00650061006e0001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000012000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e006100740069007600650054007900700065000105010114000000740061007200670065007400530065007200690061006c0069007a00650064005400790070006500300700000013000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700010e000000530079007300740065006d002e0042006f006f006c00650061006e0001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000014000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052701050000005f006e0061006d00650001000000002b010800000069007300530074006100740069006300002d010f000000730065007200690061006c0069007a00650064004900740065006d00730001010f0000007400610072006700650074005200650066006500720065006e006300650030060000001500000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e00740073000505
+      references:
+      - {fileID: 5997917840764633907}
+    useLevelValidation: 0
+  onTrue:
+    targetType: 524288
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 4874822410232401946}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 412144
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
+  onFalse:
+    targetType: 0
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
+  onFinished:
+    targetType: 0
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
 --- !u!1 &5666737500507942153
 GameObject:
   m_ObjectHideFlags: 0
@@ -20092,7 +20121,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3554757171700054678
 MonoBehaviour:
@@ -20158,175 +20187,21 @@ MonoBehaviour:
       references: []
       isNativeType: 1
     targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onFinished:
-    targetType: 524288
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 2624078405140201479}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 42871
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
---- !u!1 &5668008736249344179
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 171686377318699272}
-  - component: {fileID: 3784588184129083053}
-  m_Layer: 0
-  m_Name: If 26
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &171686377318699272
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5668008736249344179}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3784588184129083053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5668008736249344179}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3ab5fcc7134cc41ab0e0ead21b17ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: -283.61252
-    y: 612.0794
-    width: 141
-    height: 84
-  nodeExpanded: 1
-  condition:
-    targetType: 131072
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 335810964172354663}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
       serializedString: System.Boolean
       serializedBytes: 
       references: []
       isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 687130
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onTrue:
-    targetType: 524288
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 4874822410232401946}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 343452
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onFalse:
-    targetType: 0
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
     _name: 
     isStatic: 0
     serializedItems: []
     targetReference: []
     controlPoints: []
   onFinished:
-    targetType: 0
+    targetType: 524288
     odinInstanceData:
       data: 
-      references: []
+      references:
+      - {fileID: 4914211967993371159}
       serializedType: 
     odinTargetData:
       data: 
@@ -20342,7 +20217,7 @@ MonoBehaviour:
       serializedBytes: 
       references: []
       isNativeType: 1
-    _name: 
+    _name: -683733
     isStatic: 0
     serializedItems: []
     targetReference: []
@@ -20482,6 +20357,144 @@ MonoBehaviour:
       _odinSerializedData: 
       listReference: []
     owner: {fileID: 0}
+--- !u!1 &5735219762349280763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8535520267138072777}
+  - component: {fileID: 4914211967993371159}
+  m_Layer: 0
+  m_Name: SetCommandMove?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8535520267138072777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735219762349280763}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4517921010927213134}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4914211967993371159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735219762349280763}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57aea54190670ef43ba04f07ab3ec27d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: 
+  owner: {fileID: 5997917840764633907}
+  editorRect:
+    serializedVersion: 2
+    x: 662.8
+    y: 357.00003
+    width: 267
+    height: 91.000015
+  nodeExpanded: 1
+  Validation:
+    eventList:
+    - eventType: 0
+      levelValidation: 0
+      expanded: 0
+      typeName: MaxyGames.Events.EqualityCompare
+      odinSerializedData: 022f00000000012c0000004d00610078007900470061006d00650073002e004500760065006e00740073002e0045007100750061006c0069007400790043006f006d0070006100720065002c00200075004e006f00640065002e0043006f007200650000000000030105000000730074006100740065002f010000000137000000530079007300740065006d002e004e0075006c006c00610062006c006500600031005b005b00530079007300740065006d002e0042006f006f006c00650061006e002c0020006d00730063006f0072006c00690062005d005d002c0020006d00730063006f0072006c00690062002e051d010c0000006f00700065007200610074006f007200540079007000650000000000000000000101060000007400610072006700650074002f0200000001280000004d00610078007900470061006d00650073002e004d0075006c007400690070007500720070006f00730065004d0065006d006200650072002c00200075004e006f00640065002e0043006f0072006500010000000101060000007400610072006700650074002f0300000001200000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061002c00200075004e006f00640065002e0043006f0072006500020000001d010a000000740061007200670065007400540079007000650000020000000000000101100000006f00640069006e0049006e007300740061006e006300650044006100740061002f0400000001280000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061002c00200075004e006f00640065002e0043006f00720065000300000001010400000064006100740061002f050000000117000000530079007300740065006d002e0042007900740065005b005d002c0020006d00730063006f0072006c0069006200040000000800000000010000000501010a0000007200650066006500720065006e006300650073002f060000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b0055006e0069007400790045006e00670069006e0065002e004f0062006a006500630074002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c0069006200050000000601000000000000000c0000000007052d010e000000730065007200690061006c0069007a00650064005400790070006500052d010e0000006f00640069006e00540061007200670065007400440061007400610001011300000073007400610072007400530065007200690061006c0069007a006500640054007900700065002f07000000012a0000004d00610078007900470061006d00650073002e0075004e006f00640065002e00530065007200690061006c0069007a006500640054007900700065002c00200075004e006f00640065002e0043006f007200650006000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700011900000055006e0069007400790045006e00670069006e0065002e004d006f006e006f004200650068006100760069006f007500720001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000007000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e006100740069007600650054007900700065000105010114000000740061007200670065007400530065007200690061006c0069007a00650064005400790070006500300700000008000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700010e000000530079007300740065006d002e0042006f006f006c00650061006e0001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000009000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052701050000005f006e0061006d0065000112000000620048006100730053006500740043006f006d006d0061006e0064004d006f00760065002b0108000000690073005300740061007400690063000001010f000000730065007200690061006c0069007a00650064004900740065006d0073002f08000000012a0000004d00610078007900470061006d00650073002e004f00640069006e00530065007200690061006c0069007a006500640044006100740061005b005d002c00200075004e006f00640065002e0043006f00720065000a000000060000000000000000070501010f0000007400610072006700650074005200650066006500720065006e006300650030060000000b00000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e00740073000501010a00000070006100720061006d00650074006500720073002f0900000001220000004d00610078007900470061006d00650073002e004d0065006d0062006500720044006100740061005b005d002c00200075004e006f00640065002e0043006f00720065000c00000006000000000000000007052d010b00000069006e0069007400690061006c0069007a00650072002d01050000006f0077006e006500720005010105000000760061006c007500650030030000000d0000001d010a000000740061007200670065007400540079007000650002000000000000002d01100000006f00640069006e0049006e007300740061006e0063006500440061007400610001010e0000006f00640069006e00540061007200670065007400440061007400610030040000000e000000010104000000640061007400610030050000000f000000084200000001000000022f000000000118000000530079007300740065006d002e0042006f006f006c00650061006e002c0020006d00730063006f0072006c0069006200000000002c01050501010a0000007200650066006500720065006e00630065007300300600000010000000060000000000000000070527010e000000730065007200690061006c0069007a00650064005400790070006500010d000000530079007300740065006d002e004f0062006a006500630074000501011300000073007400610072007400530065007200690061006c0069007a00650064005400790070006500300700000011000000270110000000730065007200690061006c0069007a006500640053007400720069006e006700010e000000530079007300740065006d002e0042006f006f006c00650061006e0001010f000000730065007200690061006c0069007a006500640042007900740065007300300500000012000000080000000001000000052d010a0000007200650066006500720065006e006300650073002b010c000000690073004e0061007400690076006500540079007000650001052d0114000000740061007200670065007400530065007200690061006c0069007a006500640054007900700065002701050000005f006e0061006d00650001000000002b010800000069007300530074006100740069006300002d010f000000730065007200690061006c0069007a00650064004900740065006d00730001010f0000007400610072006700650074005200650066006500720065006e006300650030060000001300000006000000000000000007052d010d00000063006f006e00740072006f006c0050006f0069006e00740073000505
+      references:
+      - {fileID: 5997917840764633907}
+    useLevelValidation: 0
+  onTrue:
+    targetType: 524288
+    odinInstanceData:
+      data: 
+      references:
+      - {fileID: 4270712998470367595}
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: -489852
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
+  onFalse:
+    targetType: 0
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
+  onFinished:
+    targetType: 0
+    odinInstanceData:
+      data: 
+      references: []
+      serializedType: 
+    odinTargetData:
+      data: 
+      references: []
+      serializedType: 
+    startSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    targetSerializedType:
+      serializedString: 
+      serializedBytes: 
+      references: []
+      isNativeType: 1
+    _name: 
+    isStatic: 0
+    serializedItems: []
+    targetReference: []
+    controlPoints: []
 --- !u!1 &5795110772387021201
 GameObject:
   m_ObjectHideFlags: 0
@@ -21233,7 +21246,7 @@ MonoBehaviour:
     typeName: RPGPrototype.Behaviors.PlayerAssetTreeUNode
     debug: 0
     debugValueNode: 1
-    compileToScript: 0
+    compileToScript: 1
   _rootObject: {fileID: 4509289478615940818}
   nodes:
   - {fileID: 6501059}
@@ -21271,13 +21284,12 @@ MonoBehaviour:
   - {fileID: 7391063081934382675}
   - {fileID: 6297099186197930605}
   - {fileID: 317719340769997026}
-  - {fileID: 3784588184129083053}
-  - {fileID: 335810964172354663}
   - {fileID: 4874822410232401946}
   - {fileID: 389876690334768939}
   - {fileID: 4613917834472575559}
   - {fileID: 3415623967717407826}
   - {fileID: 9173204108201138973}
+  - {fileID: 1313543948012320978}
   - {fileID: 6233031202079010528}
   - {fileID: 350553350036881791}
   - {fileID: 2012010885912530541}
@@ -21359,12 +21371,11 @@ MonoBehaviour:
   - {fileID: 1471220818509268044}
   - {fileID: 990398082864235379}
   - {fileID: 8047250177059786685}
-  - {fileID: 952374676780704797}
   - {fileID: 3554757171700054678}
-  - {fileID: 2624078405140201479}
   - {fileID: 4270712998470367595}
   - {fileID: 7808055165992508818}
-  - {fileID: 1709890999}
+  - {fileID: 5352418925528119228}
+  - {fileID: 4914211967993371159}
   - {fileID: 6355918085774222021}
   - {fileID: 5494531419754076930}
   - {fileID: 4184674110723142821}
@@ -23504,7 +23515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &389876690334768939
 MonoBehaviour:
@@ -24458,160 +24469,6 @@ MonoBehaviour:
     width: 736
     height: 61
   nodeExpanded: 1
---- !u!1 &6575930103075052999
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2061687851263471522}
-  - component: {fileID: 2624078405140201479}
-  m_Layer: 0
-  m_Name: Node 22
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2061687851263471522
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575930103075052999}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2624078405140201479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575930103075052999}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3ab5fcc7134cc41ab0e0ead21b17ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: 717.68414
-    y: 358.18494
-    width: 141
-    height: 84
-  nodeExpanded: 1
-  condition:
-    targetType: 131072
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 952374676780704797}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: System.Boolean
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 702007
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onTrue:
-    targetType: 524288
-    odinInstanceData:
-      data: 
-      references:
-      - {fileID: 4270712998470367595}
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: -149
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onFalse:
-    targetType: 0
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  onFinished:
-    targetType: 0
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
 --- !u!1 &6593172731092858809
 GameObject:
   m_ObjectHideFlags: 0
@@ -29628,7 +29485,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3415623967717407826
 MonoBehaviour:
@@ -30697,7 +30554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4517921010927213134}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7808055165992508818
 MonoBehaviour:
@@ -31034,141 +30891,6 @@ MonoBehaviour:
         references: []
         isNativeType: 1
       _name: waypointEndColor
-      isStatic: 0
-      serializedItems: []
-      targetReference: []
-      controlPoints: []
-    parameters: []
-    initializer:
-      serializedType:
-        targetType: 0
-        odinInstanceData:
-          data: 
-          references: []
-          serializedType: 
-        odinTargetData:
-          data: 
-          references: []
-          serializedType: 
-        startSerializedType:
-          serializedString: 
-          serializedBytes: 
-          references: []
-          isNativeType: 1
-        targetSerializedType:
-          serializedString: 
-          serializedBytes: 
-          references: []
-          isNativeType: 1
-        _name: 
-        isStatic: 0
-        serializedItems: []
-        targetReference: []
-        controlPoints: []
-      Type: 
-      _odinSerializedData: 
-      listReference: []
-    owner: {fileID: 0}
---- !u!1 &7914318006483521640
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2235980921982006142}
-  - component: {fileID: 335810964172354663}
-  m_Layer: 0
-  m_Name: bIsFinishedMoving 27
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2235980921982006142
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7914318006483521640}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &335810964172354663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7914318006483521640}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 860033a98c6660c49b6eb31d2bde9cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: 
-  owner: {fileID: 5997917840764633907}
-  editorRect:
-    serializedVersion: 2
-    x: -520.692
-    y: 647.7351
-    width: 210
-    height: 29.000004
-  nodeExpanded: 1
-  onFinished:
-    targetType: 0
-    odinInstanceData:
-      data: 
-      references: []
-      serializedType: 
-    odinTargetData:
-      data: 
-      references: []
-      serializedType: 
-    startSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    targetSerializedType:
-      serializedString: 
-      serializedBytes: 
-      references: []
-      isNativeType: 1
-    _name: 
-    isStatic: 0
-    serializedItems: []
-    targetReference: []
-    controlPoints: []
-  target:
-    target:
-      targetType: 512
-      odinInstanceData:
-        data: 
-        references:
-        - {fileID: 5997917840764633907}
-        serializedType: 
-      odinTargetData:
-        data: 
-        references: []
-        serializedType: 
-      startSerializedType:
-        serializedString: System.Boolean
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      targetSerializedType:
-        serializedString: System.Boolean
-        serializedBytes: 
-        references: []
-        isNativeType: 1
-      _name: bIsFinishedMoving
       isStatic: 0
       serializedItems: []
       targetReference: []
@@ -33465,7 +33187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4198053667534932085}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9173204108201138973
 MonoBehaviour:
@@ -33483,8 +33205,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: -345.47296
-    y: 907.4082
+    x: -347.64487
+    y: 970.48004
     width: 175.00002
     height: 41.000004
   nodeExpanded: 1
