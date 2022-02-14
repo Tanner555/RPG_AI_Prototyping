@@ -1,0 +1,37 @@
+.flow-vertical.input {
+    --port-color: #BFBFBF;
+}
+
+.flow-horizontal.input {
+    --port-color: #BFBFBF;
+}
+
+.flow-port.output {
+    --port-color: #BFBFBF;
+}
+
+.flow-port > #connector {
+    background-color: #212121;
+}
+
+/* OLD Debug Breakpoint #FF0000*/
+/*NEW COLOR #FBA123*/
+
+/*
+
+.flow-vertical.input {
+    --port-color: rgb(0, 183, 64);
+}
+
+.flow-horizontal.input {
+    --port-color: rgb(0, 200, 70);
+}
+
+.flow-port.output {
+    --port-color: rgb(0, 200, 70);
+}
+
+.flow-port > #connector {
+    background-color: #212121;
+}
+*/
