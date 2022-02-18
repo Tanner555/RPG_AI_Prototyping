@@ -638,6 +638,21 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region ResetTacticsItems
+        /// <summary>
+        /// Resets Execution Items And Targets, Previous and Current.
+        /// </summary>
+        public bool ResetTacticsItems(ref AllyTacticsItem CurrentExecutionItem, ref AllyMember CurrentExecutionTarget,
+            ref AllyTacticsItem PreviousExecutionItem, ref AllyMember PreviousExecutionTarget)
+        {
+            CurrentExecutionItem = null;
+            CurrentExecutionTarget = null;
+            PreviousExecutionItem = null;
+            PreviousExecutionTarget = null;
+            return true;
+        }
+        #endregion
+
         #endregion
     }
 }

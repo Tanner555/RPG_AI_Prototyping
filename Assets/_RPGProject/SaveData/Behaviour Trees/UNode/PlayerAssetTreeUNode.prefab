@@ -2205,10 +2205,10 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 104.619934
-    y: -832.04266
-    width: 306
-    height: 61
+    x: 174.00002
+    y: -804.40015
+    width: 231
+    height: 29.000004
   nodeExpanded: 1
   onFinished:
     targetType: 0
@@ -2487,8 +2487,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: -442.88776
-    y: -802.95276
+    x: -332.15
+    y: -804.15015
     width: 175
     height: 29.000004
   nodeExpanded: 1
@@ -2622,10 +2622,10 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: -260.1277
-    y: -831.5527
-    width: 340
-    height: 73.00001
+    x: -147
+    y: -810
+    width: 288
+    height: 41
   nodeExpanded: 1
   onFinished:
     targetType: 0
@@ -11938,8 +11938,8 @@ MonoBehaviour:
   owner: {fileID: 5997917840764633907}
   editorRect:
     serializedVersion: 2
-    x: 2028.645
-    y: 549.29
+    x: 2029
+    y: 550.3225
     width: 187
     height: 132
   nodeExpanded: 1
@@ -19145,7 +19145,7 @@ MonoBehaviour:
     unityObjects: []
     typeName: RPGPrototype.Behaviors.PlayerAssetTreeUNode
     debug: 0
-    debugValueNode: 1
+    debugValueNode: 0
     compileToScript: 1
   _rootObject: {fileID: 4509289478615940818}
   nodes:
