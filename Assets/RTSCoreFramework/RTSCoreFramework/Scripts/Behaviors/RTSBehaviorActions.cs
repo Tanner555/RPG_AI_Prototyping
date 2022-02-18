@@ -124,6 +124,18 @@ namespace RTSCoreFramework
                 return allyMember.AllyMaxActiveTimeBar;
             }
         }
+
+        protected PartyManager myPartyManager { get { return allyMember ? allyMember.partyManager : null; } }
+        protected AllyMember allyInCommand
+        {
+            get
+            {
+                return myPartyManager != null ? myPartyManager.AllyInCommand : null;
+            }
+        }
+
+        protected List<AllyTacticsItem> AllyTacticsList => aiController.AllyTacticsList;
+
         #endregion
 
         #region Fields
@@ -133,6 +145,8 @@ namespace RTSCoreFramework
         //PlayerWantsFreeMovement
         protected float myHorizontalMovement, myForwardMovement = 0.0f;
         protected Vector3 myDirection = Vector3.zero;
+        //EvaluateTacticsSuccessful
+        protected Dictionary<AllyTacticsItem, AllyMember> evalTactics = new Dictionary<AllyTacticsItem, AllyMember>();
         #endregion
 
         #region Initialization
@@ -322,6 +336,49 @@ namespace RTSCoreFramework
                 return false;
             }
             return allyMember.CanUseAbility(AbilityToUse.GetType());
+        }
+        #endregion
+
+        #region EvaluateTacticsSuccessful
+        /// <summary>
+        /// Returns True if Evaluating Tactics Successfully Returns A Tactics Item.
+        /// </summary>
+        public bool EvaluateTacticsSuccessful(ref AllyTacticsItem CurrentExecutionItem, ref AllyMember CurrentExecutionTarget)
+        {
+            //Temporary Fix for PartyManager Delaying Initial AllyInCommand Methods
+            if (allyInCommand == null)
+            {
+                CurrentExecutionItem = null;
+                CurrentExecutionTarget = null;
+                return false;
+            }
+
+            evalTactics.Clear();
+            foreach (var _tactic in AllyTacticsList)
+            {
+                //If Condition is True and 
+                //Can Perform The Given Action
+                var _boolTargetTuple = _tactic.condition.action(allyMember, aiController);
+                if (_boolTargetTuple._success &&
+                    _tactic.action.canPerformAction(allyMember, aiController, _boolTargetTuple._target))
+                {
+                    evalTactics.Add(_tactic, _boolTargetTuple._target);
+                }
+            }
+
+            if (evalTactics.Count > 0)
+            {
+                var _currentItem = EvaluateTacticalConditionOrders();
+                CurrentExecutionItem = _currentItem._tacticItem;
+                CurrentExecutionTarget = _currentItem._target;
+                return true;
+            }
+            else
+            {
+                CurrentExecutionItem = null;
+                CurrentExecutionTarget = null;
+                return false;
+            }
         }
         #endregion
 
@@ -653,6 +710,25 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #endregion
+
+        #region HelperMethods
+        protected (AllyTacticsItem _tacticItem, AllyMember _target) EvaluateTacticalConditionOrders()
+        {
+            int _order = int.MaxValue;
+            AllyTacticsItem _exeTactic = null;
+            AllyMember _exeTarget = null;
+            foreach (var _tactic in evalTactics)
+            {
+                if (_tactic.Key.order < _order)
+                {
+                    _order = _tactic.Key.order;
+                    _exeTactic = _tactic.Key;
+                    _exeTarget = _tactic.Value;
+                }
+            }
+            return (_exeTactic, _exeTarget);
+        }
         #endregion
     }
 }

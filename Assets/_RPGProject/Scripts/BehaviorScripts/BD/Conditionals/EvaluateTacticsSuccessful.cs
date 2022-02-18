@@ -16,116 +16,38 @@ namespace RPGPrototype
         public SharedAllyMember CurrentExecutionTarget;
         #endregion
 
-        #region FieldsAndProperties
-        protected Dictionary<AllyTacticsItem, AllyMember> evalTactics = new Dictionary<AllyTacticsItem, AllyMember>();
-        protected List<AllyTacticsItem> AllyTacticsList => aiController.AllyTacticsList;
-
-        protected PartyManager myPartyManager { get { return allyMember ? allyMember.partyManager : null; } }
-        protected AllyMember allyInCommand
+        #region BehaviorActions
+        RPGBehaviorActions behaviorActions
         {
             get
             {
-                return myPartyManager != null ? myPartyManager.AllyInCommand : null;
-            }
-        }
-
-        AllyMember allyMember
-        {
-            get
-            {
-                if (_allymember == null)
+                if (_behaviorActions == null)
                 {
-                    _allymember = GetComponent<AllyMember>();
+                    _behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
                 }
-                return _allymember;
+                return _behaviorActions;
             }
         }
-        AllyMember _allymember = null;
+        RPGBehaviorActions _behaviorActions = null;
 
-        AIControllerRPG aiController
-        {
-            get
-            {
-                if (_aiController == null)
-                {
-                    _aiController = (AIControllerRPG)allyMember.aiController;
-                }
-                return _aiController;
-            }
-        }
-        AIControllerRPG _aiController = null;
+        public AllyTacticsItem CurrentExecutionItem_Cached;
+        public AllyMember CurrentExecutionTarget_Cached;
 
-        AllyEventHandler myEventHandler
-        {
-            get
-            {
-                if (_myEventhandler == null)
-                {
-                    _myEventhandler = GetComponent<AllyEventHandler>();
-                }
-                return _myEventhandler;
-            }
-        }
-        AllyEventHandler _myEventhandler = null;
         #endregion
 
         #region Overrides
         public override TaskStatus OnUpdate()
         {
-            //Temporary Fix for PartyManager Delaying Initial AllyInCommand Methods
-            if (allyInCommand == null)
-            {
-                CurrentExecutionItem.Value = null;
-                CurrentExecutionTarget.Value = null;
-                return TaskStatus.Failure;
-            }
-
-            evalTactics.Clear();
-            foreach (var _tactic in AllyTacticsList)
-            {
-                //If Condition is True and 
-                //Can Perform The Given Action
-                var _boolTargetTuple = _tactic.condition.action(allyMember, aiController);
-                if (_boolTargetTuple._success &&
-                    _tactic.action.canPerformAction(allyMember, aiController, _boolTargetTuple._target))
-                {
-                    evalTactics.Add(_tactic, _boolTargetTuple._target);
-                }
-            }
-
-            if (evalTactics.Count > 0)
-            {
-                var _currentItem = EvaluateTacticalConditionOrders();                
-                CurrentExecutionItem.Value = _currentItem._tacticItem;
-                CurrentExecutionTarget.Value = _currentItem._target;
-                return TaskStatus.Success;
-            }
-            else
-            {
-                CurrentExecutionItem.Value = null;
-                CurrentExecutionTarget.Value = null;
-                return TaskStatus.Failure;
-            }                
+            CurrentExecutionItem_Cached = CurrentExecutionItem.Value;
+            CurrentExecutionTarget_Cached = CurrentExecutionTarget.Value;
+            var _taskResult = behaviorActions.EvaluateTacticsSuccessful(ref CurrentExecutionItem_Cached,
+                ref CurrentExecutionTarget_Cached) ? 
+                TaskStatus.Success : TaskStatus.Failure;
+            CurrentExecutionItem.Value = CurrentExecutionItem_Cached;
+            CurrentExecutionTarget.Value = CurrentExecutionTarget_Cached;
+            return _taskResult;
         }
         #endregion
 
-        #region HelperMethods
-        protected (AllyTacticsItem _tacticItem, AllyMember _target) EvaluateTacticalConditionOrders()
-        {
-            int _order = int.MaxValue;
-            AllyTacticsItem _exeTactic = null;
-            AllyMember _exeTarget = null;
-            foreach (var _tactic in evalTactics)
-            {                
-                if (_tactic.Key.order < _order)
-                {
-                    _order = _tactic.Key.order;
-                    _exeTactic = _tactic.Key;
-                    _exeTarget = _tactic.Value;
-                }
-            }
-            return (_exeTactic, _exeTarget);
-        }
-        #endregion
     }
 }
