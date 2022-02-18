@@ -17,28 +17,42 @@ namespace RPGPrototype
 		public SharedAllyMember PreviousExecutionTarget;
 		#endregion
 
+		#region BehaviorActions
+		RPGBehaviorActions behaviorActions
+		{
+			get
+			{
+				if (_behaviorActions == null)
+				{
+					_behaviorActions = GetComponent<AIControllerRPG>().BehaviorActionsInstance as RPGBehaviorActions;
+				}
+				return _behaviorActions;
+			}
+		}
+		RPGBehaviorActions _behaviorActions = null;
+
+		public AllyTacticsItem CurrentExecutionItem_Cached;
+		public AllyMember CurrentExecutionTarget_Cached;
+		public AllyTacticsItem PreviousExecutionItem_Cached;
+		public AllyMember PreviousExecutionTarget_Cached;
+
+		#endregion
+
 		public override TaskStatus OnUpdate()
 		{
-			if (CheckPreviousNullInstead.Value == false)
-			{
-				if (CurrentExecutionItem.Value == PreviousExecutionItem.Value &&
-					CurrentExecutionTarget.Value == PreviousExecutionTarget.Value)
-				{
-					return TaskStatus.Failure;
-				}
-				else
-				{
-					return TaskStatus.Success;
-				}
-			}
-			else
-			{
-				if(PreviousExecutionItem.Value != null && PreviousExecutionTarget.Value != null)
-				{
-					return TaskStatus.Success;
-				}
-				return TaskStatus.Failure;
-			}
+			CurrentExecutionItem_Cached = CurrentExecutionItem.Value;
+			CurrentExecutionTarget_Cached = CurrentExecutionTarget.Value;
+			PreviousExecutionItem_Cached = PreviousExecutionItem.Value;
+			PreviousExecutionTarget_Cached = PreviousExecutionTarget.Value;
+			var _taskResult = behaviorActions.HasNewTacticsItem(ref CurrentExecutionItem_Cached,
+				ref CurrentExecutionTarget_Cached,
+				ref PreviousExecutionItem_Cached,
+				ref PreviousExecutionTarget_Cached, CheckPreviousNullInstead.Value) ? TaskStatus.Success : TaskStatus.Failure;
+			CurrentExecutionItem.Value = CurrentExecutionItem_Cached;
+			CurrentExecutionTarget.Value = CurrentExecutionTarget_Cached;
+			PreviousExecutionItem.Value = PreviousExecutionItem_Cached;
+			PreviousExecutionTarget.Value = PreviousExecutionTarget_Cached;
+			return _taskResult;
 		}
 	}
 }

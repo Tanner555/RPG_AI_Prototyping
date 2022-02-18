@@ -382,6 +382,40 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region HasNewTacticsItem
+        /// <summary>
+        /// Compares Current To Previous Tactics Item To Determine If New Tactics Item Was Obtained. 
+        /// If Current Tactics Equal Past Tactics, Condition Will Fail. 
+        /// CheckPreviousNullInstead Boolean Will Check Previous Tactics Instead.
+        /// </summary>
+        public bool HasNewTacticsItem(ref AllyTacticsItem CurrentExecutionItem, 
+            ref AllyMember CurrentExecutionTarget,
+            ref AllyTacticsItem PreviousExecutionItem, 
+            ref AllyMember PreviousExecutionTarget, bool CheckPreviousNullInstead)
+        {
+            if (CheckPreviousNullInstead == false)
+            {
+                if (CurrentExecutionItem == PreviousExecutionItem &&
+                    CurrentExecutionTarget == PreviousExecutionTarget)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (PreviousExecutionItem != null && PreviousExecutionTarget != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Actions
