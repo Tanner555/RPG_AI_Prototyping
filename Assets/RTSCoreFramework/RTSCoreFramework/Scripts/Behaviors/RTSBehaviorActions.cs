@@ -744,9 +744,82 @@ namespace RTSCoreFramework
         }
         #endregion
 
+        #region ExecuteTacticsItem
+        /// <summary>
+        /// Executes The Given Tactics Item with Target. 
+        /// StopPerformingTask Determines If Stop Performing Task Should Be Executed Instead. 
+        /// Make Sure The CurrentTacticsItem and Target aren't null when executing an action. 
+        /// If Stopping, make sure previous tactics item isn't null either. 
+        /// Current will be reset if not stopping, and previous will be reset after stopping.
+        /// </summary>
+        public bool ExecuteTacticsItem(ref AllyTacticsItem CurrentExecutionItem,
+            ref AllyMember CurrentExecutionTarget,
+            ref AllyTacticsItem PreviousExecutionItem,
+            ref AllyMember PreviousExecutionTarget, bool StopPerformingTask)
+        {
+            if (StopPerformingTask == false)
+            {
+                if (CurrentExecutionItem != null && CurrentExecutionTarget != null)
+                {
+                    //Not Stopping, Execute Current Item
+                    CurrentExecutionItem.action.actionToPerform(allyMember, aiController, CurrentExecutionTarget);
+                    ResetCurrentTacticsItem(ref CurrentExecutionItem, ref CurrentExecutionTarget, 
+                        ref PreviousExecutionItem, ref PreviousExecutionTarget);
+                }
+                else
+                {
+                    //Resetting Current Tactics Item
+                    CurrentExecutionItem = null;
+                    CurrentExecutionTarget = null;
+                    //Return Failure If Current Item is Null when trying to execute action.
+                    return false;
+                }
+            }
+            else
+            {
+                if (PreviousExecutionItem != null && PreviousExecutionTarget != null)
+                {
+                    //Use Previous Execution Item To Stop Performing Task
+                    PreviousExecutionItem.action.stopPerformingTask(allyMember, aiController, PreviousExecutionTarget);
+                    ResetPreviousTacticsItem(ref PreviousExecutionItem, ref PreviousExecutionTarget);
+                }
+                else
+                {
+                    ResetPreviousTacticsItem(ref PreviousExecutionItem, ref PreviousExecutionTarget);
+                    //Return Failure If Previous Item is Null when trying to stop execution.
+                    return false;
+                }
+            }
+            return true;
+        }
+        #endregion
+
         #endregion
 
         #region HelperMethods
+        //ExecuteTacticsItem
+        protected void ResetPreviousTacticsItem(ref AllyTacticsItem PreviousExecutionItem,
+            ref AllyMember PreviousExecutionTarget)
+        {
+            //Do not reset current, only past tactics item.
+            PreviousExecutionItem = null;
+            PreviousExecutionTarget = null;
+        }
+
+        protected void ResetCurrentTacticsItem(ref AllyTacticsItem CurrentExecutionItem,
+            ref AllyMember CurrentExecutionTarget,
+            ref AllyTacticsItem PreviousExecutionItem,
+            ref AllyMember PreviousExecutionTarget)
+        {
+            //Setting Previous Tactics Item To Current Item
+            PreviousExecutionItem = CurrentExecutionItem;
+            PreviousExecutionTarget = CurrentExecutionTarget;
+            //Resetting Current Tactics Item
+            CurrentExecutionItem = null;
+            CurrentExecutionTarget = null;
+        }
+
+        //EvaluateTacticsSuccessful
         protected (AllyTacticsItem _tacticItem, AllyMember _target) EvaluateTacticalConditionOrders()
         {
             int _order = int.MaxValue;
@@ -764,5 +837,6 @@ namespace RTSCoreFramework
             return (_exeTactic, _exeTarget);
         }
         #endregion
+
     }
 }
