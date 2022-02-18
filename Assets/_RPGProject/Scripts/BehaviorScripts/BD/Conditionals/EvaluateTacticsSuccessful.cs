@@ -30,8 +30,8 @@ namespace RPGPrototype
         }
         RPGBehaviorActions _behaviorActions = null;
 
-        public AllyTacticsItem CurrentExecutionItem_Cached;
-        public AllyMember CurrentExecutionTarget_Cached;
+        private AllyTacticsItem CurrentExecutionItem_Cached;
+        private AllyMember CurrentExecutionTarget_Cached;
 
         #endregion
 
