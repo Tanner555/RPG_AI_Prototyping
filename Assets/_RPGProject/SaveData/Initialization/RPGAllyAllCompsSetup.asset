@@ -43,7 +43,7 @@ MonoBehaviour:
     bUseBehaviourTrees: 1
     allAlliesDefaultBehaviourTree: {fileID: 11400000, guid: c6ee4667eac7b1b40b071f21cf5eb693,
       type: 2}
-    MyBehaviourChoice: 1
+    MyBehaviourChoice: 0
     uNodeGraphSpawnerPrefab: {fileID: 6670512112424777476, guid: 61872f022f13963469706a8c71b8b603,
       type: 3}
     bUseAStarPath: 0
