@@ -11,7 +11,8 @@
                     "id": "2a34802d-ea03-4ec9-9fa7-01992bb5c325",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "IGBPIMenuToggle",
@@ -19,7 +20,8 @@
                     "id": "adc8d5be-b527-4acb-84b2-2495c87345d5",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "NumberKeys",
@@ -27,7 +29,8 @@
                     "id": "d6fea892-a85f-4aea-87b1-c90bb4868aac",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "PossessAllyAdd",
@@ -35,7 +38,8 @@
                     "id": "4150e910-4eda-4ca6-a76c-c97b325fea5e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "PossessAllySubtract",
@@ -43,7 +47,8 @@
                     "id": "a5df70b5-04eb-4c2d-914c-a225fd48105e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TogglePauseControlMode",
@@ -51,23 +56,26 @@
                     "id": "833ca658-bfce-45a7-925a-1443728474fc",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "HorizontalMovement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "00965ca1-9614-43f2-87b0-7f38275368e5",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ForwardMovement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "047acbd4-7838-4456-889a-7267989378dd",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ScrollCamera",
@@ -75,7 +83,8 @@
                     "id": "e9626001-86f4-4c25-912b-9de5c9217209",
                     "expectedControlType": "Axis",
                     "processors": "Clamp(min=-1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Left Mouse",
@@ -83,7 +92,8 @@
                     "id": "3488e3b8-a3bc-452b-bfac-529fac9e7641",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Right Mouse",
@@ -91,7 +101,8 @@
                     "id": "63b5dd6a-6353-4dcd-bb6c-bf889d53408d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

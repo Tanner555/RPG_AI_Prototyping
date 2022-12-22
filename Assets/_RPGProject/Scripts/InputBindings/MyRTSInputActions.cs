@@ -85,21 +85,21 @@ namespace RPGPrototype
                 },
                 {
                     ""name"": ""HorizontalMovement"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""00965ca1-9614-43f2-87b0-7f38275368e5"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""ForwardMovement"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""047acbd4-7838-4456-889a-7267989378dd"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""ScrollCamera"",
